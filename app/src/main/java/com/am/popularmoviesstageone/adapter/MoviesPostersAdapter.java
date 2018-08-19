@@ -73,6 +73,10 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
         movieList.add(movie);
         notifyItemInserted(movieList.size() - 1);
     }
+    public void clear () {
+        movieList.clear();
+        notifyDataSetChanged();
+    }
 
     public void addAll(List<Movie> movieList) {
         if (movieList != null) {

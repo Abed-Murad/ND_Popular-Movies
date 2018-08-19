@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">PopularMoviesStageOne</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_change_type">Change Type</string>
     <string name="title_activity_movie_details">MovieDetailsActivity</string>
 </resources>

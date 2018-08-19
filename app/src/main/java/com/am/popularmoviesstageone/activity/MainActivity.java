@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     MoviesPostersAdapter adapter;
+    private boolean isPopularMoviesShowed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +57,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (id) {
+            case R.id.action_change_type:
+
+                if (isPopularMoviesShowed) {
+                    getTopRatedMovies();
+                } else {
+                    getPopularMovies();
+                }
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -68,7 +76,26 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MoviesList> call, Response<MoviesList> response) {
                 final MoviesList popularMoviesList = response.body();
+                adapter.clear();
                 adapter.addAll(popularMoviesList.getMovieList());
+                isPopularMoviesShowed = true;
+            }
+
+            @Override
+            public void onFailure(Call<MoviesList> call, Throwable t) {
+                Log.e(TAG, t.toString());
+            }
+        });
+    }
+
+    private void getTopRatedMovies() {
+        apiService.getTopRatedMovies(null, null, null).enqueue(new Callback<MoviesList>() {
+            @Override
+            public void onResponse(Call<MoviesList> call, Response<MoviesList> response) {
+                final MoviesList popularMoviesList = response.body();
+                adapter.clear();
+                adapter.addAll(popularMoviesList.getMovieList());
+                isPopularMoviesShowed = false;
             }
 
             @Override
