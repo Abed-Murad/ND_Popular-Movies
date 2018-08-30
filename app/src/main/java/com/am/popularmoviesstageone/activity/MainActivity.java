@@ -1,5 +1,6 @@
 package com.am.popularmoviesstageone.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,9 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.MoviesPostersAdapter;
+import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MoviesList;
 import com.am.popularmoviesstageone.network.APIClient;
 import com.am.popularmoviesstageone.network.ApiRequests;
@@ -20,6 +23,8 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +44,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        adapter = new MoviesPostersAdapter(this);
+        adapter = new MoviesPostersAdapter(this, new MoviesPostersAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Movie movie) {
+                Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
+                intent.putExtra(EXTRA_MOVIE, movie);
+                startActivity(intent);            }
+        });
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         moviesPostersRecyclerView.setHasFixedSize(true);
         moviesPostersRecyclerView.setAdapter(adapter);

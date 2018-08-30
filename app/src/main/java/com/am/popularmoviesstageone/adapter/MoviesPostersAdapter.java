@@ -28,10 +28,12 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
 
     private List<Movie> movieList;
     private Context context;
+    private OnItemClickListener onItemClickListener;
 
-    public MoviesPostersAdapter(Context context) {
+    public MoviesPostersAdapter(Context context, OnItemClickListener listener) {
         this.context = context;
         this.movieList = new ArrayList<>();
+        this.onItemClickListener = listener;
     }
 
     @NonNull
@@ -42,7 +44,7 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind();
+        holder.bind(movieList.get(position), onItemClickListener);
     }
 
     @Override
@@ -58,16 +60,16 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
         public ViewHolder(final View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
-            itemView.setOnClickListener(view -> {
-                Intent intent = new Intent(context, MovieDetailsActivity.class);
-                intent.putExtra(EXTRA_MOVIE, movieList.get(getAdapterPosition()));
-                context.startActivity(intent);
-            });
+
         }
 
-        private void bind() {
-            String posterUrl = BASE_POSTERS_URL + movieList.get(getAdapterPosition()).getPosterPath();
+        private void bind(Movie movie, OnItemClickListener onItemClickListener) {
+            String posterUrl = BASE_POSTERS_URL + movie.getPosterPath();
             Glide.with(context).load(posterUrl).into(moviePosterImageView);
+            itemView.setOnClickListener(view -> {
+                onItemClickListener.onItemClick(movie);
+            });
+
         }
     }
 
@@ -88,5 +90,11 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
             }
         }
     }
+
+
+    public interface OnItemClickListener {
+        void onItemClick(Movie movie);
+    }
+
 
 }

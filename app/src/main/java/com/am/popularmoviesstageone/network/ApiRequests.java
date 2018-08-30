@@ -1,5 +1,6 @@
 package com.am.popularmoviesstageone.network;
 
+import com.am.popularmoviesstageone.BuildConfig;
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.model.MoviesList;
 
@@ -15,7 +16,8 @@ import retrofit2.http.Query;
 
 
 public interface ApiRequests {
-    String API_KEY = "5113c42b53daf9e85a4239d8b7be45a5";
+     String API_KEY = BuildConfig.API_KEY;
+
 
     @GET("movie/popular?api_key=" + API_KEY)
     Call<MoviesList> getPopularMovies(@Query("language") String language,
@@ -24,8 +26,8 @@ public interface ApiRequests {
 
     @GET("movie/top_rated?api_key=" + API_KEY)
     Call<MoviesList> getTopRatedMovies(@Query("language") String language,
-                                      @Query("page") String page,
-                                      @Query("region") String region);
+                                       @Query("page") String page,
+                                       @Query("region") String region);
 
 
     @POST("login")
