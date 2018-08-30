@@ -22,6 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
+import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 
 public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdapter.ViewHolder> {
 
@@ -59,7 +60,7 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
-                intent.putExtra(MOVIE_PARCELABLE_KEY, movieList.get(getAdapterPosition()));
+                intent.putExtra(EXTRA_MOVIE, movieList.get(getAdapterPosition()));
                 context.startActivity(intent);
             });
         }

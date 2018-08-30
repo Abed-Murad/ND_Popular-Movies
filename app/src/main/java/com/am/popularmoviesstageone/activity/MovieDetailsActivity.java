@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
+import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
@@ -40,7 +41,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        Movie movie = getIntent().getExtras().getParcelable(MOVIE_PARCELABLE_KEY);
+        Movie movie = getIntent().getExtras().getParcelable(EXTRA_MOVIE);
         Glide.with(this).load(BASE_POSTERS_URL + movie.getPosterPath()).into(moviePosterImageView);
         movieNameTextView.setText(movie.getTitle());
         movieReleaseDateTextView.setText(movie.getReleaseDate());
