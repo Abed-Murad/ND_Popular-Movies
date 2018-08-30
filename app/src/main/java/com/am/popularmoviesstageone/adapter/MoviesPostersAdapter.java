@@ -20,7 +20,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.http.Url;
+
+import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
 
 public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdapter.ViewHolder> {
 
@@ -50,7 +51,6 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final String TAG = ViewHolder.class.getSimpleName();
-        private final String BASE_POSTERS_URL = "http://image.tmdb.org/t/p/w185/";
         @BindView(R.id.iv_movie_poster)
         ImageView moviePosterImageView;
 
@@ -58,7 +58,9 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
             super(itemView);
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(view -> {
-                context.startActivity(new Intent(context, MovieDetailsActivity.class));
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+                intent.putExtra("movie", movieList.get(getAdapterPosition()));
+                context.startActivity(intent);
             });
         }
 
@@ -73,7 +75,8 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
         movieList.add(movie);
         notifyItemInserted(movieList.size() - 1);
     }
-    public void clear () {
+
+    public void clear() {
         movieList.clear();
         notifyDataSetChanged();
     }

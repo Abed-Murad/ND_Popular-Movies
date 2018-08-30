@@ -1,5 +1,7 @@
 <resources>
-    <string name="app_name">PopularMoviesStageOne</string>
+    <string name="app_name">Popular Movies</string>
     <string name="action_change_type">Change Type</string>
-    <string name="title_activity_movie_details">MovieDetailsActivity</string>
+    <string name="title_activity_movie_details">Movie Details</string>
+    <string name="title_top_rated">Top Rated</string>
+    <string name="title_popular_movies">Popular Movies</string>
 </resources>

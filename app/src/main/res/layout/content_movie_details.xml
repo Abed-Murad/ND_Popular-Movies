@@ -51,8 +51,9 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/tv_movie_time"
+        android:id="@+id/tv_movie_length"
         android:layout_width="match_parent"
+        android:visibility="gone"
         android:layout_alignTop="@+id/iv_movie_poster"
         android:layout_toEndOf="@+id/iv_movie_poster"
         android:layout_height="wrap_content"
