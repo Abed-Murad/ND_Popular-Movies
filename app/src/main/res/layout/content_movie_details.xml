@@ -20,9 +20,9 @@
             android:layout_alignParentTop="true"
             android:layout_margin="16dp"
             android:gravity="center_vertical"
-            tools:text="TextView"
             android:textSize="23sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="TextView" />
 
         <ImageView
             android:id="@+id/iv_movie_poster"
@@ -49,11 +49,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_movie_release_date"
-            android:layout_marginBottom="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="16dp"
             android:layout_toEndOf="@+id/iv_movie_poster"
-            tools:text="TextView" />
+            tools:text="TextView"
+            style="@style/textViewStyle" />
 
         <TextView
             android:id="@+id/tv_movie_length"
@@ -63,8 +61,8 @@
             android:layout_alignTop="@+id/iv_movie_poster"
             android:layout_marginTop="194dp"
             android:layout_toEndOf="@+id/iv_movie_poster"
-            tools:text="TextView"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:text="TextView" />
 
         <TextView
             android:id="@+id/tv_movie_overview"
