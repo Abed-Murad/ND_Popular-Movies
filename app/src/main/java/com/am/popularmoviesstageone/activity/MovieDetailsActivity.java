@@ -40,7 +40,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        Movie movie = getIntent().getExtras().getParcelable("movie");
+        Movie movie = getIntent().getExtras().getParcelable(MOVIE_PARCELABLE_KEY);
         Glide.with(this).load(BASE_POSTERS_URL + movie.getPosterPath()).into(moviePosterImageView);
         movieNameTextView.setText(movie.getTitle());
         movieReleaseDateTextView.setText(movie.getReleaseDate());

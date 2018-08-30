@@ -59,14 +59,13 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(view -> {
                 Intent intent = new Intent(context, MovieDetailsActivity.class);
-                intent.putExtra("movie", movieList.get(getAdapterPosition()));
+                intent.putExtra(MOVIE_PARCELABLE_KEY, movieList.get(getAdapterPosition()));
                 context.startActivity(intent);
             });
         }
 
         private void bind() {
             String posterUrl = BASE_POSTERS_URL + movieList.get(getAdapterPosition()).getPosterPath();
-            Log.d(TAG, "bind:posterUrl:" + posterUrl);
             Glide.with(context).load(posterUrl).into(moviePosterImageView);
         }
     }
@@ -86,7 +85,6 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
             for (Movie movie : movieList) {
                 add(movie);
             }
-
         }
     }
 
