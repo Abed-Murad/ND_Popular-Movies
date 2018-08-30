@@ -14,10 +14,12 @@
         android:layout_height="57dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+
+        android:textStyle="bold"
         android:layout_margin="16dp"
         android:gravity="center_vertical"
         android:text="TextView"
-        android:textSize="18sp" />
+        android:textSize="23sp" />
 
     <ImageView
         android:id="@+id/iv_movie_poster"
