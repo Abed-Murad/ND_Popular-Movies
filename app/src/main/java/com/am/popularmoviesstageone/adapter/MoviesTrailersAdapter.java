@@ -1,5 +1,6 @@
 package com.am.popularmoviesstageone.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
+import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MovieTrailerEntity;
 
 import java.util.ArrayList;
@@ -24,10 +26,14 @@ public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAd
     private Context mContext;
     private List<MovieTrailerEntity> mTrailerList;
     private LayoutInflater mInflater;
+    private OnItemClickListener mListener;
 
-    public MoviesTrailersAdapter(Context mContext) {
-        this.mContext = mContext;
-        mTrailerList = new ArrayList<>();
+    public MoviesTrailersAdapter(Context context, OnItemClickListener listener) {
+        this.mContext = context;
+        this.mListener = listener;
+        this.mTrailerList = new ArrayList<>();
+        this.mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     @NonNull
@@ -39,7 +45,8 @@ public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAd
 
     @Override
     public void onBindViewHolder(@NonNull TrailerHolder holder, int position) {
-
+        MovieTrailerEntity trailer = mTrailerList.get(position);
+        holder.bindData(trailer);
     }
 
     @Override
@@ -64,6 +71,7 @@ public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAd
     }
 
     public class TrailerHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.iv_play_icon)
         ImageView mPlayItemImageView;
         @BindView(R.id.tv_trailer_name)
@@ -71,16 +79,34 @@ public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAd
         @BindView(R.id.tv_trailer_language)
         TextView mTrailerLanguageTextView;
 
+        private View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onItemClicked(mTrailerList.get(getAdapterPosition()));
+            }
+        };
+
         public TrailerHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+            itemView.setOnClickListener(onClickListener);
+            mPlayItemImageView.setOnClickListener(onClickListener);
+            mTrailerNameTextView.setOnClickListener(onClickListener);
+            mTrailerLanguageTextView.setOnClickListener(onClickListener);
         }
 
 
+        // Reviewer : What does  @SuppressLint("SetTextI18n") mean ?
+        @SuppressLint("SetTextI18n")
         private void bindData(MovieTrailerEntity trailer) {
-
+            mTrailerNameTextView.setText(trailer.getName());
+            mTrailerLanguageTextView.setText(trailer.getIso6391() + " - " + trailer.getIso31661());
         }
     }
 
+    public interface OnItemClickListener {
+        void onItemClicked(MovieTrailerEntity trailer);
+    }
 
 }
