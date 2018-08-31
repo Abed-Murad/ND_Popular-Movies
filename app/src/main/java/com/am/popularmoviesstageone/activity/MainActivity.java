@@ -49,7 +49,8 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(Movie movie) {
                 Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
                 intent.putExtra(EXTRA_MOVIE, movie);
-                startActivity(intent);            }
+                startActivity(intent);
+            }
         });
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         moviesPostersRecyclerView.setHasFixedSize(true);
@@ -73,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.action_top_rated:
                 getTopRatedMovies();
+                break;
+            case R.id.action_favorites_movies:
+                getFavoritesMovies();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -111,4 +115,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void getFavoritesMovies() {
+        // TODO : Implement the Code to get favorite movies form Room Database Here
+    }
 }
