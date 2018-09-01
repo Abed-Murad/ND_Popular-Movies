@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.activity.MovieDetailsActivity;
+import com.am.popularmoviesstageone.data.FavMovieEntity;
 import com.am.popularmoviesstageone.model.Movie;
 import com.bumptech.glide.Glide;
 
@@ -52,6 +53,7 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
         return movieList.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         private final String TAG = ViewHolder.class.getSimpleName();
         @BindView(R.id.iv_movie_poster)
@@ -90,6 +92,14 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
             }
         }
     }
+
+    public void addAllFav(List<FavMovieEntity> favMovieEntities) {
+        for (FavMovieEntity favMovieEntity : favMovieEntities) {
+            add(new Movie(favMovieEntity.getMovieId(), favMovieEntity.getMovieName(), favMovieEntity.getMoviePoster()));
+        }
+    }
+
+
 
 
     public interface OnItemClickListener {

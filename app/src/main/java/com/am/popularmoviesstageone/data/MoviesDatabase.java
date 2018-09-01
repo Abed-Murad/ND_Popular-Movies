@@ -9,7 +9,7 @@ import android.util.Log;
 import com.am.popularmoviesstageone.model.Movie;
 
 //Has to set exportSchema to false or it will throw an exception
-@Database(entities = {FavMovieEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {FavMovieEntity.class}, version = 2, exportSchema = false)
 public abstract class MoviesDatabase extends RoomDatabase {
     private static final String TAG = MoviesDatabase.class.getSimpleName();
     private static final Object LOCK = new Object();
@@ -17,7 +17,7 @@ public abstract class MoviesDatabase extends RoomDatabase {
     private static MoviesDatabase sInstance;
 
 
-    private static MoviesDatabase getsInstance(Context context) {
+    public static MoviesDatabase getsInstance(Context context) {
         if (sInstance == null) {
             synchronized (LOCK) {
                 Log.d(TAG, "Creating New Database Instance");

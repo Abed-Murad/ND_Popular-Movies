@@ -1,12 +1,16 @@
 package com.am.popularmoviesstageone.activity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,12 +18,17 @@ import android.widget.Toast;
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.MoviesReviewsAdapter;
 import com.am.popularmoviesstageone.adapter.MoviesTrailersAdapter;
+import com.am.popularmoviesstageone.data.FavMovieEntity;
+import com.am.popularmoviesstageone.data.FavMoviesModelView;
+import com.am.popularmoviesstageone.data.MoviesDatabase;
 import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MovieReviewsEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.network.APIClient;
 import com.am.popularmoviesstageone.network.ApiRequests;
 import com.bumptech.glide.Glide;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,8 +68,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ApiRequests apiService = APIClient.getClient().create(ApiRequests.class);
     private MoviesTrailersAdapter mTrailersAdapter;
     private MoviesReviewsAdapter mReviewsAdapter;
+    private MoviesDatabase mDb;
 
+    private Movie movie;
     private int movieId;
+    private boolean isFavourite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +80,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_movie_details);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
+
+        mDb = MoviesDatabase.getsInstance(this);
 
         mTrailersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mTrailersAdapter = new MoviesTrailersAdapter(this,
@@ -80,7 +94,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mReviewsRecyclerView.setAdapter(mReviewsAdapter);
         mReviewsRecyclerView.setNestedScrollingEnabled(false);
 
-        Movie movie = getIntent().getExtras().getParcelable(EXTRA_MOVIE);
+        movie = getIntent().getExtras().getParcelable(EXTRA_MOVIE);
         movieId = movie.getId();
 
         mNameTextView.setText(movie.getTitle());
@@ -91,6 +105,24 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         getMovieVideos();
         getMovieReviews();
+        setupViewModel();
+    }
+
+    private void setupViewModel() {
+//        FavMoviesModelView favMoviesModelView = ViewModelProviders.of(this).get(FavMoviesModelView.class);
+//        favMoviesModelView.getFavMoviesList().observe(this, new Observer<List<FavMovieEntity>>() {
+//            @Override
+//            public void onChanged(@Nullable List<FavMovieEntity> favMovieEntities) {
+//            }
+//        });
+
+        if (mDb.favMovieDao().loadMovieById(movieId) != null) {
+            fab.setImageResource(R.drawable.ic_star_fill_24dp);
+            isFavourite = true;
+        } else {
+            fab.setImageResource(R.drawable.ic_star_empty_24dp);
+            isFavourite = false;
+        }
     }
 
 
@@ -127,5 +159,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
         });
     }
 
-
+    public void onFabClicked(View view) {
+        if (isFavourite) {
+            mDb.favMovieDao().deleteMovie(mDb.favMovieDao().loadMovieById(movieId));
+            fab.setImageResource(R.drawable.ic_star_empty_24dp);
+            isFavourite = false;
+        } else {
+            mDb.favMovieDao().insertMovie(new FavMovieEntity(movieId, movie.getOriginalTitle(), movie.getPosterPath()));
+            fab.setImageResource(R.drawable.ic_star_fill_24dp);
+            isFavourite = true;
+        }
+    }
 }

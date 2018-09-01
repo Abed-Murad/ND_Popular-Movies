@@ -1,5 +1,6 @@
 package com.am.popularmoviesstageone.data;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -13,7 +14,7 @@ import java.util.List;
 @Dao
 public interface FavMovieDao {
     @Query("SELECT * FROM movies")
-    List<FavMovieEntity> loadAllMovies();
+    LiveData<List<FavMovieEntity>> loadAllMovies();
 
     @Insert
     void insertMovie(FavMovieEntity movie);
@@ -23,5 +24,8 @@ public interface FavMovieDao {
 
     @Delete
     void deleteMovie(FavMovieEntity movie);
+
+    @Query("SELECT * FROM movies WHERE movieId == :id")
+    FavMovieEntity loadMovieById(int id);
 
 }

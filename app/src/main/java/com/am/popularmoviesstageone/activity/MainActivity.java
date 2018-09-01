@@ -1,7 +1,10 @@
 package com.am.popularmoviesstageone.activity;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,14 +12,20 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListAdapter;
 import android.widget.Toast;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.MoviesPostersAdapter;
+import com.am.popularmoviesstageone.data.FavMovieDao;
+import com.am.popularmoviesstageone.data.FavMovieEntity;
+import com.am.popularmoviesstageone.data.MoviesDatabase;
 import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MoviesList;
 import com.am.popularmoviesstageone.network.APIClient;
 import com.am.popularmoviesstageone.network.ApiRequests;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -116,6 +125,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getFavoritesMovies() {
-        // TODO : Implement the Code to get favorite movies form Room Database Here
+        LiveData<List<FavMovieEntity>> moviesList = MoviesDatabase.getsInstance(this).favMovieDao().loadAllMovies();
+        moviesList.observe(this, new Observer<List<FavMovieEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<FavMovieEntity> favMovieEntities) {
+                adapter.clear();
+                adapter.addAllFav(favMovieEntities);
+            }
+        });
+
     }
 }
