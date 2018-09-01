@@ -1,10 +1,7 @@
 package com.am.popularmoviesstageone.activity;
 
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.am.popularmoviesstageone.R;
+import com.am.popularmoviesstageone.adapter.MoviesReviewsAdapter;
 import com.am.popularmoviesstageone.adapter.MoviesTrailersAdapter;
 import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MovieReviewsEntity;
-import com.am.popularmoviesstageone.model.MovieTrailerEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.network.APIClient;
 import com.am.popularmoviesstageone.network.ApiRequests;
@@ -31,7 +28,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
-import static com.am.popularmoviesstageone.util.CONST.BASE_YOUTUBE_URL;
 import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 import static com.am.popularmoviesstageone.util.IntentsUtill.watchYoutubeVideo;
 
@@ -54,10 +50,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tv_movie_overview)
     TextView mOverviewTextView;
     @BindView(R.id.rv_trailers)
-    RecyclerView mRecyclerView;
+    RecyclerView mTrailersRecyclerView;
+    @BindView(R.id.rv_reviews)
+    RecyclerView mReviewsRecyclerView;
+    @BindView(R.id.favoriteFab)
+    FloatingActionButton fab;
 
     private ApiRequests apiService = APIClient.getClient().create(ApiRequests.class);
-    private MoviesTrailersAdapter mAdapter;
+    private MoviesTrailersAdapter mTrailersAdapter;
+    private MoviesReviewsAdapter mReviewsAdapter;
+
     private int movieId;
 
     @Override
@@ -67,10 +69,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mAdapter = new MoviesTrailersAdapter(this,
+        mTrailersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mTrailersAdapter = new MoviesTrailersAdapter(this,
                 trailer -> watchYoutubeVideo(MovieDetailsActivity.this, trailer.getKey()));
-        mRecyclerView.setAdapter(mAdapter);
+        mTrailersRecyclerView.setAdapter(mTrailersAdapter);
+        mTrailersRecyclerView.setNestedScrollingEnabled(false);
+
+        mReviewsAdapter = new MoviesReviewsAdapter(this);
+        mReviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mReviewsRecyclerView.setAdapter(mReviewsAdapter);
+        mReviewsRecyclerView.setNestedScrollingEnabled(false);
 
         Movie movie = getIntent().getExtras().getParcelable(EXTRA_MOVIE);
         movieId = movie.getId();
@@ -91,7 +99,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MovieVideosEntity> call, Response<MovieVideosEntity> response) {
                 final MovieVideosEntity movieVideosEntity = response.body();
-                mAdapter.addAll(movieVideosEntity.getTrailers());
+                mTrailersAdapter.addAll(movieVideosEntity.getTrailers());
             }
 
             @Override
@@ -108,6 +116,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MovieReviewsEntity> call, Response<MovieReviewsEntity> response) {
                 final MovieReviewsEntity movieReviewsEntity = response.body();
+                mReviewsAdapter.addAll(movieReviewsEntity.getReviewList());
             }
 
             @Override
@@ -117,7 +126,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
 }

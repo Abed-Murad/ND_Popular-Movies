@@ -39,11 +39,11 @@ public class MovieReviewsEntity {
         this.page = page;
     }
 
-    public List<MovieReviewEntity> getResults() {
+    public List<MovieReviewEntity> getReviewList() {
         return reviewList;
     }
 
-    public void setResults(List<MovieReviewEntity> reviewList) {
+    public void setReviewList(List<MovieReviewEntity> reviewList) {
         this.reviewList = reviewList;
     }
 

@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/rv_trailers"
             android:layout_margin="16dp"
-            android:text="@string/trailers" />
+            android:text="@string/reviews" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_reviews"
