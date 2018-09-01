@@ -78,11 +78,36 @@
             android:layout_margin="16dp"
             tools:text="TextView" />
 
-        <android.support.v7.widget.RecyclerView
+
+        <TextView
+            android:id="@+id/tv_title_movie_trailers"
+            style="@style/Base.TextAppearance.AppCompat.SearchResult.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tv_movie_overview"
-            tools:listitem="@layout/item_trailer"
+            android:layout_margin="16dp"
+            android:text="@string/trailers" />
+
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_trailers"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title_movie_trailers"
+            tools:listitem="@layout/item_trailer" />
+        <TextView
+            android:id="@+id/tv_title_movie_reviews"
+            style="@style/Base.TextAppearance.AppCompat.SearchResult.Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rv_trailers"
+            android:layout_margin="16dp"
+            android:text="@string/trailers" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_reviews"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title_movie_reviews"
+            tools:listitem="@layout/item_review" />
     </RelativeLayout>
 </ScrollView>

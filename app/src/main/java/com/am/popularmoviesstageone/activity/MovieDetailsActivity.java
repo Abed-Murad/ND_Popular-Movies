@@ -82,6 +82,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Glide.with(this).load(BASE_POSTERS_URL + movie.getPosterPath()).into(mPosterImageView);
 
         getMovieVideos();
+        getMovieReviews();
     }
 
 
@@ -107,7 +108,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MovieReviewsEntity> call, Response<MovieReviewsEntity> response) {
                 final MovieReviewsEntity movieReviewsEntity = response.body();
-//                mAdapter.addAll();
             }
 
             @Override

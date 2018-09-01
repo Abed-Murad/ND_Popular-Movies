@@ -5,4 +5,6 @@
     <string name="title_top_rated">Top Rated</string>
     <string name="title_popular_movies">Popular Movies</string>
     <string name="title_favorites">Favorites</string>
+    <string name="reviews">Reviews</string>
+    <string name="trailers">Trailers</string>
 </resources>
