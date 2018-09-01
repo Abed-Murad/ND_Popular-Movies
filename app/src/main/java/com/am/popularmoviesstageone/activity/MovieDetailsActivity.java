@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.MoviesTrailersAdapter;
 import com.am.popularmoviesstageone.model.Movie;
+import com.am.popularmoviesstageone.model.MovieReviewsEntity;
 import com.am.popularmoviesstageone.model.MovieTrailerEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.network.APIClient;
@@ -32,6 +33,7 @@ import retrofit2.Response;
 import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
 import static com.am.popularmoviesstageone.util.CONST.BASE_YOUTUBE_URL;
 import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
+import static com.am.popularmoviesstageone.util.IntentsUtill.watchYoutubeVideo;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
@@ -100,15 +102,22 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
 
-    public static void watchYoutubeVideo(Context context, String id) {
-        Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
-        Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                Uri.parse(BASE_YOUTUBE_URL + id));
-        try {
-            context.startActivity(appIntent);
-        } catch (ActivityNotFoundException ex) {
-            context.startActivity(webIntent);
-        }
+    private void getMovieReviews() {
+        apiService.getMovieReviews(movieId + "").enqueue(new Callback<MovieReviewsEntity>() {
+            @Override
+            public void onResponse(Call<MovieReviewsEntity> call, Response<MovieReviewsEntity> response) {
+                final MovieReviewsEntity movieReviewsEntity = response.body();
+//                mAdapter.addAll();
+            }
+
+            @Override
+            public void onFailure(Call<MovieReviewsEntity> call, Throwable t) {
+                Log.e(TAG, t.toString());
+                Toast.makeText(MovieDetailsActivity.this, "Error Loading Reviews", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+
 
 }
