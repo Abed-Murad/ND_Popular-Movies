@@ -13,12 +13,18 @@ android {
         buildConfigField("String", "API_KEY", API_KEY)
 
     }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    defaultConfig{
+        vectorDrawables.useSupportLibrary = true
+    }
+
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8

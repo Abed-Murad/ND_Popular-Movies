@@ -2,6 +2,7 @@ package com.am.popularmoviesstageone.network;
 
 import com.am.popularmoviesstageone.BuildConfig;
 import com.am.popularmoviesstageone.R;
+import com.am.popularmoviesstageone.model.MovieReviewsEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.model.MoviesList;
 
@@ -32,14 +33,20 @@ public interface ApiRequests {
     @GET("movie/{id}/videos?api_key=" + API_KEY + "&language=en-US")
     Call<MovieVideosEntity> getMovieVideos(@Path("id") String movieId);
 
-    // Post
+        @GET("movie/{id}/reviews?api_key=" + API_KEY + "&language=en-US")
+    Call<MovieReviewsEntity> getMovieReviews(@Path("id") String movieId);
+
+
+
+
+    // Post Request Example
     @POST("login")
     @FormUrlEncoded
     Call<Void> postRequst(@Field("ClientSecret") String secret,
                           @Header("Signature") String signature,
                           @Header("Token") String Token);
 
-    // Delete
+    // Delete Request Example
     @FormUrlEncoded
     @HTTP(method = "DELETE", path = "user/{user_id}/favComps", hasBody = true)
     Call<Void> deleteRequest(@Path("user_id") String userId,
@@ -47,7 +54,7 @@ public interface ApiRequests {
                              @Header("Signature") String signature,
                              @Header("Token") String token);
 
-    // Put
+    // Put Request Example
     @FormUrlEncoded
     @HTTP(method = "PUT", path = "comments/{comment_id}", hasBody = true)
     Call<Void> putRequest(@Path("comment_id") String comment_id,
