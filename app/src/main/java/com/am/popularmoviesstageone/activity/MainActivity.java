@@ -39,7 +39,8 @@ import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private static final String RECYCLER_STATE = "ScrollingPosition";
+    private static final String SCROLL_POSITION_KEY = "scroll_position";
+
     ApiRequests apiService = APIClient.getClient().create(ApiRequests.class);
 
     @BindView(R.id.rv_movies)
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
 
     MoviesPostersAdapter adapter;
+    GridLayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        GridLayoutManager layoutManager = new GridLayoutManager(this, calculateNoOfColumns(this));
+        layoutManager = new GridLayoutManager(this, calculateNoOfColumns(this));
         mMoviesPostersRecyclerView.setHasFixedSize(true);
         mMoviesPostersRecyclerView.setAdapter(adapter);
         mMoviesPostersRecyclerView.setLayoutManager(layoutManager);
@@ -152,14 +154,21 @@ public class MainActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
         Parcelable listState = mMoviesPostersRecyclerView.getLayoutManager().onSaveInstanceState();
-        outState.putParcelable(RECYCLER_STATE, listState);
+        outState.putParcelable(SCROLL_POSITION_KEY, listState);
 
+    }
+
+    //Saving state of Grid Layout (including scroll position)
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(SCROLL_POSITION_KEY, layoutManager.onSaveInstanceState());
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Parcelable listState = savedInstanceState.getParcelable(RECYCLER_STATE);
+        Parcelable listState = savedInstanceState.getParcelable(SCROLL_POSITION_KEY);
         mMoviesPostersRecyclerView.getLayoutManager().onRestoreInstanceState(listState);
 
     }
