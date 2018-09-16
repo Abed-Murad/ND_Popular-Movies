@@ -2,22 +2,23 @@ package com.am.popularmoviesstageone.activity;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListAdapter;
-import android.widget.Toast;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.MoviesPostersAdapter;
-import com.am.popularmoviesstageone.data.FavMovieDao;
 import com.am.popularmoviesstageone.data.FavMovieEntity;
 import com.am.popularmoviesstageone.data.MoviesDatabase;
 import com.am.popularmoviesstageone.model.Movie;
@@ -38,10 +39,11 @@ import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String RECYCLER_STATE = "ScrollingPosition";
     ApiRequests apiService = APIClient.getClient().create(ApiRequests.class);
 
     @BindView(R.id.rv_movies)
-    RecyclerView moviesPostersRecyclerView;
+    RecyclerView mMoviesPostersRecyclerView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
@@ -61,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        moviesPostersRecyclerView.setHasFixedSize(true);
-        moviesPostersRecyclerView.setAdapter(adapter);
-        moviesPostersRecyclerView.setLayoutManager(layoutManager);
+        GridLayoutManager layoutManager = new GridLayoutManager(this, calculateNoOfColumns(this));
+        mMoviesPostersRecyclerView.setHasFixedSize(true);
+        mMoviesPostersRecyclerView.setAdapter(adapter);
+        mMoviesPostersRecyclerView.setLayoutManager(layoutManager);
         getPopularMovies();
     }
 
@@ -133,6 +135,32 @@ public class MainActivity extends AppCompatActivity {
                 adapter.addAllFav(favMovieEntities);
             }
         });
+
+    }
+
+    public static int calculateNoOfColumns(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int scalingFactor = 200;
+        int noOfColumns = (int) (dpWidth / scalingFactor);
+        if (noOfColumns < 2)
+            noOfColumns = 2;
+        return noOfColumns;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+        Parcelable listState = mMoviesPostersRecyclerView.getLayoutManager().onSaveInstanceState();
+        outState.putParcelable(RECYCLER_STATE, listState);
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Parcelable listState = savedInstanceState.getParcelable(RECYCLER_STATE);
+        mMoviesPostersRecyclerView.getLayoutManager().onRestoreInstanceState(listState);
 
     }
 }
