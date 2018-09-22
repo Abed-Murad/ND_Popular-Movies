@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,7 +20,6 @@ import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.MoviesPostersAdapter;
 import com.am.popularmoviesstageone.data.FavMovieEntity;
 import com.am.popularmoviesstageone.data.MoviesDatabase;
-import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MoviesList;
 import com.am.popularmoviesstageone.network.APIClient;
 import com.am.popularmoviesstageone.network.ApiRequests;
@@ -36,40 +34,70 @@ import retrofit2.Response;
 
 import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String SCROLL_POSITION_KEY = "scroll_position";
 
-    ApiRequests apiService = APIClient.getClient().create(ApiRequests.class);
+    final String POPULAR = "most_popular";
+    final String TOP_RATED = "top_rated";
+    final String FAVORITES = "favorites";
+
+    ApiRequests mApiService = APIClient.getClient().create(ApiRequests.class);
 
     @BindView(R.id.rv_movies)
     RecyclerView mMoviesPostersRecyclerView;
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar mToolbar;
 
-    MoviesPostersAdapter adapter;
-    GridLayoutManager layoutManager;
+    MoviesPostersAdapter mAdapter;
+    GridLayoutManager mLayoutManager;
+    private Parcelable mSavedStateGridLayoutManager;
+
+    private String currentMovieSelection;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        adapter = new MoviesPostersAdapter(this, new MoviesPostersAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Movie movie) {
-                Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
-                intent.putExtra(EXTRA_MOVIE, movie);
-                startActivity(intent);
-            }
+        setSupportActionBar(mToolbar);
+
+        mAdapter = new MoviesPostersAdapter(this, movie -> {
+            Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
+            intent.putExtra(EXTRA_MOVIE, movie);
+            startActivity(intent);
         });
-        layoutManager = new GridLayoutManager(this, calculateNoOfColumns(this));
+
+        mLayoutManager = new GridLayoutManager(this, calculateNoOfColumns(this));
         mMoviesPostersRecyclerView.setHasFixedSize(true);
-        mMoviesPostersRecyclerView.setAdapter(adapter);
-        mMoviesPostersRecyclerView.setLayoutManager(layoutManager);
-        getPopularMovies();
+        mMoviesPostersRecyclerView.setAdapter(mAdapter);
+        mMoviesPostersRecyclerView.setLayoutManager(mLayoutManager);
+
+        currentMovieSelection = getMenuSelection();
+
+        switch (currentMovieSelection) {
+            case POPULAR:
+                getPopularMovies();
+                break;
+            case TOP_RATED:
+                getTopRatedMovies();
+                break;
+            case FAVORITES:
+                getFavoritesMovies();
+                //Once data has loaded, load state of any previous layouts (including scroll position)
+                if (mSavedStateGridLayoutManager != null){
+                    mLayoutManager.onRestoreInstanceState(mSavedStateGridLayoutManager);
+                }
+                break;
+        }
+
+        //Loading previous layout state
+        if (savedInstanceState != null) {
+            mSavedStateGridLayoutManager = savedInstanceState.getParcelable(SCROLL_POSITION_KEY);
+        }
+
     }
 
     @Override
@@ -84,25 +112,32 @@ public class MainActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_popular_movies:
                 getPopularMovies();
-                break;
+                saveMenuSelection(POPULAR);
+                return true;
             case R.id.action_top_rated:
                 getTopRatedMovies();
-                break;
+                saveMenuSelection(TOP_RATED);
+                return true;
             case R.id.action_favorites_movies:
                 getFavoritesMovies();
-                break;
+                saveMenuSelection(FAVORITES);
+                //Once data has loaded, load state of any previous layouts (including scroll position)
+                if (mSavedStateGridLayoutManager != null) {
+                    mLayoutManager.onRestoreInstanceState(mSavedStateGridLayoutManager);
+                }
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
 
     private void getPopularMovies() {
-        apiService.getPopularMovies(null, null, null).enqueue(new Callback<MoviesList>() {
+        mApiService.getPopularMovies(null, null, null).enqueue(new Callback<MoviesList>() {
             @Override
             public void onResponse(Call<MoviesList> call, Response<MoviesList> response) {
                 final MoviesList popularMoviesList = response.body();
-                adapter.clear();
-                adapter.addAll(popularMoviesList.getMovieList());
+                mAdapter.clear();
+                mAdapter.addAll(popularMoviesList.getMovieList());
             }
 
             @Override
@@ -113,12 +148,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getTopRatedMovies() {
-        apiService.getTopRatedMovies(null, null, null).enqueue(new Callback<MoviesList>() {
+        mApiService.getTopRatedMovies(null, null, null).enqueue(new Callback<MoviesList>() {
             @Override
             public void onResponse(Call<MoviesList> call, Response<MoviesList> response) {
                 final MoviesList popularMoviesList = response.body();
-                adapter.clear();
-                adapter.addAll(popularMoviesList.getMovieList());
+                mAdapter.clear();
+                mAdapter.addAll(popularMoviesList.getMovieList());
             }
 
             @Override
@@ -133,8 +168,8 @@ public class MainActivity extends AppCompatActivity {
         moviesList.observe(this, new Observer<List<FavMovieEntity>>() {
             @Override
             public void onChanged(@Nullable List<FavMovieEntity> favMovieEntities) {
-                adapter.clear();
-                adapter.addAllFav(favMovieEntities);
+                mAdapter.clear();
+                mAdapter.addAllFav(favMovieEntities);
             }
         });
 
@@ -162,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(SCROLL_POSITION_KEY, layoutManager.onSaveInstanceState());
+        outState.putParcelable(SCROLL_POSITION_KEY, mLayoutManager.onSaveInstanceState());
     }
 
     @Override
@@ -171,5 +206,14 @@ public class MainActivity extends AppCompatActivity {
         Parcelable listState = savedInstanceState.getParcelable(SCROLL_POSITION_KEY);
         mMoviesPostersRecyclerView.getLayoutManager().onRestoreInstanceState(listState);
 
+    }
+
+    //Will return the default Most Popular list upon initial load. Otherwise it will return the selected menu item.
+    public String getMenuSelection() {
+        return getPref().getMenuSelection();
+    }
+
+    public void saveMenuSelection(String newMenuSelection) {
+        getPref().saveMenuSelection(newMenuSelection);
     }
 }

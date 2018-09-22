@@ -10,13 +10,13 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
-
+//This class is where all methods to access the database are defined
 @Dao
 public interface FavMovieDao {
-    @Query("SELECT * FROM movies")
+    @Query("SELECT * FROM favorites_table")
     LiveData<List<FavMovieEntity>> loadAllMovies();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertMovie(FavMovieEntity movie);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
@@ -25,7 +25,12 @@ public interface FavMovieDao {
     @Delete
     void deleteMovie(FavMovieEntity movie);
 
-    @Query("SELECT * FROM movies WHERE movieId == :id")
+    //Query to delete movie from database with that movie ID
+    @Query("DELETE FROM favorites_table WHERE movieID = :favoriteMovieId")
+    void deleteByFavoriteById(int favoriteMovieId);
+
+
+    @Query("SELECT * FROM favorites_table WHERE movieId == :id")
     FavMovieEntity loadMovieById(int id);
 
 }

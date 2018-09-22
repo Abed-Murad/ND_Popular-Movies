@@ -3,7 +3,7 @@ package com.am.popularmoviesstageone.data;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "movies")
+@Entity(tableName = "favorites_table")
 public class FavMovieEntity {
     @PrimaryKey
     private int movieId;

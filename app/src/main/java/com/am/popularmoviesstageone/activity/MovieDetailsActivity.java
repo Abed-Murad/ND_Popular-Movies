@@ -1,9 +1,6 @@
 package com.am.popularmoviesstageone.activity;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +16,6 @@ import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.MoviesReviewsAdapter;
 import com.am.popularmoviesstageone.adapter.MoviesTrailersAdapter;
 import com.am.popularmoviesstageone.data.FavMovieEntity;
-import com.am.popularmoviesstageone.data.FavMoviesModelView;
 import com.am.popularmoviesstageone.data.MoviesDatabase;
 import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MovieReviewsEntity;
@@ -27,8 +23,6 @@ import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.network.APIClient;
 import com.am.popularmoviesstageone.network.ApiRequests;
 import com.bumptech.glide.Glide;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -11,9 +11,11 @@ import com.am.popularmoviesstageone.model.Movie;
 //Has to set exportSchema to false or it will throw an exception
 @Database(entities = {FavMovieEntity.class}, version = 2, exportSchema = false)
 public abstract class MoviesDatabase extends RoomDatabase {
+
     private static final String TAG = MoviesDatabase.class.getSimpleName();
     private static final Object LOCK = new Object();
-    private static final String DATABASE_NAME = "favMoviesList";
+    private static final String DATABASE_NAME = "favorites_database";
+
     private static MoviesDatabase sInstance;
 
 
