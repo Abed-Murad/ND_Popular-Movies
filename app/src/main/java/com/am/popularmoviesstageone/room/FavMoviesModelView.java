@@ -1,4 +1,4 @@
-package com.am.popularmoviesstageone.data;
+package com.am.popularmoviesstageone.room;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;

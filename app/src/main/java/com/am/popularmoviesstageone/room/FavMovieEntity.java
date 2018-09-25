@@ -1,4 +1,4 @@
-package com.am.popularmoviesstageone.data;
+package com.am.popularmoviesstageone.room;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;

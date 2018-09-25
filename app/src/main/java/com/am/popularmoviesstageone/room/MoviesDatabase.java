@@ -1,12 +1,10 @@
-package com.am.popularmoviesstageone.data;
+package com.am.popularmoviesstageone.room;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.util.Log;
-
-import com.am.popularmoviesstageone.model.Movie;
 
 //Has to set exportSchema to false or it will throw an exception
 @Database(entities = {FavMovieEntity.class}, version = 2, exportSchema = false)
@@ -37,5 +35,5 @@ public abstract class MoviesDatabase extends RoomDatabase {
     }
 
 
-    public abstract FavMovieDao favMovieDao();
+    public abstract FavMoviesDao favMovieDao();
 }

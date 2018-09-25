@@ -18,8 +18,8 @@ import android.view.MenuItem;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.MoviesPostersAdapter;
-import com.am.popularmoviesstageone.data.FavMovieEntity;
-import com.am.popularmoviesstageone.data.MoviesDatabase;
+import com.am.popularmoviesstageone.room.FavMovieEntity;
+import com.am.popularmoviesstageone.room.MoviesDatabase;
 import com.am.popularmoviesstageone.model.MoviesList;
 import com.am.popularmoviesstageone.network.APIClient;
 import com.am.popularmoviesstageone.network.ApiRequests;
@@ -77,6 +77,12 @@ public class MainActivity extends BaseActivity {
 
         currentMovieSelection = getMenuSelection();
 
+        //Loading previous layout state
+        if (savedInstanceState != null) {
+            mSavedStateGridLayoutManager = savedInstanceState.getParcelable(SCROLL_POSITION_KEY);
+        } else {
+
+
         switch (currentMovieSelection) {
             case POPULAR:
                 getPopularMovies();
@@ -93,10 +99,8 @@ public class MainActivity extends BaseActivity {
                 break;
         }
 
-        //Loading previous layout state
-        if (savedInstanceState != null) {
-            mSavedStateGridLayoutManager = savedInstanceState.getParcelable(SCROLL_POSITION_KEY);
         }
+
 
     }
 
@@ -190,8 +194,9 @@ public class MainActivity extends BaseActivity {
         super.onSaveInstanceState(outState, outPersistentState);
         Parcelable listState = mMoviesPostersRecyclerView.getLayoutManager().onSaveInstanceState();
         outState.putParcelable(SCROLL_POSITION_KEY, listState);
-
     }
+
+
 
     //Saving state of Grid Layout (including scroll position)
     @Override

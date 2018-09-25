@@ -1,4 +1,4 @@
-package com.am.popularmoviesstageone.data;
+package com.am.popularmoviesstageone.room;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -12,7 +12,7 @@ import java.util.List;
 
 //This class is where all methods to access the database are defined
 @Dao
-public interface FavMovieDao {
+public interface FavMoviesDao {
     @Query("SELECT * FROM favorites_table")
     LiveData<List<FavMovieEntity>> loadAllMovies();
 

@@ -1,18 +1,15 @@
 package com.am.popularmoviesstageone.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.am.popularmoviesstageone.R;
-import com.am.popularmoviesstageone.activity.MovieDetailsActivity;
-import com.am.popularmoviesstageone.data.FavMovieEntity;
+import com.am.popularmoviesstageone.room.FavMovieEntity;
 import com.am.popularmoviesstageone.model.Movie;
 import com.bumptech.glide.Glide;
 
@@ -23,7 +20,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
-import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 
 public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdapter.ViewHolder> {
 
