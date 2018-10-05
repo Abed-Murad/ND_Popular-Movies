@@ -1,13 +1,17 @@
 package com.am.popularmoviesstageone.room;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 @Entity(tableName = "favorites_table")
 public class FavMovieEntity {
     @PrimaryKey
+    @ColumnInfo(name = "id")
     private int movieId;
+    @ColumnInfo(name = "name")
     private String movieName;
+    @ColumnInfo(name = "poster_url")
     private String moviePoster;
 
     public FavMovieEntity(int movieId, String movieName, String moviePoster) {

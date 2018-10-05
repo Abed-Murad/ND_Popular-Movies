@@ -22,6 +22,7 @@ import com.am.popularmoviesstageone.model.MovieReviewsEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.network.APIClient;
 import com.am.popularmoviesstageone.network.ApiRequests;
+import com.am.popularmoviesstageone.room.Repository;
 import com.bumptech.glide.Glide;
 
 import butterknife.BindView;
@@ -68,12 +69,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private int movieId;
     private boolean isFavourite = false;
 
+    Repository mRepository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_details);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
+
+        mRepository = new Repository(getApplication());
 
         mDb = MoviesDatabase.getsInstance(this);
 
@@ -103,20 +108,21 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void setupViewModel() {
-//        FavMoviesModelView favMoviesModelView = ViewModelProviders.of(this).get(FavMoviesModelView.class);
+//        FavMoviesViewModel favMoviesModelView = ViewModelProviders.of(this).get(FavMoviesViewModel.class);
 //        favMoviesModelView.getFavMoviesList().observe(this, new Observer<List<FavMovieEntity>>() {
 //            @Override
 //            public void onChanged(@Nullable List<FavMovieEntity> favMovieEntities) {
 //            }
 //        });
 
-        if (mDb.favMovieDao().loadMovieById(movieId) != null) {
-            fab.setImageResource(R.drawable.ic_star_fill_24dp);
-            isFavourite = true;
-        } else {
-            fab.setImageResource(R.drawable.ic_star_empty_24dp);
-            isFavourite = false;
-        }
+
+//        if (mRepository.loadMovieById(movieId) != null) {
+//            fab.setImageResource(R.drawable.ic_star_fill_24dp);
+//            isFavourite = true;
+//        } else {
+//            fab.setImageResource(R.drawable.ic_star_empty_24dp);
+//            isFavourite = false;
+//        }
     }
 
 

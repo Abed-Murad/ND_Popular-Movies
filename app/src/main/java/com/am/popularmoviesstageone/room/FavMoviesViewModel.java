@@ -7,16 +7,24 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-public class FavMoviesModelView extends AndroidViewModel {
+public class FavMoviesViewModel extends AndroidViewModel {
 
+    private Repository mRepository;
     private LiveData<List<FavMovieEntity>> favMoviesList;
 
-    public FavMoviesModelView(@NonNull Application application) {
+    public FavMoviesViewModel(@NonNull Application application) {
         super(application);
-        MoviesDatabase database = MoviesDatabase.getsInstance(this.getApplication());
+        mRepository = new Repository(application);
+        favMoviesList = mRepository.getmMoviesList();
+
     }
 
     public LiveData<List<FavMovieEntity>> getFavMoviesList() {
         return favMoviesList;
+    }
+
+    public void insert(FavMovieEntity movie) {
+        mRepository.insert(movie);
+
     }
 }

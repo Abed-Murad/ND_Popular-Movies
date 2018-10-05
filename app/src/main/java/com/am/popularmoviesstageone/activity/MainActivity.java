@@ -2,12 +2,14 @@ package com.am.popularmoviesstageone.activity;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -15,14 +17,16 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.MoviesPostersAdapter;
-import com.am.popularmoviesstageone.room.FavMovieEntity;
-import com.am.popularmoviesstageone.room.MoviesDatabase;
 import com.am.popularmoviesstageone.model.MoviesList;
 import com.am.popularmoviesstageone.network.APIClient;
 import com.am.popularmoviesstageone.network.ApiRequests;
+import com.am.popularmoviesstageone.room.FavMovieEntity;
+import com.am.popularmoviesstageone.room.FavMoviesViewModel;
+import com.am.popularmoviesstageone.room.MoviesDatabase;
 
 import java.util.List;
 
@@ -34,7 +38,7 @@ import retrofit2.Response;
 
 import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String SCROLL_POSITION_KEY = "scroll_position";
@@ -52,9 +56,17 @@ public class MainActivity extends BaseActivity {
 
     MoviesPostersAdapter mAdapter;
     GridLayoutManager mLayoutManager;
+
+    @BindView(R.id.swipe_refresh)
+    SwipeRefreshLayout swipeRefresh;
+
     private Parcelable mSavedStateGridLayoutManager;
 
     private String currentMovieSelection;
+
+    private FavMoviesViewModel mMoviesViewModel;
+    private Toast mToast;
+    private int mToastCount = 0;
 
 
     @Override
@@ -63,7 +75,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-
+        swipeRefresh.setOnRefreshListener(this);
         mAdapter = new MoviesPostersAdapter(this, movie -> {
             Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
             intent.putExtra(EXTRA_MOVIE, movie);
@@ -77,27 +89,35 @@ public class MainActivity extends BaseActivity {
 
         currentMovieSelection = getMenuSelection();
 
+        mMoviesViewModel = ViewModelProviders.of(this).get(FavMoviesViewModel.class);
+        mMoviesViewModel.getFavMoviesList().observe(this, new Observer<List<FavMovieEntity>>() {
+            @Override
+            public void onChanged(@Nullable List<FavMovieEntity> favMovieEntities) {
+                mAdapter.clear();
+                mAdapter.addAllFav(favMovieEntities);
+            }
+        });
         //Loading previous layout state
         if (savedInstanceState != null) {
             mSavedStateGridLayoutManager = savedInstanceState.getParcelable(SCROLL_POSITION_KEY);
         } else {
 
 
-        switch (currentMovieSelection) {
-            case POPULAR:
-                getPopularMovies();
-                break;
-            case TOP_RATED:
-                getTopRatedMovies();
-                break;
-            case FAVORITES:
-                getFavoritesMovies();
-                //Once data has loaded, load state of any previous layouts (including scroll position)
-                if (mSavedStateGridLayoutManager != null){
-                    mLayoutManager.onRestoreInstanceState(mSavedStateGridLayoutManager);
-                }
-                break;
-        }
+            switch (currentMovieSelection) {
+                case POPULAR:
+                    getPopularMovies();
+                    break;
+                case TOP_RATED:
+                    getTopRatedMovies();
+                    break;
+                case FAVORITES:
+                    getFavoritesMovies();
+                    //Once data has loaded, load state of any previous layouts (including scroll position)
+                    if (mSavedStateGridLayoutManager != null) {
+                        mLayoutManager.onRestoreInstanceState(mSavedStateGridLayoutManager);
+                    }
+                    break;
+            }
 
         }
 
@@ -197,7 +217,6 @@ public class MainActivity extends BaseActivity {
     }
 
 
-
     //Saving state of Grid Layout (including scroll position)
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -220,5 +239,15 @@ public class MainActivity extends BaseActivity {
 
     public void saveMenuSelection(String newMenuSelection) {
         getPref().saveMenuSelection(newMenuSelection);
+    }
+
+    @Override
+    public void onRefresh() {
+        if (mToast == null) {
+            mToast = Toast.makeText(MainActivity.this, "Count " + 0, Toast.LENGTH_LONG);
+        }
+        mToast.setText("Count " + mToastCount++);
+        mToast.show();
+        swipeRefresh.setRefreshing(false);
     }
 }

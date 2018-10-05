@@ -26,11 +26,11 @@ public interface FavMoviesDao {
     void deleteMovie(FavMovieEntity movie);
 
     //Query to delete movie from database with that movie ID
-    @Query("DELETE FROM favorites_table WHERE movieID = :favoriteMovieId")
+    @Query("DELETE FROM favorites_table WHERE id = :favoriteMovieId")
     void deleteByFavoriteById(int favoriteMovieId);
 
 
-    @Query("SELECT * FROM favorites_table WHERE movieId == :id")
+    @Query("SELECT * FROM favorites_table WHERE id == :id")
     FavMovieEntity loadMovieById(int id);
 
 }

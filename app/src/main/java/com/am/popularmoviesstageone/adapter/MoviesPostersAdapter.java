@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.room.FavMovieEntity;
@@ -54,6 +55,8 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
         private final String TAG = ViewHolder.class.getSimpleName();
         @BindView(R.id.iv_movie_poster)
         ImageView moviePosterImageView;
+        @BindView(R.id.tv_movie_name)
+        TextView movieNameTextView;
 
         public ViewHolder(final View itemView) {
             super(itemView);
@@ -63,10 +66,13 @@ public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdap
 
         private void bind(Movie movie, OnItemClickListener onItemClickListener) {
             String posterUrl = BASE_POSTERS_URL + movie.getPosterPath();
+            String movieName =   movie.getOriginalTitle();
             Glide.with(context).load(posterUrl).into(moviePosterImageView);
             itemView.setOnClickListener(view -> {
                 onItemClickListener.onItemClick(movie);
             });
+            movieNameTextView.setText(movieName);
+
 
         }
     }

@@ -1,13 +1,15 @@
 package com.am.popularmoviesstageone.room;
 
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 //Has to set exportSchema to false or it will throw an exception
-@Database(entities = {FavMovieEntity.class}, version = 2, exportSchema = false)
+@Database(entities = {FavMovieEntity.class}, version = 3, exportSchema = false)
 public abstract class MoviesDatabase extends RoomDatabase {
 
     private static final String TAG = MoviesDatabase.class.getSimpleName();
@@ -15,7 +17,6 @@ public abstract class MoviesDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "favorites_database";
 
     private static MoviesDatabase sInstance;
-
 
     public static MoviesDatabase getsInstance(Context context) {
         if (sInstance == null) {
@@ -25,8 +26,6 @@ public abstract class MoviesDatabase extends RoomDatabase {
                 sInstance = Room.databaseBuilder(context.getApplicationContext(),
                         MoviesDatabase.class,
                         MoviesDatabase.DATABASE_NAME)
-                        // Has to Be MOVED TO BACKGROUND THREAD
-                        .allowMainThreadQueries()
                         .build();
             }
         }
