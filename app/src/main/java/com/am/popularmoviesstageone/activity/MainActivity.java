@@ -102,7 +102,6 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             mSavedStateGridLayoutManager = savedInstanceState.getParcelable(SCROLL_POSITION_KEY);
         } else {
 
-
             switch (currentMovieSelection) {
                 case POPULAR:
                     getPopularMovies();
@@ -137,14 +136,17 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             case R.id.action_popular_movies:
                 getPopularMovies();
                 saveMenuSelection(POPULAR);
+                getSupportActionBar().setTitle("Popular Movies");
                 return true;
             case R.id.action_top_rated:
                 getTopRatedMovies();
                 saveMenuSelection(TOP_RATED);
+                getSupportActionBar().setTitle("Top Rated Movies");
                 return true;
             case R.id.action_favorites_movies:
                 getFavoritesMovies();
                 saveMenuSelection(FAVORITES);
+                getSupportActionBar().setTitle("Favorite Movies");
                 //Once data has loaded, load state of any previous layouts (including scroll position)
                 if (mSavedStateGridLayoutManager != null) {
                     mLayoutManager.onRestoreInstanceState(mSavedStateGridLayoutManager);
