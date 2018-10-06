@@ -14,12 +14,15 @@ import android.widget.TextView;
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MovieTrailerEntity;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.am.popularmoviesstageone.util.CONST.BASE_TRAILERS_URL;
 
 public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAdapter.TrailerHolder> {
 
@@ -79,6 +82,7 @@ public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAd
         @BindView(R.id.tv_trailer_language)
         TextView mTrailerLanguageTextView;
 
+
         private View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +106,7 @@ public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAd
         private void bindData(MovieTrailerEntity trailer) {
             mTrailerNameTextView.setText(trailer.getName());
             mTrailerLanguageTextView.setText(trailer.getIso6391() + " - " + trailer.getIso31661());
+            Glide.with(mContext).load(BASE_TRAILERS_URL.replace("VIDEO_ID" , trailer.getKey())).into(mPlayItemImageView);
         }
     }
 

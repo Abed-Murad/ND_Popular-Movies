@@ -82,7 +82,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         mDb = MoviesDatabase.getsInstance(this);
 
-        mTrailersRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mTrailersRecyclerView.setLayoutManager(new LinearLayoutManager(this , LinearLayoutManager.HORIZONTAL , false));
         mTrailersAdapter = new MoviesTrailersAdapter(this,
                 trailer -> watchYoutubeVideo(MovieDetailsActivity.this, trailer.getKey()));
         mTrailersRecyclerView.setAdapter(mTrailersAdapter);
