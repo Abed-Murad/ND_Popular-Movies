@@ -40,10 +40,8 @@ public class Movie implements Parcelable {
     @Expose
     private List<Integer> genreIds = null;
     @SerializedName("backdrop_path")
-    @Expose
     private String backdropPath;
     @SerializedName("adult")
-    @Expose
     private Boolean adult;
     @SerializedName("overview")
     @Expose
@@ -199,6 +197,7 @@ public class Movie implements Parcelable {
         dest.writeString(this.originalTitle);
         dest.writeString(this.overview);
         dest.writeString(this.releaseDate);
+        dest.writeString(this.backdropPath);
     }
 
     public Movie() {
@@ -219,6 +218,7 @@ public class Movie implements Parcelable {
         this.originalTitle = in.readString();
         this.overview = in.readString();
         this.releaseDate = in.readString();
+        this.backdropPath = in.readString();
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {

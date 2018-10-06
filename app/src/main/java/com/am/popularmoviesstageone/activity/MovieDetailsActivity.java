@@ -31,6 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.am.popularmoviesstageone.util.CONST.BASE_BACKGROUND_IMAGE_URL;
 import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
 import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 import static com.am.popularmoviesstageone.util.IntentsUtill.watchYoutubeVideo;
@@ -59,6 +60,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     RecyclerView mReviewsRecyclerView;
     @BindView(R.id.favoriteFab)
     FloatingActionButton fab;
+    @BindView(R.id.iv_movie_background)
+    ImageView mMovieBackground;
 
     private ApiRequests apiService = APIClient.getClient().create(ApiRequests.class);
     private MoviesTrailersAdapter mTrailersAdapter;
@@ -101,6 +104,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mUserRatingTextView.setText(String.valueOf(movie.getVoteAverage()));
         mOverviewTextView.setText(movie.getOverview());
         Glide.with(this).load(BASE_POSTERS_URL + movie.getPosterPath()).into(mPosterImageView);
+        Glide.with(this).load(BASE_BACKGROUND_IMAGE_URL + movie.getBackdropPath()).into(mMovieBackground);
 
         getMovieVideos();
         getMovieReviews();

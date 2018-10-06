@@ -12,13 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/iv_movie_background"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
         <TextView
+            android:layout_below="@+id/iv_movie_background"
             android:id="@+id/tv_movie_name"
             android:layout_width="match_parent"
             android:layout_height="57dp"
-            android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
             android:layout_margin="16dp"
             android:gravity="center_vertical"
             android:textSize="23sp"
@@ -29,9 +33,9 @@
             android:id="@+id/iv_movie_poster"
             android:layout_width="100dp"
             android:layout_height="155dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
             android:layout_below="@+id/tv_movie_name"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
             android:layout_margin="16dp"
             app:srcCompat="@drawable/placeholder_movie" />
 
@@ -41,9 +45,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/iv_movie_poster"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:layout_marginTop="16dp"
             android:layout_toEndOf="@+id/iv_movie_poster"
             android:layout_toRightOf="@+id/iv_movie_poster"
             tools:text="TextView" />
@@ -62,8 +66,8 @@
             android:id="@+id/tv_movie_length"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignTop="@+id/iv_movie_poster"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="194dp"
             android:layout_toEndOf="@+id/iv_movie_poster"
             android:layout_toRightOf="@+id/iv_movie_poster"
@@ -94,6 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title_movie_trailers"
             tools:listitem="@layout/item_trailer" />
+
         <TextView
             android:id="@+id/tv_title_movie_reviews"
             style="@style/Base.TextAppearance.AppCompat.SearchResult.Title"
