@@ -75,12 +75,13 @@ public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAd
 
     public class TrailerHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.iv_trailer_thump)
+        ImageView mThumpImageView;
         @BindView(R.id.iv_play_icon)
-        ImageView mPlayItemImageView;
+        ImageView mPlayIconImageView;
         @BindView(R.id.tv_trailer_name)
         TextView mTrailerNameTextView;
-        @BindView(R.id.tv_trailer_language)
-        TextView mTrailerLanguageTextView;
+
 
 
         private View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -95,9 +96,9 @@ public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAd
             ButterKnife.bind(this, itemView);
 
             itemView.setOnClickListener(onClickListener);
-            mPlayItemImageView.setOnClickListener(onClickListener);
+            mThumpImageView.setOnClickListener(onClickListener);
             mTrailerNameTextView.setOnClickListener(onClickListener);
-            mTrailerLanguageTextView.setOnClickListener(onClickListener);
+            mPlayIconImageView.setOnClickListener(onClickListener);
         }
 
 
@@ -105,8 +106,7 @@ public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAd
         @SuppressLint("SetTextI18n")
         private void bindData(MovieTrailerEntity trailer) {
             mTrailerNameTextView.setText(trailer.getName());
-            mTrailerLanguageTextView.setText(trailer.getIso6391() + " - " + trailer.getIso31661());
-            Glide.with(mContext).load(BASE_TRAILERS_URL.replace("VIDEO_ID" , trailer.getKey())).into(mPlayItemImageView);
+            Glide.with(mContext).load(BASE_TRAILERS_URL.replace("VIDEO_ID" , trailer.getKey())).into(mThumpImageView);
         }
     }
 

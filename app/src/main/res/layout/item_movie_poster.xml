@@ -17,14 +17,8 @@
         android:id="@+id/tv_movie_name"
         android:layout_width="match_parent"
         android:minHeight="56dp"
-        android:textColor="@android:color/white"
-        android:gravity="center"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        style="@style/Base.TextAppearance.AppCompat.Title"
+        style="@style/TitleWithBackgroundForPosters"
         tools:text="Movie Name"
-        android:layout_height="wrap_content"
-        android:background="#A0000000"
-        android:layout_alignParentBottom="true" />
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>
