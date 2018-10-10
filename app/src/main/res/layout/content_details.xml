@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activity.DetailsActivity">
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activity.DetailsActivity">
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imageView"
@@ -17,6 +20,7 @@
             android:layout_marginTop="16dp"
             android:contentDescription="Movie Poster"
             android:scaleType="fitXY"
+            android:src="@drawable/poster_leon_the_professional"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/poster_leon_the_professional" />
@@ -34,7 +38,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="@+id/imageView"
-            tools:text="Léon: The Professional" />
+            android:text="Léon: The Professional" />
 
         <TextView
             android:id="@+id/relase_date_tv"
@@ -43,7 +47,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@+id/movie_title_tv"
             app:layout_constraintTop_toBottomOf="@+id/movie_title_tv"
-            tools:text="1994-09-14 (Released) " />
+            android:text="1994-09-14 (Released) " />
 
         <TextView
             android:id="@+id/duration_tv"
@@ -52,7 +56,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@+id/relase_date_tv"
             app:layout_constraintTop_toBottomOf="@+id/relase_date_tv"
-            tools:text="Duration - 101 min" />
+            android:text="Duration - 101 min" />
 
         <TextView
             android:id="@+id/rating_tv"
@@ -61,7 +65,7 @@
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="@+id/duration_tv"
             app:layout_constraintTop_toBottomOf="@+id/duration_tv"
-            tools:text="Rating - 8.6" />
+            android:text="Rating - 8.6" />
 
         <TextView
             android:id="@+id/overview_title_tv"
@@ -71,7 +75,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             app:layout_constraintStart_toStartOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/imageView"
-            tools:text="OverView" />
+            android:text="OverView" />
 
         <TextView
             android:id="@+id/overview_tv"
@@ -84,7 +88,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/overview_title_tv"
             app:layout_constraintTop_toBottomOf="@+id/overview_title_tv"
-            tools:text="Studere etiam ducunt ad altus scutum. Fortis visuss ducunt ad accentor. Cur lapsus peregrinatione? Rusticus, superbus tumultumques interdum pugna de ferox, primus assimilatio. Ubi est germanus luna? Raptus, teres classiss velox manifestum de fidelis, brevis particula. Cum gallus assimilant, omnes solemes vitare lotus, emeritis amores!" />
+            android:text="Studere etiam ducunt ad altus scutum. Fortis visuss ducunt ad accentor. Cur lapsus peregrinatione? Rusticus, superbus tumultumques interdum pugna de ferox, primus assimilatio. Ubi est germanus luna? Raptus, teres classiss velox manifestum de fidelis, brevis particula. Cum gallus assimilant, omnes solemes vitare lotus, emeritis amores!" />
 
         <TextView
             android:id="@+id/trailers_title_tv"
@@ -94,7 +98,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             app:layout_constraintStart_toStartOf="@+id/overview_tv"
             app:layout_constraintTop_toBottomOf="@+id/overview_tv"
-            tools:text="Trailers" />
+            android:text="Trailers" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/trailers_rv"
@@ -107,4 +111,16 @@
             app:layout_constraintStart_toStartOf="@+id/overview_tv"
             app:layout_constraintTop_toBottomOf="@+id/trailers_title_tv"
             tools:listitem="@layout/item_trailer" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="8dp"
+            android:text="Vortex de nobilis mensa, pugna heuretes!Cannabiss sunt hippotoxotas de teres eleates.Parmas potus, tanquam grandis zeta.Azureus, primus equisos etiam manifestum de bi-color, emeritis silva.Congregabo sapienter ducunt ad regius axona.Velum aliquando ducunt ad camerarius boreas.Tabess sunt cobaltums de emeritis xiphias.Hippotoxotas ortum!Est regius abnoba, cesaris.Assimilatio de salvus zirbus, visum valebat!A falsis, impositio talis visus.Est magnum rumor, cesaris.Imbers sunt candidatuss de emeritis vigil.Urbss ortum, tanquam pius classis.Nunquam examinare rumor.Peritus sensorems ducunt ad galatae.Hercle, impositio rusticus!.Pol, luba!Exemplars persuadere, tanquam secundus mensa.Nunquam gratia nix.Pol, bursa!Habenas tolerare in grandis chremisa!Deus accelerares, tanquam bi-color zeta.Bi-color caesiums ducunt ad domus."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trailers_rv" />
     </android.support.constraint.ConstraintLayout>
+
+</android.support.v4.widget.NestedScrollView>

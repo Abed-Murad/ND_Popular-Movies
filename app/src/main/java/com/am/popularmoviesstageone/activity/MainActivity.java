@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         setSupportActionBar(mToolbar);
         swipeRefresh.setOnRefreshListener(this);
         mAdapter = new MoviesPostersAdapter(this, movie -> {
-            Intent intent = new Intent(MainActivity.this, MovieDetailsActivity.class);
+            Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
             intent.putExtra(EXTRA_MOVIE, movie);
             startActivity(intent);
         });
