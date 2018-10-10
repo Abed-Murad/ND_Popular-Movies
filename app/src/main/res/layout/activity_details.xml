@@ -10,9 +10,9 @@
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
-            android:background="@drawable/poster_leon_the_professional"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
+            android:background="@drawable/placeholder_movie"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
 
