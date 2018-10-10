@@ -36,7 +36,7 @@ import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
 import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 import static com.am.popularmoviesstageone.util.IntentsUtill.watchYoutubeVideo;
 
-public class MovieDetailsActivity extends AppCompatActivity {
+public class MovieDetailsActivity extends BaseActivity {
 
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
 
@@ -62,8 +62,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     FloatingActionButton fab;
     @BindView(R.id.iv_movie_background)
     ImageView mMovieBackground;
-
     private ApiRequests apiService = APIClient.getClient().create(ApiRequests.class);
+
     private MoviesTrailersAdapter mTrailersAdapter;
     private MoviesReviewsAdapter mReviewsAdapter;
     private MoviesDatabase mDb;

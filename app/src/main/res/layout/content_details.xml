@@ -1,126 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".activity.DetailsActivity">
-
-    <android.support.constraint.ConstraintLayout
+<layout>
+    <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".activity.DetailsActivity">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="125dp"
-            android:layout_height="193dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:contentDescription="Movie Poster"
-            android:scaleType="fitXY"
-            android:src="@drawable/poster_leon_the_professional"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/poster_leon_the_professional" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/movie_title_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toTopOf="@+id/imageView"
-            android:text="Léon: The Professional" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="125dp"
+                android:layout_height="193dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="Movie Poster"
+                android:scaleType="fitXY"
+                android:src="@drawable/poster_leon_the_professional"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/poster_leon_the_professional" />
 
-        <TextView
-            android:id="@+id/relase_date_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/movie_title_tv"
-            app:layout_constraintTop_toBottomOf="@+id/movie_title_tv"
-            android:text="1994-09-14 (Released) " />
+            <TextView
+                android:id="@+id/movie_title_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Léon: The Professional"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
 
-        <TextView
-            android:id="@+id/duration_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/relase_date_tv"
-            app:layout_constraintTop_toBottomOf="@+id/relase_date_tv"
-            android:text="Duration - 101 min" />
+            <TextView
+                android:id="@+id/relase_date_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="1994-09-14 (Released) "
+                app:layout_constraintStart_toStartOf="@+id/movie_title_tv"
+                app:layout_constraintTop_toBottomOf="@+id/movie_title_tv" />
 
-        <TextView
-            android:id="@+id/rating_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintStart_toStartOf="@+id/duration_tv"
-            app:layout_constraintTop_toBottomOf="@+id/duration_tv"
-            android:text="Rating - 8.6" />
+            <TextView
+                android:id="@+id/duration_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Duration - 101 min"
+                app:layout_constraintStart_toStartOf="@+id/relase_date_tv"
+                app:layout_constraintTop_toBottomOf="@+id/relase_date_tv" />
 
-        <TextView
-            android:id="@+id/overview_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            android:text="OverView" />
+            <TextView
+                android:id="@+id/rating_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Rating - 8.6"
+                app:layout_constraintStart_toStartOf="@+id/duration_tv"
+                app:layout_constraintTop_toBottomOf="@+id/duration_tv" />
 
-        <TextView
-            android:id="@+id/overview_tv"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/overview_title_tv"
-            app:layout_constraintTop_toBottomOf="@+id/overview_title_tv"
-            android:text="Studere etiam ducunt ad altus scutum. Fortis visuss ducunt ad accentor. Cur lapsus peregrinatione? Rusticus, superbus tumultumques interdum pugna de ferox, primus assimilatio. Ubi est germanus luna? Raptus, teres classiss velox manifestum de fidelis, brevis particula. Cum gallus assimilant, omnes solemes vitare lotus, emeritis amores!" />
+            <TextView
+                android:id="@+id/overview_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="OverView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                app:layout_constraintStart_toStartOf="@+id/imageView"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-        <TextView
-            android:id="@+id/trailers_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintStart_toStartOf="@+id/overview_tv"
-            app:layout_constraintTop_toBottomOf="@+id/overview_tv"
-            android:text="Trailers" />
+            <TextView
+                android:id="@+id/overview_tv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Studere etiam ducunt ad altus scutum. Fortis visuss ducunt ad accentor. Cur lapsus peregrinatione? Rusticus, superbus tumultumques interdum pugna de ferox, primus assimilatio. Ubi est germanus luna? Raptus, teres classiss velox manifestum de fidelis, brevis particula. Cum gallus assimilant, omnes solemes vitare lotus, emeritis amores!"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/overview_title_tv"
+                app:layout_constraintTop_toBottomOf="@+id/overview_title_tv" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/trailers_rv"
-            android:layout_width="368dp"
-            android:layout_height="112dp"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            android:scrollbars="horizontal"
-            app:layout_constraintEnd_toEndOf="@+id/overview_tv"
-            app:layout_constraintStart_toStartOf="@+id/overview_tv"
-            app:layout_constraintTop_toBottomOf="@+id/trailers_title_tv"
-            tools:listitem="@layout/item_trailer" />
+            <TextView
+                android:id="@+id/trailers_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Trailers"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                app:layout_constraintStart_toStartOf="@+id/overview_tv"
+                app:layout_constraintTop_toBottomOf="@+id/overview_tv" />
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp"
-            android:text="Vortex de nobilis mensa, pugna heuretes!Cannabiss sunt hippotoxotas de teres eleates.Parmas potus, tanquam grandis zeta.Azureus, primus equisos etiam manifestum de bi-color, emeritis silva.Congregabo sapienter ducunt ad regius axona.Velum aliquando ducunt ad camerarius boreas.Tabess sunt cobaltums de emeritis xiphias.Hippotoxotas ortum!Est regius abnoba, cesaris.Assimilatio de salvus zirbus, visum valebat!A falsis, impositio talis visus.Est magnum rumor, cesaris.Imbers sunt candidatuss de emeritis vigil.Urbss ortum, tanquam pius classis.Nunquam examinare rumor.Peritus sensorems ducunt ad galatae.Hercle, impositio rusticus!.Pol, luba!Exemplars persuadere, tanquam secundus mensa.Nunquam gratia nix.Pol, bursa!Habenas tolerare in grandis chremisa!Deus accelerares, tanquam bi-color zeta.Bi-color caesiums ducunt ad domus."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trailers_rv" />
-    </android.support.constraint.ConstraintLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/trailers_rv"
+                android:layout_width="0dp"
+                android:layout_height="112dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/ic_launcher_background"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/overview_tv"
+                app:layout_constraintStart_toStartOf="@+id/overview_tv"
+                app:layout_constraintTop_toBottomOf="@+id/trailers_title_tv"
+                tools:listitem="@layout/item_trailer" />
 
-</android.support.v4.widget.NestedScrollView>
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

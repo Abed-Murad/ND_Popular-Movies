@@ -6,6 +6,9 @@ public class CONST {
     public final static String BASE_POSTERS_URL = "http://image.tmdb.org/t/p/w185/";
     public final static String BASE_TRAILERS_URL = "https://img.youtube.com/vi/VIDEO_ID/mqdefault.jpg";
     public final static String BASE_BACKGROUND_IMAGE_URL = "http://image.tmdb.org/t/p/w500/";
+
+
+
     public final static String EXTRA_MOVIE = "movie";
     
 }
