@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="170dp"
-    android:layout_height="130dp"
+    android:layout_height="128dp"
     android:layout_margin="8dp"
     android:elevation="4dp"
     android:orientation="vertical">
@@ -17,22 +17,21 @@
     <TextView
         android:id="@+id/tv_trailer_name"
         style="@style/TitleWithBackground"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
+        android:visibility="gone"
         android:layout_width="match_parent"
-        android:textSize="12sp"
         android:layout_height="wrap_content"
         android:minHeight="46dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:textSize="12sp"
         tools:text="Trailer Title" />
 
     <ImageView
         android:id="@+id/iv_play_icon"
-        android:layout_width="24dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_centerInParent="true"
-        app:srcCompat="@drawable/ic_youtube_play"
-        android:layout_height="24dp" />
-
-
+        app:srcCompat="@drawable/ic_youtube_play" />
 
 
 </RelativeLayout>
