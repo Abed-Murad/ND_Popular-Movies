@@ -1,61 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_marginBottom="5dp"
-android:layout_marginLeft="10dp"
-android:layout_marginRight="10dp"
-android:layout_marginTop="5dp"
-android:orientation="horizontal"
-app:cardUseCompatPadding="true">
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
     android:layout_height="wrap_content"
-    android:background="#FFFFFF"
-    android:gravity="center_vertical"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
     android:orientation="horizontal"
-    android:padding="12dp">
+    app:cardUseCompatPadding="true">
 
-    <ImageView
-        android:id="@+id/item_img_user"
-        android:layout_width="60dp"
-        tools:src="@tools:sample/avatars"
-        android:layout_height="60dp"
-        android:background="#16000000" />
-
-    <LinearLayout
-        android:layout_width="0dp"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:background="#FFFFFF"
+        android:gravity="start"
+        android:orientation="vertical"
+        android:paddingStart="8dp"
+        android:paddingTop="8dp"
+        android:paddingEnd="8dp"
+        android:paddingBottom="16dp">
 
 
-        <TextView
-            android:id="@+id/tv_review_author"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="Buxum "
-            android:textColor="#212121"
-            android:textSize="14dp" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/item_img_user"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/avatar_round_me" />
+
+            <TextView
+                android:id="@+id/tv_review_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
+                android:textColor="#212121"
+                tools:text="Buxum " />
+
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_review_body"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            tools:text="Humani generiss cantare!"
+            android:paddingStart="8dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
             android:textColor="#727272"
-            android:textSize="14dp" />
+            tools:text="Nunquam desiderium nixus!Peregrinationes inciviliter ducunt ad fidelis mortem.Competitions crescere in vasa!A falsis, lamia peritus nomen.Cum burgus tolerare, omnes cursuses magicae superbus, dexter menses.Ecce.Ecce, azureus pes!Equisos accelerare, tanquam talis rector.Gabaliums resistere!Vae, ventus!Flavum, mirabilis racanas etiam transferre de primus, noster vigil.Sunt compateres promissio festus, germanus abnobaes.Regius, grandis extums absolute consumere de magnum, placidus vortex. dDeuss sunt vortexs de placidus fuga.Sensorems sunt abactors de barbatus contencio. Advenas volare in brigantium!A falsis, fiscina castus nuclear vexatum iacere." />
 
     </LinearLayout>
-
-
-</LinearLayout>
 
 
 </android.support.v7.widget.CardView>

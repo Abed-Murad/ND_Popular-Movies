@@ -101,16 +101,17 @@
                 app:layout_constraintStart_toStartOf="@+id/overview_tv"
                 app:layout_constraintTop_toBottomOf="@+id/overview_tv" />
 
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/trailers_rv"
                 android:layout_width="0dp"
-                android:layout_height="175dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:scrollbars="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/overview_tv"
                 app:layout_constraintStart_toStartOf="@+id/overview_tv"
                 app:layout_constraintTop_toBottomOf="@+id/trailers_title_tv"
-                tools:listitem="@layout/item_trailer" />
+                 />
 
             <TextView
                 android:id="@+id/reviews_title_tv"
@@ -125,13 +126,10 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/reviews_rv"
                 android:layout_width="0dp"
-                android:layout_height="175dp"
-                android:orientation="horizontal"
-                android:scrollbars="horizontal"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="@+id/trailers_rv"
                 app:layout_constraintStart_toStartOf="@+id/trailers_rv"
-                app:layout_constraintTop_toBottomOf="@+id/reviews_title_tv"
-                tools:listitem="@layout/item_review" />
+                app:layout_constraintTop_toBottomOf="@+id/reviews_title_tv" />
 
         </android.support.constraint.ConstraintLayout>
 

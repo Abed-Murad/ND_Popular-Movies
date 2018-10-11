@@ -54,10 +54,11 @@ public class DetailsActivity extends BaseActivity {
         mContentLayout.trailersRv.setAdapter(mTrailersAdapter);
         mContentLayout.trailersRv.setNestedScrollingEnabled(false);
         mReviewsAdapter = new MoviesReviewsAdapter(this);
-//        mContentLayout.reviewsRv.setNestedScrollingEnabled(false);
-//        mContentLayout.reviewsRv.mReviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        mContentLayout.reviewsRv.mReviewsRecyclerView.setAdapter(mReviewsAdapter);
-//        mContentLayout.reviewsRv.mReviewsRecyclerView.setNestedScrollingEnabled(false);
+
+        mContentLayout.reviewsRv.setNestedScrollingEnabled(false);
+        mContentLayout.reviewsRv.setLayoutManager(new LinearLayoutManager(this));
+        mContentLayout.reviewsRv.setAdapter(mReviewsAdapter);
+        mContentLayout.reviewsRv.setNestedScrollingEnabled(false);
 
         mLayout.fab.setOnClickListener(view -> Snackbar.make(view, "Added to favorite ",
                 Snackbar.LENGTH_LONG).setAction("Action", null).show());
@@ -79,6 +80,7 @@ public class DetailsActivity extends BaseActivity {
                 Glide.with(DetailsActivity.this).load(BASE_BACKGROUND_IMAGE_URL + movieDetails.getBackdropPath()).into(mLayout.movieBackdropIv);
                 mContentLayout.relaseDateTv.setText(movieDetails.getReleaseDate() + " (" + movieDetails.getStatus() + ")");
                 getMovieVideos(movieId);
+                getMovieReviews(movieId);
                 mLayout.toolbar.setTitle(movieDetails.getTitle());
                 setSupportActionBar(mLayout.toolbar);
 
