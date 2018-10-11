@@ -14,11 +14,15 @@ import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.MoviesTrailersAdapter;
 import com.am.popularmoviesstageone.databinding.ActivityDetailsBinding;
 import com.am.popularmoviesstageone.databinding.ContentDetailsBinding;
+import com.am.popularmoviesstageone.model.Movie;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 
+import static com.am.popularmoviesstageone.util.CONST.BASE_BACKGROUND_IMAGE_URL;
+import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
+import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 import static com.am.popularmoviesstageone.util.IntentsUtill.watchYoutubeVideo;
 
 
@@ -28,6 +32,7 @@ public class DetailsActivity extends AppCompatActivity {
     private MoviesTrailersAdapter mTrailersAdapter;
     private ActivityDetailsBinding mLayout;
     private ContentDetailsBinding mContentLayout;
+    private Movie movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,37 +40,21 @@ public class DetailsActivity extends AppCompatActivity {
         mLayout = DataBindingUtil.setContentView(this, R.layout.activity_details);
         setSupportActionBar(mLayout.toolbar);
 
+        movie = getIntent().getExtras().getParcelable(EXTRA_MOVIE);
         mContentLayout = mLayout.contentLayout;
+
         mContentLayout.trailersRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mTrailersAdapter = new MoviesTrailersAdapter(this,
                 trailer -> watchYoutubeVideo(DetailsActivity.this, trailer.getKey()));
         mContentLayout.trailersRv.setAdapter(mTrailersAdapter);
         mContentLayout.trailersRv.setNestedScrollingEnabled(false);
-
-        loadImageAsABackgournd(this, "http://image.tmdb.org/t/p/w500//fXVzk9OxQwROCuiWvd0Cv76qmZi.jpg", mLayout.appBar);
-        getSupportActionBar().setTitle("Leon: The Professional");
+        mContentLayout.ratingTv.setText("Rating - " + movie.getVoteAverage());
+        Glide.with(this).load(BASE_POSTERS_URL + movie.getPosterPath()).into(mContentLayout.imageView);
+        Glide.with(this).load(BASE_BACKGROUND_IMAGE_URL + movie.getBackdropPath()).into(mLayout.movieBackdropIv);
+        mContentLayout.relaseDateTv.setText(movie.getReleaseDate() + " (Released)");
+        getSupportActionBar().setTitle(movie.getTitle());
         mLayout.fab.setOnClickListener(view -> Snackbar.make(view, "Added to favorite ",
                 Snackbar.LENGTH_LONG).setAction("Action", null).show());
 
     }
-
-    /**
-     * @param context   Context For the Loading Process to be cancelled if the activity closed
-     * @param imageUrl  imageUrl to be loaded in the View or viewGroup
-     * @param viewGroup the viewGroup that we want to load the image into its background
-     *                  this method is used for the to load an image to a view as a background for the views
-     *                  that does not have setSrc attr
-     */
-
-    public void loadImageAsABackgournd(Context context, String imageUrl, ViewGroup viewGroup) {
-        Glide.with(context).load(imageUrl).into(new SimpleTarget<Drawable>() {
-            @Override
-            public void onResourceReady(Drawable resource, Transition<? super Drawable> transition) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    viewGroup.setBackground(resource);
-                }
-            }
-        });
-    }
-
 }

@@ -17,6 +17,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.am.popularmoviesstageone.R;
@@ -59,6 +61,9 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
     @BindView(R.id.swipe_refresh)
     SwipeRefreshLayout swipeRefresh;
+
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
 
     private Parcelable mSavedStateGridLayoutManager;
 
@@ -132,6 +137,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
+        showProgressPar();
+
         switch (id) {
             case R.id.action_popular_movies:
                 getPopularMovies();
@@ -164,6 +171,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                 final MoviesList popularMoviesList = response.body();
                 mAdapter.clear();
                 mAdapter.addAll(popularMoviesList.getMovieList());
+                hideProgressPar();
+                mMoviesPostersRecyclerView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -173,6 +182,13 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         });
     }
 
+    private void hideProgressPar() {
+        progressBar.setVisibility(View.GONE);
+    }
+    private void showProgressPar() {
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
     private void getTopRatedMovies() {
         mApiService.getTopRatedMovies(null, null, null).enqueue(new Callback<MoviesList>() {
             @Override
@@ -180,6 +196,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                 final MoviesList popularMoviesList = response.body();
                 mAdapter.clear();
                 mAdapter.addAll(popularMoviesList.getMovieList());
+                hideProgressPar();
+                mMoviesPostersRecyclerView.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -196,6 +214,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             public void onChanged(@Nullable List<FavMovieEntity> favMovieEntities) {
                 mAdapter.clear();
                 mAdapter.addAllFav(favMovieEntities);
+                hideProgressPar();
+                mMoviesPostersRecyclerView.setVisibility(View.VISIBLE);
             }
         });
 

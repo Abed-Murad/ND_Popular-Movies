@@ -48,13 +48,13 @@ public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAd
 
     @Override
     public void onBindViewHolder(@NonNull TrailerHolder holder, int position) {
-//        MovieTrailerEntity trailer = mTrailerList.get(position);
-//        holder.bindData(trailer);
+        MovieTrailerEntity trailer = mTrailerList.get(position);
+        holder.bindData(trailer);
     }
 
     @Override
     public int getItemCount() {
-        return mTrailerList == null ? 10 : mTrailerList.size();
+        return mTrailerList == null ? 0 : mTrailerList.size();
     }
 
     public void add(MovieTrailerEntity item) {

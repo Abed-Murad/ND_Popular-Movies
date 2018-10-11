@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -12,9 +13,9 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
-            android:background="@drawable/placeholder_movie"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
+
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/toolbar_layout"
@@ -24,6 +25,13 @@
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:toolbarId="@+id/toolbar">
+                <ImageView
+                    android:id="@+id/movie_backdrop_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/poster_leon_the_professional" />
+
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -35,7 +43,9 @@
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
-        <include android:id="@+id/content_layout" layout="@layout/content_details" />
+        <include
+            android:id="@+id/content_layout"
+            layout="@layout/content_details" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
