@@ -48,6 +48,7 @@ public class DetailsActivity extends AppCompatActivity {
                 trailer -> watchYoutubeVideo(DetailsActivity.this, trailer.getKey()));
         mContentLayout.trailersRv.setAdapter(mTrailersAdapter);
         mContentLayout.trailersRv.setNestedScrollingEnabled(false);
+        mContentLayout.movieTitleTv.setText(movie.getOriginalTitle());
         mContentLayout.ratingTv.setText("Rating - " + movie.getVoteAverage());
         Glide.with(this).load(BASE_POSTERS_URL + movie.getPosterPath()).into(mContentLayout.imageView);
         Glide.with(this).load(BASE_BACKGROUND_IMAGE_URL + movie.getBackdropPath()).into(mLayout.movieBackdropIv);
