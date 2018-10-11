@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.am.popularmoviesstageone.R;
@@ -15,6 +16,7 @@ import com.am.popularmoviesstageone.databinding.ContentDetailsBinding;
 import com.am.popularmoviesstageone.model.MovieReviewsEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.model.moviedetails.MovieDetails;
+import com.am.popularmoviesstageone.room.FavMovieEntity;
 import com.bumptech.glide.Glide;
 
 import retrofit2.Call;
@@ -37,6 +39,7 @@ public class DetailsActivity extends BaseActivity {
     private ContentDetailsBinding mContentLayout;
     private MovieDetails movieDetails;
     private Integer movieId;
+    private boolean isFavourite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,8 +63,21 @@ public class DetailsActivity extends BaseActivity {
         mContentLayout.reviewsRv.setAdapter(mReviewsAdapter);
         mContentLayout.reviewsRv.setNestedScrollingEnabled(false);
 
-        mLayout.fab.setOnClickListener(view -> Snackbar.make(view, "Added to favorite ",
-                Snackbar.LENGTH_LONG).setAction("Action", null).show());
+        mLayout.fab.setOnClickListener(view -> {
+            if (!isFavourite) {
+                Snackbar.make(view, "Added to favorite ", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+                mLayout.fab.setImageResource(R.drawable.ic_star_fill_24dp);
+                isFavourite = true;
+            } else {
+                Snackbar.make(view, "Removed from favorite ", Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+                mLayout.fab.setImageResource(R.drawable.ic_star_empty_24dp);
+                isFavourite = false;
+
+            }
+
+        });
 
     }
 
