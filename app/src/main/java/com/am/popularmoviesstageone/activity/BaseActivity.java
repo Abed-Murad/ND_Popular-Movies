@@ -7,7 +7,7 @@ import com.am.popularmoviesstageone.network.ApiRequests;
 import com.am.popularmoviesstageone.util.PrefHelper;
 
 public class BaseActivity extends AppCompatActivity {
-    private ApiRequests apiService = APIClient.getClient().create(ApiRequests.class);
+    protected ApiRequests apiService = APIClient.getClient().create(ApiRequests.class);
 
     protected PrefHelper getPref() {
         return PrefHelper.getInstance(this);

@@ -83,7 +83,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         swipeRefresh.setOnRefreshListener(this);
         mAdapter = new MoviesPostersAdapter(this, movie -> {
             Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-            intent.putExtra(EXTRA_MOVIE, movie);
+            intent.putExtra(EXTRA_MOVIE, movie.getId());
             startActivity(intent);
         });
 

@@ -9,6 +9,6 @@ public class CONST {
 
 
 
-    public final static String EXTRA_MOVIE = "movie";
+    public final static String EXTRA_MOVIE = "movieId";
     
 }

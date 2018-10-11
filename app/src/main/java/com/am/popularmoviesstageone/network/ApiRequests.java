@@ -5,6 +5,7 @@ import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.model.MovieReviewsEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.model.MoviesList;
+import com.am.popularmoviesstageone.model.moviedetails.MovieDetails;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -18,7 +19,7 @@ import retrofit2.http.Query;
 
 
 public interface ApiRequests {
-     String API_KEY = BuildConfig.API_KEY;
+    String API_KEY = BuildConfig.API_KEY;
 
     @GET("movie/popular?api_key=" + API_KEY)
     Call<MoviesList> getPopularMovies(@Query("language") String language,
@@ -33,12 +34,11 @@ public interface ApiRequests {
     @GET("movie/{id}/videos?api_key=" + API_KEY + "&language=en-US")
     Call<MovieVideosEntity> getMovieVideos(@Path("id") String movieId);
 
-     @GET("movie/{id}/reviews?api_key=" + API_KEY + "&language=en-US")
+    @GET("movie/{id}/reviews?api_key=" + API_KEY + "&language=en-US")
     Call<MovieReviewsEntity> getMovieReviews(@Path("id") String movieId);
 
-     @GIT("movie/335983?api_key=5113c42b53daf9e85a4239d8b7be45a5&language=en-US")
-
-
+    @GET("movie/{id}?api_key=" + API_KEY + "&language=en-US")
+    Call<MovieDetails> getMovieDetails(@Path("id") String movieId);
 
 
     // Post Request Example
