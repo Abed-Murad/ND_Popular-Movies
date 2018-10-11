@@ -37,8 +37,7 @@ public class Movie implements Parcelable {
     private String overview;
     @SerializedName("release_date")
     private String releaseDate;
-    @SerializedName("runtime")
-    private Integer runTime;
+
 
     public Integer getVoteCount() {
         return voteCount;
@@ -152,13 +151,7 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
-    public Integer getRunTime() {
-        return runTime;
-    }
 
-    public void setRunTime(Integer runTime) {
-        this.runTime = runTime;
-    }
 
     @Override
     public String toString() {
@@ -196,7 +189,6 @@ public class Movie implements Parcelable {
         dest.writeString(this.overview);
         dest.writeString(this.releaseDate);
         dest.writeString(this.backdropPath);
-        dest.writeValue(this.runTime);
     }
 
     public Movie() {
@@ -218,7 +210,6 @@ public class Movie implements Parcelable {
         this.overview = in.readString();
         this.releaseDate = in.readString();
         this.backdropPath = in.readString();
-        this.runTime = (Integer) in.readValue(Integer.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {

@@ -3,16 +3,16 @@ package com.am.popularmoviesstageone.activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.am.popularmoviesstageone.R;
+import com.am.popularmoviesstageone.adapter.MoviesReviewsAdapter;
 import com.am.popularmoviesstageone.adapter.MoviesTrailersAdapter;
 import com.am.popularmoviesstageone.databinding.ActivityDetailsBinding;
 import com.am.popularmoviesstageone.databinding.ContentDetailsBinding;
-import com.am.popularmoviesstageone.model.Movie;
+import com.am.popularmoviesstageone.model.MovieReviewsEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.model.moviedetails.MovieDetails;
 import com.bumptech.glide.Glide;
@@ -31,6 +31,8 @@ public class DetailsActivity extends BaseActivity {
     private static final String TAG = DetailsActivity.class.getSimpleName();
 
     private MoviesTrailersAdapter mTrailersAdapter;
+    private MoviesReviewsAdapter mReviewsAdapter;
+
     private ActivityDetailsBinding mLayout;
     private ContentDetailsBinding mContentLayout;
     private MovieDetails movieDetails;
@@ -41,28 +43,24 @@ public class DetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         mLayout = DataBindingUtil.setContentView(this, R.layout.activity_details);
         setSupportActionBar(mLayout.toolbar);
-
         movieId = getIntent().getExtras().getInt(EXTRA_MOVIE);
-        getMovieDetails(movieId);
         mContentLayout = mLayout.contentLayout;
+
+        getMovieDetails(movieId);
 
         mContentLayout.trailersRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mTrailersAdapter = new MoviesTrailersAdapter(this,
                 trailer -> watchYoutubeVideo(DetailsActivity.this, trailer.getKey()));
         mContentLayout.trailersRv.setAdapter(mTrailersAdapter);
         mContentLayout.trailersRv.setNestedScrollingEnabled(false);
+        mReviewsAdapter = new MoviesReviewsAdapter(this);
+//        mContentLayout.reviewsRv.setNestedScrollingEnabled(false);
+//        mContentLayout.reviewsRv.mReviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        mContentLayout.reviewsRv.mReviewsRecyclerView.setAdapter(mReviewsAdapter);
+//        mContentLayout.reviewsRv.mReviewsRecyclerView.setNestedScrollingEnabled(false);
 
-
-//        mContentLayout.movieTitleTv.setText(movieId.getOriginalTitle());
-//        mContentLayout.durationTv.setText(movieId.getRunTime() + "");
-//        mContentLayout.ratingTv.setText("Rating - " + movieId.getVoteAverage());
-//        mContentLayout.overviewTv.setText(movieId.getOverview());
-//        Glide.with(this).load(BASE_POSTERS_URL + movieId.getPosterPath()).into(mContentLayout.imageView);
-//        Glide.with(this).load(BASE_BACKGROUND_IMAGE_URL + movieId.getBackdropPath()).into(mLayout.movieBackdropIv);
-//        mContentLayout.relaseDateTv.setText(movieId.getReleaseDate() + " (Released)");
-//        getSupportActionBar().setTitle(movieId.getTitle());
-//        mLayout.fab.setOnClickListener(view -> Snackbar.make(view, "Added to favorite ",
-//                Snackbar.LENGTH_LONG).setAction("Action", null).show());
+        mLayout.fab.setOnClickListener(view -> Snackbar.make(view, "Added to favorite ",
+                Snackbar.LENGTH_LONG).setAction("Action", null).show());
 
     }
 
@@ -71,14 +69,60 @@ public class DetailsActivity extends BaseActivity {
         apiService.getMovieDetails(movieId + "").enqueue(new Callback<MovieDetails>() {
             @Override
             public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
-                final MovieDetails movieDetails = response.body();
-                Log.d(TAG, "onResponse: " + movieDetails);
+                movieDetails = response.body();
+
+                mContentLayout.movieTitleTv.setText(movieDetails.getOriginalTitle());
+                mContentLayout.durationTv.setText("Duration - " + movieDetails.getRuntime() + " min");
+                mContentLayout.ratingTv.setText("Rating - " + movieDetails.getVoteAverage());
+                mContentLayout.overviewTv.setText(movieDetails.getOverview());
+                Glide.with(DetailsActivity.this).load(BASE_POSTERS_URL + movieDetails.getPosterPath()).into(mContentLayout.imageView);
+                Glide.with(DetailsActivity.this).load(BASE_BACKGROUND_IMAGE_URL + movieDetails.getBackdropPath()).into(mLayout.movieBackdropIv);
+                mContentLayout.relaseDateTv.setText(movieDetails.getReleaseDate() + " (" + movieDetails.getStatus() + ")");
+                getMovieVideos(movieId);
+                mLayout.toolbar.setTitle(movieDetails.getTitle());
+                setSupportActionBar(mLayout.toolbar);
+
             }
 
             @Override
             public void onFailure(Call<MovieDetails> call, Throwable t) {
                 Log.e(TAG, t.toString());
                 Toast.makeText(DetailsActivity.this, "Error Loading Movie Details", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+    private void getMovieVideos(int movieId) {
+        apiService.getMovieVideos(movieId + "").enqueue(new Callback<MovieVideosEntity>() {
+            @Override
+            public void onResponse(Call<MovieVideosEntity> call, Response<MovieVideosEntity> response) {
+                final MovieVideosEntity movieVideosEntity = response.body();
+                mTrailersAdapter.addAll(movieVideosEntity.getTrailers());
+            }
+
+            @Override
+            public void onFailure(Call<MovieVideosEntity> call, Throwable t) {
+                Log.e(TAG, t.toString());
+                Toast.makeText(DetailsActivity.this, "Error Loading Trailers", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getMovieReviews(int movieId) {
+        apiService.getMovieReviews(movieId + "").enqueue(new Callback<MovieReviewsEntity>() {
+            @Override
+            public void onResponse(Call<MovieReviewsEntity> call, Response<MovieReviewsEntity> response) {
+                final MovieReviewsEntity movieReviewsEntity = response.body();
+                mReviewsAdapter.addAll(movieReviewsEntity.getReviewList());
+
+            }
+
+            @Override
+            public void onFailure(Call<MovieReviewsEntity> call, Throwable t) {
+                Log.e(TAG, t.toString());
+                Toast.makeText(DetailsActivity.this, "Error Loading Reviews", Toast.LENGTH_SHORT).show();
             }
         });
     }

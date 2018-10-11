@@ -73,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="OverView"
+                android:text="Overview"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
                 app:layout_constraintStart_toStartOf="@+id/imageView"
                 app:layout_constraintTop_toBottomOf="@+id/imageView" />
@@ -104,15 +104,34 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/trailers_rv"
                 android:layout_width="0dp"
-                android:layout_height="112dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/ic_launcher_background"
+                android:layout_height="175dp"
                 android:orientation="horizontal"
                 android:scrollbars="horizontal"
                 app:layout_constraintEnd_toEndOf="@+id/overview_tv"
                 app:layout_constraintStart_toStartOf="@+id/overview_tv"
                 app:layout_constraintTop_toBottomOf="@+id/trailers_title_tv"
                 tools:listitem="@layout/item_trailer" />
+
+            <TextView
+                android:id="@+id/reviews_title_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Reviews"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                app:layout_constraintStart_toStartOf="@+id/trailers_rv"
+                app:layout_constraintTop_toBottomOf="@+id/trailers_rv" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/reviews_rv"
+                android:layout_width="0dp"
+                android:layout_height="175dp"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                app:layout_constraintEnd_toEndOf="@+id/trailers_rv"
+                app:layout_constraintStart_toStartOf="@+id/trailers_rv"
+                app:layout_constraintTop_toBottomOf="@+id/reviews_title_tv"
+                tools:listitem="@layout/item_review" />
 
         </android.support.constraint.ConstraintLayout>
 
