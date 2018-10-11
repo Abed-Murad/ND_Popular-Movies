@@ -33,8 +33,10 @@ public interface ApiRequests {
     @GET("movie/{id}/videos?api_key=" + API_KEY + "&language=en-US")
     Call<MovieVideosEntity> getMovieVideos(@Path("id") String movieId);
 
-        @GET("movie/{id}/reviews?api_key=" + API_KEY + "&language=en-US")
+     @GET("movie/{id}/reviews?api_key=" + API_KEY + "&language=en-US")
     Call<MovieReviewsEntity> getMovieReviews(@Path("id") String movieId);
+
+     @GIT("movie/335983?api_key=5113c42b53daf9e85a4239d8b7be45a5&language=en-US")
 
 
 

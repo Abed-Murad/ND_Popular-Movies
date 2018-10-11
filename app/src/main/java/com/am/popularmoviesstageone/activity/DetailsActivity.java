@@ -49,7 +49,9 @@ public class DetailsActivity extends AppCompatActivity {
         mContentLayout.trailersRv.setAdapter(mTrailersAdapter);
         mContentLayout.trailersRv.setNestedScrollingEnabled(false);
         mContentLayout.movieTitleTv.setText(movie.getOriginalTitle());
+        mContentLayout.durationTv.setText(movie.getRunTime() + "");
         mContentLayout.ratingTv.setText("Rating - " + movie.getVoteAverage());
+        mContentLayout.overviewTv.setText(movie.getOverview());
         Glide.with(this).load(BASE_POSTERS_URL + movie.getPosterPath()).into(mContentLayout.imageView);
         Glide.with(this).load(BASE_BACKGROUND_IMAGE_URL + movie.getBackdropPath()).into(mLayout.movieBackdropIv);
         mContentLayout.relaseDateTv.setText(movie.getReleaseDate() + " (Released)");

@@ -10,45 +10,35 @@ import java.util.List;
 
 public class Movie implements Parcelable {
     @SerializedName("vote_count")
-    @Expose
     private Integer voteCount;
     @SerializedName("id")
-    @Expose
     private Integer id;
     @SerializedName("video")
-    @Expose
     private Boolean video;
     @SerializedName("vote_average")
-    @Expose
     private Double voteAverage;
     @SerializedName("title")
-    @Expose
     private String title;
     @SerializedName("popularity")
-    @Expose
     private Double popularity;
     @SerializedName("poster_path")
-    @Expose
     private String posterPath;
     @SerializedName("original_language")
-    @Expose
     private String originalLanguage;
     @SerializedName("original_title")
-    @Expose
     private String originalTitle;
     @SerializedName("genre_ids")
-    @Expose
     private List<Integer> genreIds = null;
     @SerializedName("backdrop_path")
     private String backdropPath;
     @SerializedName("adult")
     private Boolean adult;
     @SerializedName("overview")
-    @Expose
     private String overview;
     @SerializedName("release_date")
-    @Expose
     private String releaseDate;
+    @SerializedName("runtime")
+    private Integer runTime;
 
     public Integer getVoteCount() {
         return voteCount;
@@ -162,6 +152,14 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
+    public Integer getRunTime() {
+        return runTime;
+    }
+
+    public void setRunTime(Integer runTime) {
+        this.runTime = runTime;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
@@ -198,6 +196,7 @@ public class Movie implements Parcelable {
         dest.writeString(this.overview);
         dest.writeString(this.releaseDate);
         dest.writeString(this.backdropPath);
+        dest.writeValue(this.runTime);
     }
 
     public Movie() {
@@ -219,6 +218,7 @@ public class Movie implements Parcelable {
         this.overview = in.readString();
         this.releaseDate = in.readString();
         this.backdropPath = in.readString();
+        this.runTime = (Integer) in.readValue(Integer.class.getClassLoader());
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
