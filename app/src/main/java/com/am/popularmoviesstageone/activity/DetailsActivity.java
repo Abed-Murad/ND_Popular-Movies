@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.am.popularmoviesstageone.R;
@@ -16,7 +15,6 @@ import com.am.popularmoviesstageone.databinding.ContentDetailsBinding;
 import com.am.popularmoviesstageone.model.MovieReviewsEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.model.moviedetails.MovieDetails;
-import com.am.popularmoviesstageone.room.FavMovieEntity;
 import com.bumptech.glide.Glide;
 
 import retrofit2.Call;
@@ -83,7 +81,7 @@ public class DetailsActivity extends BaseActivity {
 
 
     private void getMovieDetails(int movieId) {
-        apiService.getMovieDetails(movieId + "").enqueue(new Callback<MovieDetails>() {
+        mApiService.getMovieDetails(movieId + "").enqueue(new Callback<MovieDetails>() {
             @Override
             public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
                 movieDetails = response.body();
@@ -113,7 +111,7 @@ public class DetailsActivity extends BaseActivity {
     }
 
     private void getMovieVideos(int movieId) {
-        apiService.getMovieVideos(movieId + "").enqueue(new Callback<MovieVideosEntity>() {
+        mApiService.getMovieVideos(movieId + "").enqueue(new Callback<MovieVideosEntity>() {
             @Override
             public void onResponse(Call<MovieVideosEntity> call, Response<MovieVideosEntity> response) {
                 final MovieVideosEntity movieVideosEntity = response.body();
@@ -129,7 +127,7 @@ public class DetailsActivity extends BaseActivity {
     }
 
     private void getMovieReviews(int movieId) {
-        apiService.getMovieReviews(movieId + "").enqueue(new Callback<MovieReviewsEntity>() {
+        mApiService.getMovieReviews(movieId + "").enqueue(new Callback<MovieReviewsEntity>() {
             @Override
             public void onResponse(Call<MovieReviewsEntity> call, Response<MovieReviewsEntity> response) {
                 final MovieReviewsEntity movieReviewsEntity = response.body();
