@@ -72,14 +72,9 @@ public class DetailsActivity extends BaseActivity {
                         .setAction("Action", null).show();
                 mLayout.fab.setImageResource(R.drawable.ic_star_empty_24dp);
                 isFavourite = false;
-
             }
-
         });
-
     }
-
-
     private void getMovieDetails(int movieId) {
         mApiService.getMovieDetails(movieId + "").enqueue(new Callback<MovieDetails>() {
             @Override
