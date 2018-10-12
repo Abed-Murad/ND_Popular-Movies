@@ -2,7 +2,6 @@ package com.am.popularmoviesstageone.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -33,7 +32,7 @@ import retrofit2.Response;
 
 import static com.am.popularmoviesstageone.util.CONST.BASE_BACKGROUND_IMAGE_URL;
 import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
-import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
+import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE_ID;
 import static com.am.popularmoviesstageone.util.IntentsUtill.watchYoutubeVideo;
 
 public class MovieDetailsActivity extends BaseActivity {
@@ -96,7 +95,7 @@ public class MovieDetailsActivity extends BaseActivity {
         mReviewsRecyclerView.setAdapter(mReviewsAdapter);
         mReviewsRecyclerView.setNestedScrollingEnabled(false);
 
-        movie = getIntent().getExtras().getParcelable(EXTRA_MOVIE);
+        movie = getIntent().getExtras().getParcelable(EXTRA_MOVIE_ID);
         movieId = movie.getId();
 
         mNameTextView.setText(movie.getTitle());

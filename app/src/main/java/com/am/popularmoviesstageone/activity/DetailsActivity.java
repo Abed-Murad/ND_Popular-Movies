@@ -23,7 +23,7 @@ import retrofit2.Response;
 
 import static com.am.popularmoviesstageone.util.CONST.BASE_BACKGROUND_IMAGE_URL;
 import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
-import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
+import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE_ID;
 import static com.am.popularmoviesstageone.util.IntentsUtill.watchYoutubeVideo;
 
 
@@ -44,7 +44,7 @@ public class DetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         mLayout = DataBindingUtil.setContentView(this, R.layout.activity_details);
         setSupportActionBar(mLayout.toolbar);
-        movieId = getIntent().getExtras().getInt(EXTRA_MOVIE);
+        movieId = getIntent().getExtras().getInt(EXTRA_MOVIE_ID);
         mContentLayout = mLayout.contentLayout;
 
         getMovieDetails(movieId);
