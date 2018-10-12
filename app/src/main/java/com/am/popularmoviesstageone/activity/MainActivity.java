@@ -48,6 +48,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private Parcelable mRecyclerState;
 
     private int mToastCount = 0;
+    private int mCurrentPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,15 +65,11 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
             intent.putExtra(EXTRA_MOVIE_ID, movie.getId());
             startActivity(intent);
         });
-        mLayoutManager = new GridLayoutManager(this, 2);
+        mLayoutManager = new GridLayoutManager(this, calculateNoOfColumns(this));
 
         mContentLayout.rvMovies.setLayoutManager(mLayoutManager);
         mContentLayout.rvMovies.setAdapter(mAdapter);
         mContentLayout.rvMovies.setHasFixedSize(true);
-
-        if (mRecyclerState != null) {
-            mContentLayout.rvMovies.getLayoutManager().onRestoreInstanceState(mRecyclerState);
-        }
 
         getPopularMovies();
         mContentLayout.swipeRefresh.setOnRefreshListener(this);
@@ -81,8 +78,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mRecyclerState = mContentLayout.rvMovies.getLayoutManager().onSaveInstanceState();
-        outState.putParcelable(RECYCLER_STATE_KEY, mRecyclerState);
+        int scrollPosition = ((GridLayoutManager) (mContentLayout.rvMovies.getLayoutManager())).findFirstCompletelyVisibleItemPosition();
+        outState.putInt(RECYCLER_STATE_KEY, scrollPosition);
     }
 
 
@@ -90,17 +87,14 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState != null) {
-            mRecyclerState = savedInstanceState.getParcelable(RECYCLER_STATE_KEY);
+            mCurrentPosition = savedInstanceState.getInt(RECYCLER_STATE_KEY, 0);
         }
     }
 
-   /* @Override
+    @Override
     protected void onResume() {
         super.onResume();
-        if (mRecyclerState != null) {
-            mContentLayout.rvMovies.getLayoutManager().onRestoreInstanceState(mRecyclerState);
-        }
-    }*/
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -141,8 +135,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                 mAdapter.addAll(popularMoviesList.getMovieList());
                 hideProgressPar();
                 mContentLayout.rvMovies.setVisibility(View.VISIBLE);
+                mContentLayout.rvMovies.scrollToPosition(mCurrentPosition);
             }
-
             @Override
             public void onFailure(Call<MoviesList> call, Throwable t) {
                 Log.e(TAG, t.toString());
