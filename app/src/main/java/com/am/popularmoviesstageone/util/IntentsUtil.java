@@ -7,9 +7,9 @@ import android.net.Uri;
 
 import static com.am.popularmoviesstageone.util.CONST.BASE_YOUTUBE_URL;
 
-public class IntentsUtill {
+public class IntentsUtil {
 
-    public static void watchYoutubeVideo(Context context, String id) {
+    public static void openVideoOnYoutube(Context context, String id) {
         Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + id));
         Intent webIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse(BASE_YOUTUBE_URL + id));
