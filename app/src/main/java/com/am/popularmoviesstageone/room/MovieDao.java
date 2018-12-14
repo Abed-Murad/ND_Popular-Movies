@@ -13,6 +13,8 @@ public interface MovieDao {
 
     @Query("SELECT * FROM Movie WHERE id := :movieId")
     Movie getById(int movieId);
+    @Query("SELECT * FROM Movie")
+    Movie getAll(int movieId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Long inser(Movie movie);
@@ -22,5 +24,5 @@ public interface MovieDao {
 
     @Delete
     void delete(Movie movie);
-    
+
 }
