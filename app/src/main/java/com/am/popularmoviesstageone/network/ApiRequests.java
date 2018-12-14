@@ -31,39 +31,12 @@ public interface ApiRequests {
                                        @Query("page") String page,
                                        @Query("region") String region);
 
-    @GET("movie/{id}/videos?api_key=" + API_KEY + "&language=en-US")
-    Call<MovieVideosEntity> getMovieVideos(@Path("id") String movieId);
+    @GET("movie/{id}/videos?api_key=" + API_KEY)
+    Call<MovieVideosEntity> getMovieTrailers(@Path("id") String movieId);
 
-    @GET("movie/{id}/reviews?api_key=" + API_KEY + "&language=en-US")
+    @GET("movie/{id}/reviews?api_key=" + API_KEY)
     Call<MovieReviewsEntity> getMovieReviews(@Path("id") String movieId);
 
-    @GET("movie/{id}?api_key=" + API_KEY + "&language=en-US")
+    @GET("movie/{id}?api_key=" + API_KEY)
     Call<MovieDetails> getMovieDetails(@Path("id") String movieId);
-
-
-    // Post Request Example
-    @POST("login")
-    @FormUrlEncoded
-    Call<Void> postRequst(@Field("ClientSecret") String secret,
-                          @Header("Signature") String signature,
-                          @Header("Token") String Token);
-
-    // Delete Request Example
-    @FormUrlEncoded
-    @HTTP(method = "DELETE", path = "user/{user_id}/favComps", hasBody = true)
-    Call<Void> deleteRequest(@Path("user_id") String userId,
-                             @Field("comp_id") String compId,
-                             @Header("Signature") String signature,
-                             @Header("Token") String token);
-
-    // Put Request Example
-    @FormUrlEncoded
-    @HTTP(method = "PUT", path = "comments/{comment_id}", hasBody = true)
-    Call<Void> putRequest(@Path("comment_id") String comment_id,
-                          @Field("new_text") String new_text,
-                          @Field("page") String page,
-                          @Header("Signature") String signature,
-                          @Header("Token") String token);
-
-
 }

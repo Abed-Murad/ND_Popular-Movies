@@ -121,7 +121,7 @@ public class DetailsActivity extends BaseActivity {
     }
 
     private void getMovieVideos(int movieId) {
-        mApiService.getMovieVideos(movieId + "").enqueue(new Callback<MovieVideosEntity>() {
+        mApiService.getMovieTrailers(movieId + "").enqueue(new Callback<MovieVideosEntity>() {
             @Override
             public void onResponse(Call<MovieVideosEntity> call, Response<MovieVideosEntity> response) {
                 final MovieVideosEntity movieVideosEntity = response.body();
