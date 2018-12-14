@@ -13,11 +13,11 @@ import java.util.List;
 @Dao
 public interface MovieDao {
 
-    @Query("SELECT * FROM Movie WHERE id := :movieId")
+    @Query("SELECT * FROM Movie WHERE id = :movieId")
     Movie getById(int movieId);
 
     @Query("SELECT * FROM Movie")
-    Movie getAll(int movieId);
+    List<Movie> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(Movie movie);

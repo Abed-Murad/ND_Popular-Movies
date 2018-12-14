@@ -5,6 +5,10 @@ import android.arch.persistence.room.Room;
 import android.content.res.Configuration;
 
 import com.am.popularmoviesstageone.room.MoviesDatabase;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
+import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 
 public class AMApplication extends Application {
     MoviesDatabase mMoviesDatabase;
@@ -15,7 +19,20 @@ public class AMApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        mMoviesDatabase = Room.databaseBuilder(this, MoviesDatabase.class, MoviesDatabase.NAME).fallbackToDestructiveMigration().build();
+        FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+                .showThreadInfo(false)  // (Optional) Whether to show thread info or not. Default true
+                .tag("am_logs")   // (Optional) Global tag for every log. Default PRETTY_LOGGER
+                .build();
+
+        Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
+
+
+
+        mMoviesDatabase = Room.databaseBuilder(this, MoviesDatabase.class, MoviesDatabase.NAME)
+                .fallbackToDestructiveMigration()
+                //ToDo: Remove This
+                .allowMainThreadQueries()
+                .build();
 
 
 

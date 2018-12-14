@@ -105,7 +105,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                 final MoviesList popularMoviesList = response.body();
                 mAdapter.clear();
                 mAdapter.addAll(popularMoviesList.getMovieList());
-                ((AMApplication) getApplication()).getMyDatabase().movieDao().insert(popularMoviesList.getMovieList());
+//                ((AMApplication) getApplication()).getMyDatabase().movieDao().insert(popularMoviesList.getMovieList());
+//                Logger.d(((AMApplication) getApplication()).getMyDatabase().movieDao().getAll());
                 hideProgressPar();
                 mContentLayout.rvMovies.setVisibility(View.VISIBLE);
                 mContentLayout.progressBar.setVisibility(View.GONE);
