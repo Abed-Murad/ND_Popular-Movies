@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -13,21 +14,21 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/posterImageVIew"
                 android:layout_width="125dp"
                 android:layout_height="193dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:contentDescription="Movie Poster"
                 android:scaleType="fitXY"
                 android:src="@drawable/poster_leon_the_professional"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:contentDescription="Movie Poster"
                 tools:srcCompat="@drawable/poster_leon_the_professional" />
 
             <TextView
-                android:id="@+id/movie_title_tv"
+                android:id="@+id/movieTitleTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -35,101 +36,100 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:text="Léon: The Professional"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView"
-                app:layout_constraintTop_toTopOf="@+id/imageView" />
+                app:layout_constraintStart_toEndOf="@+id/posterImageVIew"
+                app:layout_constraintTop_toTopOf="@+id/posterImageVIew"
+                tools:text="Léon: The Professional" />
 
             <TextView
-                android:id="@+id/relase_date_tv"
+                android:id="@+id/releaseDateTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="1994-09-14 (Released) "
-                app:layout_constraintStart_toStartOf="@+id/movie_title_tv"
-                app:layout_constraintTop_toBottomOf="@+id/movie_title_tv" />
+                app:layout_constraintStart_toStartOf="@+id/movieTitleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/movieTitleTextView"
+                tools:text="1994-09-14 (Released) " />
 
             <TextView
-                android:id="@+id/duration_tv"
+                android:id="@+id/durationTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Duration - 101 min"
-                app:layout_constraintStart_toStartOf="@+id/relase_date_tv"
-                app:layout_constraintTop_toBottomOf="@+id/relase_date_tv" />
+                app:layout_constraintStart_toStartOf="@+id/releaseDateTextView"
+                app:layout_constraintTop_toBottomOf="@+id/releaseDateTextView"
+                tools:text="Duration - 101 min" />
 
             <TextView
                 android:id="@+id/rating_tv"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Rating - 8.6"
-                app:layout_constraintStart_toStartOf="@+id/duration_tv"
-                app:layout_constraintTop_toBottomOf="@+id/duration_tv" />
+                app:layout_constraintStart_toStartOf="@+id/durationTextView"
+                app:layout_constraintTop_toBottomOf="@+id/durationTextView"
+                tools:text="Rating - 8.6" />
 
             <TextView
-                android:id="@+id/overview_title_tv"
+                android:id="@+id/overviewTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Overview"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                app:layout_constraintStart_toStartOf="@+id/imageView"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintStart_toStartOf="@+id/posterImageVIew"
+                app:layout_constraintTop_toBottomOf="@+id/posterImageVIew"
+                tools:text="Overview" />
 
             <TextView
-                android:id="@+id/overview_tv"
+                android:id="@+id/overviewTextView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
-                android:text="Studere etiam ducunt ad altus scutum. Fortis visuss ducunt ad accentor. Cur lapsus peregrinatione? Rusticus, superbus tumultumques interdum pugna de ferox, primus assimilatio. Ubi est germanus luna? Raptus, teres classiss velox manifestum de fidelis, brevis particula. Cum gallus assimilant, omnes solemes vitare lotus, emeritis amores!"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/overview_title_tv"
-                app:layout_constraintTop_toBottomOf="@+id/overview_title_tv" />
+                app:layout_constraintStart_toStartOf="@+id/overviewTitleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/overviewTitleTextView"
+                tools:text="Studere etiam ducunt ad altus scutum. Fortis visuss ducunt ad accentor. Cur lapsus peregrinatione? Rusticus, superbus tumultumques interdum pugna de ferox, primus assimilatio. Ubi est germanus luna? Raptus, teres classiss velox manifestum de fidelis, brevis particula. Cum gallus assimilant, omnes solemes vitare lotus, emeritis amores!" />
 
             <TextView
-                android:id="@+id/trailers_title_tv"
+                android:id="@+id/trailersTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Trailers"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                app:layout_constraintStart_toStartOf="@+id/overview_tv"
-                app:layout_constraintTop_toBottomOf="@+id/overview_tv" />
+                app:layout_constraintStart_toStartOf="@+id/overviewTextView"
+                app:layout_constraintTop_toBottomOf="@+id/overviewTextView"
+                tools:text="Trailers" />
 
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/trailers_rv"
+                android:id="@+id/trailersRecyclerVIew"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:scrollbars="horizontal"
-                app:layout_constraintEnd_toEndOf="@+id/overview_tv"
-                app:layout_constraintStart_toStartOf="@+id/overview_tv"
-                app:layout_constraintTop_toBottomOf="@+id/trailers_title_tv"
-                 />
+                app:layout_constraintEnd_toEndOf="@+id/overviewTextView"
+                app:layout_constraintStart_toStartOf="@+id/overviewTextView"
+                app:layout_constraintTop_toBottomOf="@+id/trailersTitleTextView" />
 
             <TextView
-                android:id="@+id/reviews_title_tv"
+                android:id="@+id/reviewsTitleTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="Reviews"
                 android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                app:layout_constraintStart_toStartOf="@+id/trailers_rv"
-                app:layout_constraintTop_toBottomOf="@+id/trailers_rv" />
+                app:layout_constraintStart_toStartOf="@+id/trailersRecyclerVIew"
+                app:layout_constraintTop_toBottomOf="@+id/trailersRecyclerVIew" />
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/reviews_rv"
+                android:id="@+id/reviewsRecyclerView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="@+id/trailers_rv"
-                app:layout_constraintStart_toStartOf="@+id/trailers_rv"
-                app:layout_constraintTop_toBottomOf="@+id/reviews_title_tv" />
+                app:layout_constraintEnd_toEndOf="@+id/trailersRecyclerVIew"
+                app:layout_constraintStart_toStartOf="@+id/trailersRecyclerVIew"
+                app:layout_constraintTop_toBottomOf="@+id/reviewsTitleTextView" />
 
         </android.support.constraint.ConstraintLayout>
 

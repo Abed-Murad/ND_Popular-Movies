@@ -5,4 +5,9 @@
     <string name="title_popular_movies">Popular Movies</string>
     <string name="title_favorites">Favorites</string>
     <string name="title_activity_details">DetailsActivity</string>
+    <string name="title_add_to_favorite">Added to favorite</string>
+    <string name="title_remove_from_favorite">Removed from favorite</string>
+    <string name="title_populer_movies">Popular Movies</string>
+    <string name="title_top_rated_movies">Top Rated Movies</string>
+    <string name="title_favorite_movies">Favorite Movies</string>
 </resources>

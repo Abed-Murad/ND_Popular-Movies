@@ -22,13 +22,13 @@ import butterknife.ButterKnife;
 
 import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
 
-public class MoviesPostersAdapter extends RecyclerView.Adapter<MoviesPostersAdapter.ViewHolder> {
+public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.ViewHolder> {
 
     private List<Movie> movieList;
     private Context context;
     private OnItemClickListener onItemClickListener;
 
-    public MoviesPostersAdapter(Context context, OnItemClickListener listener) {
+    public PostersAdapter(Context context, OnItemClickListener listener) {
         this.context = context;
         this.movieList = new ArrayList<>();
         this.onItemClickListener = listener;

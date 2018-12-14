@@ -3,6 +3,8 @@ package com.am.popularmoviesstageone.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import static com.am.popularmoviesstageone.util.CONST.POPULAR;
+
 
 public class PrefHelper {
 
@@ -72,8 +74,8 @@ public class PrefHelper {
         editor.putString("selection", selection).apply();
     }
 
-    public String getMenuSelection() {
-        return preferences.getString("selection", "No Selection Found !");
+    public String getCategory() {
+        return preferences.getString("selection", POPULAR);
     }
 
 }
