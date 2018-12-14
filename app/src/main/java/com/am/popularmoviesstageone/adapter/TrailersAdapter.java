@@ -7,12 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
-import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MovieTrailerEntity;
 import com.bumptech.glide.Glide;
 
@@ -24,14 +22,14 @@ import butterknife.ButterKnife;
 
 import static com.am.popularmoviesstageone.util.CONST.BASE_TRAILERS_URL;
 
-public class MoviesTrailersAdapter extends RecyclerView.Adapter<MoviesTrailersAdapter.TrailerHolder> {
+public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.TrailerHolder> {
 
     private Context mContext;
     private List<MovieTrailerEntity> mTrailerList;
     private LayoutInflater mInflater;
     private OnItemClickListener mListener;
 
-    public MoviesTrailersAdapter(Context context, OnItemClickListener listener) {
+    public TrailersAdapter(Context context, OnItemClickListener listener) {
         this.mContext = context;
         this.mListener = listener;
         this.mTrailerList = new ArrayList<>();

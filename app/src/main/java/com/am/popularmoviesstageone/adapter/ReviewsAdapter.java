@@ -18,14 +18,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MoviesReviewsAdapter extends RecyclerView.Adapter<MoviesReviewsAdapter.TrailerHolder> {
+public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerHolder> {
 
 
     private Context mContext;
     private List<MovieReviewEntity> mReviewList;
     private LayoutInflater mInflater;
 
-    public MoviesReviewsAdapter(Context context) {
+    public ReviewsAdapter(Context context) {
         this.mContext = context;
         this.mReviewList = new ArrayList<>();
         this.mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

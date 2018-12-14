@@ -4,19 +4,18 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.format.DateFormat;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.am.popularmoviesstageone.R;
-import com.am.popularmoviesstageone.adapter.MoviesReviewsAdapter;
-import com.am.popularmoviesstageone.adapter.MoviesTrailersAdapter;
+import com.am.popularmoviesstageone.adapter.ReviewsAdapter;
+import com.am.popularmoviesstageone.adapter.TrailersAdapter;
 import com.am.popularmoviesstageone.databinding.ActivityDetailsBinding;
 import com.am.popularmoviesstageone.databinding.ContentDetailsBinding;
 import com.am.popularmoviesstageone.model.MovieReviewsEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.model.moviedetails.MovieDetails;
+import com.am.popularmoviesstageone.util.FUNC;
 import com.bumptech.glide.Glide;
+import com.orhanobut.logger.Logger;
 
 import java.util.Date;
 
@@ -31,33 +30,33 @@ import static com.am.popularmoviesstageone.util.IntentsUtill.watchYoutubeVideo;
 
 
 public class DetailsActivity extends BaseActivity {
-    private static final String TAG = DetailsActivity.class.getSimpleName();
 
-    private MoviesTrailersAdapter mTrailersAdapter;
-    private MoviesReviewsAdapter mReviewsAdapter;
-
+    private TrailersAdapter mTrailersAdapter;
+    private ReviewsAdapter mReviewsAdapter;
     private ActivityDetailsBinding mLayout;
     private ContentDetailsBinding mContentLayout;
     private MovieDetails movieDetails;
-    private Integer movieId;
+
     private boolean isFavourite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int movieId = getIntent().getExtras().getInt(EXTRA_MOVIE_ID);
         mLayout = DataBindingUtil.setContentView(this, R.layout.activity_details);
-        setSupportActionBar(mLayout.toolbar);
-        movieId = getIntent().getExtras().getInt(EXTRA_MOVIE_ID);
         mContentLayout = mLayout.contentLayout;
-
+        setSupportActionBar(mLayout.toolbar);
         getMovieDetails(movieId);
 
-        mContentLayout.trailersRv.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        mTrailersAdapter = new MoviesTrailersAdapter(this,
+
+
+        mContentLayout.trailersRv.setLayoutManager(new LinearLayoutManager(this,
+                LinearLayoutManager.HORIZONTAL, false));
+        mTrailersAdapter = new TrailersAdapter(this,
                 trailer -> watchYoutubeVideo(DetailsActivity.this, trailer.getKey()));
         mContentLayout.trailersRv.setAdapter(mTrailersAdapter);
         mContentLayout.trailersRv.setNestedScrollingEnabled(false);
-        mReviewsAdapter = new MoviesReviewsAdapter(this);
+        mReviewsAdapter = new ReviewsAdapter(this);
 
         mContentLayout.reviewsRv.setNestedScrollingEnabled(false);
         mContentLayout.reviewsRv.setLayoutManager(new LinearLayoutManager(this));
@@ -78,6 +77,7 @@ public class DetailsActivity extends BaseActivity {
             }
         });
     }
+
     private void getMovieDetails(int movieId) {
         mApiService.getMovieDetails(movieId + "").enqueue(new Callback<MovieDetails>() {
             @Override
@@ -90,13 +90,9 @@ public class DetailsActivity extends BaseActivity {
                 mContentLayout.overviewTv.setText(movieDetails.getOverview());
                 Glide.with(DetailsActivity.this).load(BASE_POSTERS_URL + movieDetails.getPosterPath()).into(mContentLayout.imageView);
                 Glide.with(DetailsActivity.this).load(BASE_BACKGROUND_IMAGE_URL + movieDetails.getBackdropPath()).into(mLayout.movieBackdropIv);
+
                 Date releaseDate = movieDetails.getReleaseDate();
-                String dayOfTheWeek = (String) DateFormat.format("EEEE", releaseDate); // Thursday
-                String day = (String) DateFormat.format("dd", releaseDate); // 20
-                String monthString = (String) DateFormat.format("MMM", releaseDate); // Jun
-                String monthNumber = (String) DateFormat.format("MM", releaseDate); // 06
-                String year = (String) DateFormat.format("yyyy", releaseDate); // 2013
-                mContentLayout.relaseDateTv.setText(day + " " + monthString + " " + year + " (" + movieDetails.getStatus() + ")");
+                mContentLayout.relaseDateTv.setText(FUNC.getDateDetails(releaseDate)+" (" + movieDetails.getStatus() + ")");
 
                 getMovieVideos(movieId);
                 getMovieReviews(movieId);
@@ -107,8 +103,7 @@ public class DetailsActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<MovieDetails> call, Throwable t) {
-                Log.e(TAG, t.toString());
-                Toast.makeText(DetailsActivity.this, "Error Loading Movie Details", Toast.LENGTH_SHORT).show();
+                Logger.e("Failed to fetch Movie Details", t);
             }
         });
 
@@ -125,8 +120,7 @@ public class DetailsActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<MovieVideosEntity> call, Throwable t) {
-                Log.e(TAG, t.toString());
-                Toast.makeText(DetailsActivity.this, "Error Loading Trailers", Toast.LENGTH_SHORT).show();
+                Logger.e("Failed to fetch Movie Trailers", t);
             }
         });
     }
@@ -142,8 +136,7 @@ public class DetailsActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<MovieReviewsEntity> call, Throwable t) {
-                Log.e(TAG, t.toString());
-                Toast.makeText(DetailsActivity.this, "Error Loading Reviews", Toast.LENGTH_SHORT).show();
+                Logger.e("Failed to fetch Movie Reviews", t);
             }
         });
     }
