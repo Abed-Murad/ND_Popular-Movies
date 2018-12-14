@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_marginTop="8dp"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="12dp"
+    android:layout_marginTop="8dp"
     android:clickable="true"
     android:foreground="?attr/selectableItemBackground"
     android:orientation="horizontal"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,35 +19,19 @@
         android:orientation="vertical">
 
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_review_author"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:layout_margin="16dp"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+            android:textColor="#212121"
+            tools:text="Buxum " />
 
-            <ImageView
-                android:id="@+id/item_img_user"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@drawable/avatar_round_me" />
-
-            <TextView
-                android:id="@+id/tv_review_author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-                android:textColor="#212121"
-                tools:text="Buxum " />
-
-
-        </LinearLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_marginTop="4dp"
             android:background="?attr/dividerVertical" />
 
         <TextView

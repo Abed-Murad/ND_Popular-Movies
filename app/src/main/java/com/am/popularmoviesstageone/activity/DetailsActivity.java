@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.ReviewsAdapter;
@@ -121,6 +122,17 @@ public class DetailsActivity extends BaseActivity {
             public void onResponse(Call<MovieVideosEntity> call, Response<MovieVideosEntity> response) {
                 final MovieVideosEntity movieVideosEntity = response.body();
                 mTrailersAdapter.addAll(movieVideosEntity.getTrailers());
+
+                if (movieVideosEntity.getTrailers() != null && movieVideosEntity.getTrailers().size() != 0) {
+                    mTrailersAdapter.addAll(movieVideosEntity.getTrailers());
+                } else {
+                    mLayout.trailersTitleTextView.setVisibility(View.GONE);
+                    mLayout.trailersRecyclerView.setVisibility(View.GONE);
+
+                }
+
+
+
             }
 
             @Override
@@ -135,7 +147,13 @@ public class DetailsActivity extends BaseActivity {
             @Override
             public void onResponse(Call<MovieReviewsEntity> call, Response<MovieReviewsEntity> response) {
                 final MovieReviewsEntity movieReviewsEntity = response.body();
-                mReviewsAdapter.addAll(movieReviewsEntity.getReviewList());
+                if (movieReviewsEntity.getReviewList() != null && movieReviewsEntity.getReviewList().size() != 0) {
+                    mReviewsAdapter.addAll(movieReviewsEntity.getReviewList());
+                } else {
+                    mLayout.reviewsTitleTextView.setVisibility(View.GONE);
+                    mLayout.reviewsRecyclerView.setVisibility(View.GONE);
+
+                }
 
             }
 
