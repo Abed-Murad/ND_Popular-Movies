@@ -1,5 +1,6 @@
 package com.am.popularmoviesstageone.model;
 
+import android.arch.persistence.room.Embedded;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.OnConflictStrategy;
@@ -16,6 +17,7 @@ import java.util.List;
 @Entity
 public class Movie implements Parcelable {
 
+    // Use @Embedded For Embedded Classes in the model 
     @SerializedName("vote_count")
     private Integer voteCount;
     @PrimaryKey

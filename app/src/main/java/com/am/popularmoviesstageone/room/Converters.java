@@ -14,13 +14,12 @@ public class Converters{
     public static Gson gson = new Gson();
 
     @TypeConverter
-    public static List<Integer> stringToIntegerList(String data) {
+    public static  List<Integer> stringToIntegerList(String data) {
         if (data == null) {
             return Collections.emptyList();
         }
 
-        Type listType = new TypeToken<List<Integer>>() {
-        }.getType();
+        Type listType = new TypeToken<List<Integer>>(){}.getType();
 
         return gson.fromJson(data, listType);
     }

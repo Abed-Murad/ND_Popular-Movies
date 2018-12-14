@@ -23,8 +23,7 @@
                 android:layout_height="230dp"
                 android:cropToPadding="true"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/poster_leon_the_professional"
-
+                android:src="@drawable/placeholder_movie"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -35,12 +34,11 @@
                 android:layout_height="169dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-
                 android:layout_marginTop="200dp"
                 app:layout_constraintBottom_toBottomOf="@+id/rating_container"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/poster_leon_the_professional" />
+                tools:src="@drawable/placeholder_movie" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/favoriteFab"
