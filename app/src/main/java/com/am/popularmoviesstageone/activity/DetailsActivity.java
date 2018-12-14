@@ -12,8 +12,8 @@ import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.ReviewsAdapter;
 import com.am.popularmoviesstageone.adapter.TrailersAdapter;
 import com.am.popularmoviesstageone.databinding.ActivityDetailsBinding;
-import com.am.popularmoviesstageone.model.MovieReviewsEntity;
-import com.am.popularmoviesstageone.model.MovieVideosEntity;
+import com.am.popularmoviesstageone.model.ReviewList;
+import com.am.popularmoviesstageone.model.TrailerList;
 import com.am.popularmoviesstageone.model.moviedetails.MovieDetails;
 import com.am.popularmoviesstageone.util.FUNC;
 import com.bumptech.glide.Glide;
@@ -117,14 +117,14 @@ public class DetailsActivity extends BaseActivity {
     }
 
     private void getMovieVideos(int movieId) {
-        mApiService.getMovieTrailers(movieId + "").enqueue(new Callback<MovieVideosEntity>() {
+        mApiService.getMovieTrailers(movieId + "").enqueue(new Callback<TrailerList>() {
             @Override
-            public void onResponse(Call<MovieVideosEntity> call, Response<MovieVideosEntity> response) {
-                final MovieVideosEntity movieVideosEntity = response.body();
-                mTrailersAdapter.addAll(movieVideosEntity.getTrailers());
+            public void onResponse(Call<TrailerList> call, Response<TrailerList> response) {
+                final TrailerList trailerList = response.body();
+                mTrailersAdapter.addAll(trailerList.getTrailers());
 
-                if (movieVideosEntity.getTrailers() != null && movieVideosEntity.getTrailers().size() != 0) {
-                    mTrailersAdapter.addAll(movieVideosEntity.getTrailers());
+                if (trailerList.getTrailers() != null && trailerList.getTrailers().size() != 0) {
+                    mTrailersAdapter.addAll(trailerList.getTrailers());
                 } else {
                     mLayout.trailersTitleTextView.setVisibility(View.GONE);
                     mLayout.trailersRecyclerView.setVisibility(View.GONE);
@@ -136,17 +136,17 @@ public class DetailsActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<MovieVideosEntity> call, Throwable t) {
+            public void onFailure(Call<TrailerList> call, Throwable t) {
                 Logger.e("Failed to fetch Movie Trailers", t);
             }
         });
     }
 
     private void getMovieReviews(int movieId) {
-        mApiService.getMovieReviews(movieId + "").enqueue(new Callback<MovieReviewsEntity>() {
+        mApiService.getMovieReviews(movieId + "").enqueue(new Callback<ReviewList>() {
             @Override
-            public void onResponse(Call<MovieReviewsEntity> call, Response<MovieReviewsEntity> response) {
-                final MovieReviewsEntity movieReviewsEntity = response.body();
+            public void onResponse(Call<ReviewList> call, Response<ReviewList> response) {
+                final ReviewList movieReviewsEntity = response.body();
                 if (movieReviewsEntity.getReviewList() != null && movieReviewsEntity.getReviewList().size() != 0) {
                     mReviewsAdapter.addAll(movieReviewsEntity.getReviewList());
                 } else {
@@ -158,7 +158,7 @@ public class DetailsActivity extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<MovieReviewsEntity> call, Throwable t) {
+            public void onFailure(Call<ReviewList> call, Throwable t) {
                 Logger.e("Failed to fetch Movie Reviews", t);
             }
         });

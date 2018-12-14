@@ -3,7 +3,7 @@ package com.am.popularmoviesstageone.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MovieTrailerEntity {
+public class Trailer {
     @SerializedName("id")
     private String id;
     @SerializedName("iso_639_1")
@@ -87,7 +87,7 @@ public class MovieTrailerEntity {
 
     @Override
     public String toString() {
-        return "MovieTrailerEntity{" +
+        return "Trailer{" +
                 "id='" + id + '\'' +
                 ", iso6391='" + iso6391 + '\'' +
                 ", iso31661='" + iso31661 + '\'' +

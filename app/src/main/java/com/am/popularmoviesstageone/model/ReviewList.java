@@ -1,18 +1,17 @@
 package com.am.popularmoviesstageone.model;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MovieReviewsEntity {
+public class ReviewList {
 
     @SerializedName("id")
     private Integer id;
     @SerializedName("page")
     private Integer page;
     @SerializedName("results")
-    private List<MovieReviewEntity> reviewList = null;
+    private List<Review> reviewList = null;
     @SerializedName("total_pages")
     private Integer totalPages;
     @SerializedName("total_results")
@@ -34,11 +33,11 @@ public class MovieReviewsEntity {
         this.page = page;
     }
 
-    public List<MovieReviewEntity> getReviewList() {
+    public List<Review> getReviewList() {
         return reviewList;
     }
 
-    public void setReviewList(List<MovieReviewEntity> reviewList) {
+    public void setReviewList(List<Review> reviewList) {
         this.reviewList = reviewList;
     }
 

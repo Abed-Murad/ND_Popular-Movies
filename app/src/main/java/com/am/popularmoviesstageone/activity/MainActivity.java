@@ -105,6 +105,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                 final MoviesList popularMoviesList = response.body();
                 mAdapter.clear();
                 mAdapter.addAll(popularMoviesList.getMovieList());
+                //TODO: Use those two Lines in the right place with checking for network to load the offline data
+                //TODO: Or Better use The Repo Pattern to load the data only from one source of truth
 //                ((AMApplication) getApplication()).getMyDatabase().movieDao().insert(popularMoviesList.getMovieList());
 //                Logger.d(((AMApplication) getApplication()).getMyDatabase().movieDao().getAll());
                 hideProgressPar();

@@ -1,16 +1,15 @@
 package com.am.popularmoviesstageone.model;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class MovieVideosEntity {
+public class TrailerList {
 
     @SerializedName("id")
     private Integer id;
     @SerializedName("results")
-    private List<MovieTrailerEntity> trailers = null;
+    private List<Trailer> trailers = null;
 
     public Integer getId() {
         return id;
@@ -20,17 +19,17 @@ public class MovieVideosEntity {
         this.id = id;
     }
 
-    public List<MovieTrailerEntity> getTrailers() {
+    public List<Trailer> getTrailers() {
         return trailers;
     }
 
-    public void setTrailers(List<MovieTrailerEntity> trailers) {
+    public void setTrailers(List<Trailer> trailers) {
         this.trailers = trailers;
     }
 
     @Override
     public String toString() {
-        return "MovieVideosEntity{" +
+        return "TrailerList{" +
                 "id=" + id +
                 ", trailers=" + trailers +
                 '}';

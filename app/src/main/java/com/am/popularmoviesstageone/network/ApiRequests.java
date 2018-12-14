@@ -1,7 +1,7 @@
 package com.am.popularmoviesstageone.network;
 
-import com.am.popularmoviesstageone.model.MovieReviewsEntity;
-import com.am.popularmoviesstageone.model.MovieVideosEntity;
+import com.am.popularmoviesstageone.model.ReviewList;
+import com.am.popularmoviesstageone.model.TrailerList;
 import com.am.popularmoviesstageone.model.MoviesList;
 import com.am.popularmoviesstageone.model.moviedetails.MovieDetails;
 
@@ -24,10 +24,10 @@ public interface ApiRequests {
                                        @Query("region") String region);
 
     @GET("movie/{id}/videos")
-    Call<MovieVideosEntity> getMovieTrailers(@Path("id") String movieId);
+    Call<TrailerList> getMovieTrailers(@Path("id") String movieId);
 
     @GET("movie/{id}/reviews")
-    Call<MovieReviewsEntity> getMovieReviews(@Path("id") String movieId);
+    Call<ReviewList> getMovieReviews(@Path("id") String movieId);
 
     @GET("movie/{id}")
     Call<MovieDetails> getMovieDetails(@Path("id") String movieId);

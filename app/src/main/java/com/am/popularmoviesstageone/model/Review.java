@@ -3,7 +3,7 @@ package com.am.popularmoviesstageone.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MovieReviewEntity {
+public class Review {
     @SerializedName("author")
     private String author;
     @SerializedName("content")

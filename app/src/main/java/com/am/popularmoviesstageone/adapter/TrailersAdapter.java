@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
-import com.am.popularmoviesstageone.model.MovieTrailerEntity;
+import com.am.popularmoviesstageone.model.Trailer;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import static com.am.popularmoviesstageone.util.CONST.BASE_TRAILERS_URL;
 public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.TrailerHolder> {
 
     private Context mContext;
-    private List<MovieTrailerEntity> mTrailerList;
+    private List<Trailer> mTrailerList;
     private LayoutInflater mInflater;
     private OnItemClickListener mListener;
 
@@ -46,7 +46,7 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
 
     @Override
     public void onBindViewHolder(@NonNull TrailerHolder holder, int position) {
-        MovieTrailerEntity trailer = mTrailerList.get(position);
+        Trailer trailer = mTrailerList.get(position);
         holder.bindData(trailer);
     }
 
@@ -55,12 +55,12 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
         return mTrailerList == null ? 0 : mTrailerList.size();
     }
 
-    public void add(MovieTrailerEntity item) {
+    public void add(Trailer item) {
         mTrailerList.add(item);
         notifyItemInserted(mTrailerList.size() - 1);
     }
 
-    public void addAll(List<MovieTrailerEntity> appendedItemList) {
+    public void addAll(List<Trailer> appendedItemList) {
         if (appendedItemList == null || appendedItemList.size() <= 0) {
             return;
         }
@@ -102,14 +102,14 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
 
         // Reviewer : What does  @SuppressLint("SetTextI18n") mean ?
         @SuppressLint("SetTextI18n")
-        private void bindData(MovieTrailerEntity trailer) {
+        private void bindData(Trailer trailer) {
             mTrailerNameTextView.setText(trailer.getName());
             Glide.with(mContext).load(BASE_TRAILERS_URL.replace("VIDEO_ID" , trailer.getKey())).into(mThumpImageView);
         }
     }
 
     public interface OnItemClickListener {
-        void onItemClicked(MovieTrailerEntity trailer);
+        void onItemClicked(Trailer trailer);
     }
 
 }

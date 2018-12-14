@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
-import com.am.popularmoviesstageone.model.MovieReviewEntity;
-import com.am.popularmoviesstageone.util.FUNC;
+import com.am.popularmoviesstageone.model.Review;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerH
 
 
     private Context mContext;
-    private List<MovieReviewEntity> mReviewList;
+    private List<Review> mReviewList;
     private LayoutInflater mInflater;
 
     public ReviewsAdapter(Context context) {
@@ -44,7 +43,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerH
 
     @Override
     public void onBindViewHolder(@NonNull TrailerHolder holder, int position) {
-        MovieReviewEntity review = mReviewList.get(position);
+        Review review = mReviewList.get(position);
         holder.bindData(review);
     }
 
@@ -53,12 +52,12 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerH
         return mReviewList == null ? 0 : mReviewList.size();
     }
 
-    public void add(MovieReviewEntity item) {
+    public void add(Review item) {
         mReviewList.add(item);
         notifyItemInserted(mReviewList.size() - 1);
     }
 
-    public void addAll(List<MovieReviewEntity> appendedItemList) {
+    public void addAll(List<Review> appendedItemList) {
         if (appendedItemList == null || appendedItemList.size() <= 0) {
             return;
         }
@@ -85,7 +84,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerH
 
         // Reviewer : What does  @SuppressLint("SetTextI18n") mean ?
         @SuppressLint("SetTextI18n")
-        private void bindData(MovieReviewEntity review) {
+        private void bindData(Review review) {
             mReviewBodyTextView.setText(review.getContent());
             mReviewAuthorTextView.setText("Written by @" + review.getAuthor().replaceAll("\\s+", ""));
             itemView.setOnClickListener(v -> openUrlInChromeCustomTab(mContext, review.getUrl()));
