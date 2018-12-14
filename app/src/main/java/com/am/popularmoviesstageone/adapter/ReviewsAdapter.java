@@ -11,12 +11,15 @@ import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.model.MovieReviewEntity;
+import com.am.popularmoviesstageone.util.FUNC;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.am.popularmoviesstageone.util.IntentsUtil.openUrlInChromeCustomTab;
 
 public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerHolder> {
 
@@ -76,6 +79,7 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerH
         public TrailerHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
         }
 
 
@@ -83,7 +87,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerH
         @SuppressLint("SetTextI18n")
         private void bindData(MovieReviewEntity review) {
             mReviewBodyTextView.setText(review.getContent());
-            mReviewAuthorTextView.setText("Written by @"+review.getAuthor().replaceAll("\\s+",""));
+            mReviewAuthorTextView.setText("Written by @" + review.getAuthor().replaceAll("\\s+", ""));
+            itemView.setOnClickListener(v -> openUrlInChromeCustomTab(mContext, review.getUrl()));
 
         }
     }

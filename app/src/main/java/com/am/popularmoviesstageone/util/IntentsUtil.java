@@ -1,9 +1,17 @@
 package com.am.popularmoviesstageone.util;
 
+import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
+
+import com.am.popularmoviesstageone.R;
 
 import static com.am.popularmoviesstageone.util.CONST.BASE_YOUTUBE_URL;
 
@@ -19,4 +27,24 @@ public class IntentsUtil {
             context.startActivity(webIntent);
         }
     }
+
+
+    public static void openUrlInChromeCustomTab(Context context, String url) {
+        if (!(url.startsWith("http:") || url.startsWith("https:"))) {
+            url = "http://" + url;
+        }
+
+
+        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+                .setToolbarColor(ContextCompat.getColor(context, R.color.colorAccent))
+                .addDefaultShareMenuItem()
+                .enableUrlBarHiding()
+                .setShowTitle(true)
+                .build();
+
+        customTabsIntent.launchUrl(context, Uri.parse(url));
+
+    }
+
+
 }
