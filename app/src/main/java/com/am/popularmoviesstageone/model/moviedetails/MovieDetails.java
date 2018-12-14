@@ -3,6 +3,7 @@ package com.am.popularmoviesstageone.model.moviedetails;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 public class MovieDetails {
@@ -54,7 +55,7 @@ public class MovieDetails {
     private List<ProductionCountry> productionCountries = null;
     @SerializedName("release_date")
     @Expose
-    private String releaseDate;
+    private Date releaseDate;
     @SerializedName("revenue")
     @Expose
     private Integer revenue;
@@ -203,11 +204,11 @@ public class MovieDetails {
         this.productionCountries = productionCountries;
     }
 
-    public String getReleaseDate() {
+    public Date getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 

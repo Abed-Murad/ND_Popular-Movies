@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
 import java.util.List;
 
 public class Movie implements Parcelable {
@@ -36,7 +37,7 @@ public class Movie implements Parcelable {
     @SerializedName("overview")
     private String overview;
     @SerializedName("release_date")
-    private String releaseDate;
+    private Date releaseDate;
 
 
     public Integer getVoteCount() {
@@ -143,11 +144,11 @@ public class Movie implements Parcelable {
         this.overview = overview;
     }
 
-    public String getReleaseDate() {
+    public Date getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(String releaseDate) {
+    public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
 
@@ -187,7 +188,8 @@ public class Movie implements Parcelable {
         dest.writeString(this.posterPath);
         dest.writeString(this.originalTitle);
         dest.writeString(this.overview);
-        dest.writeString(this.releaseDate);
+        // Convert Date Object to Long to pass it throw parcel
+        dest.writeLong(this.releaseDate.getTime());
         dest.writeString(this.backdropPath);
     }
 
@@ -208,7 +210,8 @@ public class Movie implements Parcelable {
         this.posterPath = in.readString();
         this.originalTitle = in.readString();
         this.overview = in.readString();
-        this.releaseDate = in.readString();
+        // Then Convert it back to Date here
+        this.releaseDate = new Date(in.readLong());
         this.backdropPath = in.readString();
     }
 

@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,6 +17,8 @@ import com.am.popularmoviesstageone.model.MovieReviewsEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.model.moviedetails.MovieDetails;
 import com.bumptech.glide.Glide;
+
+import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -87,7 +90,14 @@ public class DetailsActivity extends BaseActivity {
                 mContentLayout.overviewTv.setText(movieDetails.getOverview());
                 Glide.with(DetailsActivity.this).load(BASE_POSTERS_URL + movieDetails.getPosterPath()).into(mContentLayout.imageView);
                 Glide.with(DetailsActivity.this).load(BASE_BACKGROUND_IMAGE_URL + movieDetails.getBackdropPath()).into(mLayout.movieBackdropIv);
-                mContentLayout.relaseDateTv.setText(movieDetails.getReleaseDate() + " (" + movieDetails.getStatus() + ")");
+                Date releaseDate = movieDetails.getReleaseDate();
+                String dayOfTheWeek = (String) DateFormat.format("EEEE", releaseDate); // Thursday
+                String day = (String) DateFormat.format("dd", releaseDate); // 20
+                String monthString = (String) DateFormat.format("MMM", releaseDate); // Jun
+                String monthNumber = (String) DateFormat.format("MM", releaseDate); // 06
+                String year = (String) DateFormat.format("yyyy", releaseDate); // 2013
+                mContentLayout.relaseDateTv.setText(day + " " + monthString + " " + year + " (" + movieDetails.getStatus() + ")");
+
                 getMovieVideos(movieId);
                 getMovieReviews(movieId);
                 mLayout.toolbar.setTitle(movieDetails.getTitle());

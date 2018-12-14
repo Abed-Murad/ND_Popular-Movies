@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -23,6 +24,8 @@ import com.am.popularmoviesstageone.network.APIClient;
 import com.am.popularmoviesstageone.network.ApiRequests;
 import com.am.popularmoviesstageone.room.Repository;
 import com.bumptech.glide.Glide;
+
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -84,7 +87,7 @@ public class MovieDetailsActivity extends BaseActivity {
 
         mDb = MoviesDatabase.getsInstance(this);
 
-        mTrailersRecyclerView.setLayoutManager(new LinearLayoutManager(this , LinearLayoutManager.HORIZONTAL , false));
+        mTrailersRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         mTrailersAdapter = new MoviesTrailersAdapter(this,
                 trailer -> watchYoutubeVideo(MovieDetailsActivity.this, trailer.getKey()));
         mTrailersRecyclerView.setAdapter(mTrailersAdapter);
@@ -99,7 +102,13 @@ public class MovieDetailsActivity extends BaseActivity {
         movieId = movie.getId();
 
         mNameTextView.setText(movie.getTitle());
-        mReleaseDateTextView.setText(movie.getReleaseDate());
+        Date releaseDate = movie.getReleaseDate();
+        String dayOfTheWeek = (String) DateFormat.format("EEEE", releaseDate); // Thursday
+        String day = (String) DateFormat.format("dd", releaseDate); // 20
+        String monthString = (String) DateFormat.format("MMM", releaseDate); // Jun
+        String monthNumber = (String) DateFormat.format("MM", releaseDate); // 06
+        String year = (String) DateFormat.format("yyyy", releaseDate); // 2013
+        mReleaseDateTextView.setText(day + " " + monthString + " " + year);
         mUserRatingTextView.setText(String.valueOf(movie.getVoteAverage()));
         mOverviewTextView.setText(movie.getOverview());
         Glide.with(this).load(BASE_POSTERS_URL + movie.getPosterPath()).into(mPosterImageView);
