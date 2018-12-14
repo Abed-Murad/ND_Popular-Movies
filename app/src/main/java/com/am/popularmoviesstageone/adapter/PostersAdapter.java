@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
-import com.am.popularmoviesstageone.room.FavMovieEntity;
 import com.am.popularmoviesstageone.model.Movie;
 import com.bumptech.glide.Glide;
 
@@ -72,8 +71,6 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.ViewHold
                 onItemClickListener.onItemClick(movie);
             });
             movieNameTextView.setText(movieName);
-
-
         }
     }
 
@@ -94,15 +91,6 @@ public class PostersAdapter extends RecyclerView.Adapter<PostersAdapter.ViewHold
             }
         }
     }
-
-    public void addAllFav(List<FavMovieEntity> favMovieEntities) {
-        for (FavMovieEntity favMovieEntity : favMovieEntities) {
-            add(new Movie(favMovieEntity.getMovieId(), favMovieEntity.getMovieName(), favMovieEntity.getMoviePoster()));
-        }
-    }
-
-
-
 
     public interface OnItemClickListener {
         void onItemClick(Movie movie);

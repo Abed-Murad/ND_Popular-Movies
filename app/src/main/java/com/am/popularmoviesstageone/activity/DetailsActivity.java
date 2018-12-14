@@ -28,7 +28,7 @@ import retrofit2.Response;
 import static com.am.popularmoviesstageone.util.CONST.BASE_BACKGROUND_IMAGE_URL;
 import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
 import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE_ID;
-import static com.am.popularmoviesstageone.util.IntentsUtill.watchYoutubeVideo;
+import static com.am.popularmoviesstageone.util.IntentsUtil.openVideoOnYoutube;
 
 
 public class DetailsActivity extends BaseActivity {
@@ -55,7 +55,7 @@ public class DetailsActivity extends BaseActivity {
         mContentLayout.trailersRecyclerVIew.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false));
         mTrailersAdapter = new TrailersAdapter(this,
-                trailer -> watchYoutubeVideo(DetailsActivity.this, trailer.getKey()));
+                trailer -> openVideoOnYoutube(DetailsActivity.this, trailer.getKey()));
         mContentLayout.trailersRecyclerVIew.setAdapter(mTrailersAdapter);
         mContentLayout.trailersRecyclerVIew.setNestedScrollingEnabled(false);
         mReviewsAdapter = new ReviewsAdapter(this);
