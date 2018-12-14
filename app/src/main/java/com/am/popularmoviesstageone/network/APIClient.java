@@ -27,7 +27,7 @@ public class APIClient {
         }
         return retrofit;
     }
-    public ApiRequests getApiService() {
+    public static ApiRequests getApiService() {
         return APIClient.getClient().create(ApiRequests.class);
     }
 }
