@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +17,7 @@ import com.am.popularmoviesstageone.databinding.ActivityMainBinding;
 import com.am.popularmoviesstageone.databinding.ContentMainBinding;
 import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MoviesList;
+import com.am.popularmoviesstageone.util.AMApplication;
 import com.orhanobut.logger.Logger;
 
 import retrofit2.Call;
@@ -50,6 +50,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
         //TODO : Find A Better way to do this
         mContentLayout = mLayout.contentLayout;
+
 
 
         mAdapter = new PostersAdapter(this, this::openDetailsActivity);
@@ -104,6 +105,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
                 final MoviesList popularMoviesList = response.body();
                 mAdapter.clear();
                 mAdapter.addAll(popularMoviesList.getMovieList());
+                ((AMApplication) getApplication()).getMyDatabase().movieDao().insert(popularMoviesList.getMovieList());
                 hideProgressPar();
                 mContentLayout.rvMovies.setVisibility(View.VISIBLE);
                 mContentLayout.progressBar.setVisibility(View.GONE);

@@ -1,6 +1,7 @@
 package com.am.popularmoviesstageone.model;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
@@ -17,6 +18,7 @@ public class Movie implements Parcelable {
 
     @SerializedName("vote_count")
     private Integer voteCount;
+    @PrimaryKey
     @SerializedName("id")
     private Integer id;
     @SerializedName("video")
@@ -198,8 +200,9 @@ public class Movie implements Parcelable {
     }
 
     public Movie() {
-    }
 
+    }
+    @Ignore
     public Movie(Integer id, String title, String posterPath) {
         this.id = id;
         this.title = title;
