@@ -3,179 +3,185 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<android.support.v4.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/backDropImageView"
-            android:layout_width="0dp"
-            android:layout_height="230dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/poster_leon_the_professional"
-            android:cropToPadding="true"
+        <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/posterImageView"
-            android:layout_width="119dp"
-            android:layout_height="155dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="196dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/poster_leon_the_professional" />
+            <ImageView
+                android:id="@+id/backDropImageView"
+                android:layout_width="0dp"
+                android:layout_height="230dp"
+                android:cropToPadding="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/poster_leon_the_professional"
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/favoriteFab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="208dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:clickable="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_heart_white" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/movieTitleTextView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            android:text="TextView"
-            android:textAppearance="@style/TextAppearance.AppCompat.Title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/posterImageView"
-            app:layout_constraintTop_toBottomOf="@+id/backDropImageView"
-            tools:text="Mission: Impossible" />
+            <ImageView
+                android:id="@+id/posterImageView"
+                android:layout_width="119dp"
+                android:layout_height="169dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="200dp"
+                app:layout_constraintBottom_toBottomOf="@+id/rating_container"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/poster_leon_the_professional" />
 
-        <TextView
-            android:id="@+id/releaseYearTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-            app:layout_constraintStart_toStartOf="@+id/movieTitleTextView"
-            app:layout_constraintTop_toBottomOf="@+id/movieTitleTextView"
-            tools:text="2015" />
-
-        <LinearLayout
-            android:id="@+id/rating_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:clipChildren="false"
-            android:gravity="bottom"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@+id/releaseYearTextView"
-            app:layout_constraintTop_toBottomOf="@+id/releaseYearTextView">
-
-            <TextView
-                android:id="@+id/ratingTextView"
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/favoriteFab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-                android:textColor="?android:attr/textColorPrimary"
-                tools:text="7.2" />
+                android:layout_marginTop="200dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:clickable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/toolbar"
+                app:srcCompat="@drawable/ic_heart_white" />
 
             <TextView
+                android:id="@+id/movieTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="TextView"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/posterImageView"
+                app:layout_constraintTop_toBottomOf="@+id/favoriteFab"
+                tools:text="Mission: Impossible" />
+
+            <TextView
+                android:id="@+id/releaseYearTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="/10"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="?android:attr/textColorSecondary" />
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                app:layout_constraintStart_toStartOf="@+id/movieTitleTextView"
+                app:layout_constraintTop_toBottomOf="@+id/movieTitleTextView"
+                tools:text="2015" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/rating_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:gravity="bottom"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/releaseYearTextView"
+                app:layout_constraintTop_toBottomOf="@+id/releaseYearTextView">
 
-        <TextView
-            android:id="@+id/descriptionTextView"
-            android:layout_width="0dp"
-            android:layout_height="127dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/rating_container" />
+                <TextView
+                    android:id="@+id/ratingTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Display2"
+                    android:textColor="?android:attr/textColorPrimary"
+                    tools:text="7.2" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/10"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="?android:attr/textColorSecondary" />
 
-        <TextView
-            android:id="@+id/trailersTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/descriptionTextView"
-            tools:text="Trailers" />
+            </LinearLayout>
 
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/trailersRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:orientation="horizontal"
-            android:scrollbars="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trailersTitleTextView" />
-
+            <TextView
+                android:id="@+id/descriptionTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Description"
+                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/posterImageView" />
 
 
-        <TextView
-            android:id="@+id/reviewsTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/trailersRecyclerView"
-            tools:text="Reviews" />
+            <TextView
+                android:id="@+id/trailersTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Trailers"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/trailersRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trailersTitleTextView" />
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/reviewsRecyclerView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:orientation="horizontal"
-            android:scrollbars="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reviewsTitleTextView" />
+            <TextView
+                android:id="@+id/reviewsTitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="16dp"
+                android:text="Reviews"
+                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trailersRecyclerView" />
 
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/reviewsRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:orientation="horizontal"
+                android:scrollbars="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/reviewsTitleTextView" />
 
-    </android.support.constraint.ConstraintLayout>
 
-</android.support.v4.widget.NestedScrollView>
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 </layout>

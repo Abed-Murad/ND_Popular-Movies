@@ -11,7 +11,6 @@ import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.ReviewsAdapter;
 import com.am.popularmoviesstageone.adapter.TrailersAdapter;
 import com.am.popularmoviesstageone.databinding.ActivityDetailsBinding;
-import com.am.popularmoviesstageone.databinding.ContentDetailsBinding;
 import com.am.popularmoviesstageone.model.MovieReviewsEntity;
 import com.am.popularmoviesstageone.model.MovieVideosEntity;
 import com.am.popularmoviesstageone.model.moviedetails.MovieDetails;
@@ -36,7 +35,6 @@ public class DetailsActivity extends BaseActivity {
     private TrailersAdapter mTrailersAdapter;
     private ReviewsAdapter mReviewsAdapter;
     private ActivityDetailsBinding mLayout;
-    private ContentDetailsBinding mContentLayout;
     private MovieDetails movieDetails;
 
     private boolean isFavourite = false;
@@ -46,35 +44,33 @@ public class DetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         int movieId = getIntent().getExtras().getInt(EXTRA_MOVIE_ID);
         mLayout = DataBindingUtil.setContentView(this, R.layout.activity_details);
-        mContentLayout = mLayout.contentLayout;
         setSupportActionBar(mLayout.toolbar);
         getMovieDetails(movieId);
 
 
-
-        mContentLayout.trailersRecyclerVIew.setLayoutManager(new LinearLayoutManager(this,
+        mLayout.trailersRecyclerView.setLayoutManager(new LinearLayoutManager(this,
                 LinearLayoutManager.HORIZONTAL, false));
         mTrailersAdapter = new TrailersAdapter(this,
                 trailer -> openVideoOnYoutube(DetailsActivity.this, trailer.getKey()));
-        mContentLayout.trailersRecyclerVIew.setAdapter(mTrailersAdapter);
-        mContentLayout.trailersRecyclerVIew.setNestedScrollingEnabled(false);
+        mLayout.trailersRecyclerView.setAdapter(mTrailersAdapter);
+        mLayout.trailersRecyclerView.setNestedScrollingEnabled(false);
         mReviewsAdapter = new ReviewsAdapter(this);
 
-        mContentLayout.reviewsRecyclerView.setNestedScrollingEnabled(false);
-        mContentLayout.reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mContentLayout.reviewsRecyclerView.setAdapter(mReviewsAdapter);
-        mContentLayout.reviewsRecyclerView.setNestedScrollingEnabled(false);
+        mLayout.reviewsRecyclerView.setNestedScrollingEnabled(false);
+        mLayout.reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mLayout.reviewsRecyclerView.setAdapter(mReviewsAdapter);
+        mLayout.reviewsRecyclerView.setNestedScrollingEnabled(false);
 
-        mLayout.fab.setOnClickListener(view -> {
+        mLayout.favoriteFab.setOnClickListener(view -> {
             if (!isFavourite) {
                 Snackbar.make(view, R.string.title_add_to_favorite, Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
-                mLayout.fab.setImageResource(R.drawable.ic_star_fill_24dp);
+                mLayout.favoriteFab.setImageResource(R.drawable.ic_heart_fill);
                 isFavourite = true;
             } else {
                 Snackbar.make(view, R.string.title_remove_from_favorite, Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
-                mLayout.fab.setImageResource(R.drawable.ic_star_empty_24dp);
+                mLayout.favoriteFab.setImageResource(R.drawable.ic_heart_white);
                 isFavourite = false;
             }
         });
@@ -87,22 +83,21 @@ public class DetailsActivity extends BaseActivity {
             public void onResponse(@NonNull Call<MovieDetails> call, @NonNull Response<MovieDetails> response) {
                 movieDetails = response.body();
 
-                mContentLayout.movieTitleTextView
+                mLayout.movieTitleTextView
                         .setText(movieDetails != null ? movieDetails.getOriginalTitle() : "Original Title Not Found");
-                mContentLayout.durationTextView.setText("Duration - " + movieDetails.getRuntime() + " min");
-                mContentLayout.ratingTv.setText("Rating - " + movieDetails.getVoteAverage());
-                mContentLayout.overviewTextView.setText(movieDetails.getOverview());
+                mLayout.ratingTextView.setText( movieDetails.getVoteAverage()+"");
+                mLayout.descriptionTextView.setText(movieDetails.getOverview());
 
                 Glide.with(DetailsActivity.this)
                         .load(BASE_POSTERS_URL + movieDetails.getPosterPath())
-                        .into(mContentLayout.posterImageVIew);
+                        .into(mLayout.posterImageView);
                 Glide.with(DetailsActivity.this)
                         .load(BASE_BACKGROUND_IMAGE_URL + movieDetails.getBackdropPath())
-                        .into(mLayout.movieBackdropIv);
+                        .into(mLayout.backDropImageView);
 
                 Date releaseDate = movieDetails.getReleaseDate();
-                mContentLayout.releaseDateTextView
-                        .setText(FUNC.getDateDetails(releaseDate)+" (" + movieDetails.getStatus() + ")");
+                mLayout.releaseYearTextView
+                        .setText(FUNC.getDateDetails(releaseDate));
 
                 getMovieVideos(movieId);
                 getMovieReviews(movieId);
