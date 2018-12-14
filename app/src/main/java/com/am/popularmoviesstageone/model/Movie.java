@@ -1,5 +1,8 @@
 package com.am.popularmoviesstageone.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.OnConflictStrategy;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -9,7 +12,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Movie implements Parcelable {
+
     @SerializedName("vote_count")
     private Integer voteCount;
     @SerializedName("id")
@@ -151,7 +156,6 @@ public class Movie implements Parcelable {
     public void setReleaseDate(Date releaseDate) {
         this.releaseDate = releaseDate;
     }
-
 
 
     @Override
