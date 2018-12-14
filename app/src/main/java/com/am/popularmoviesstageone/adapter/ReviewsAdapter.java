@@ -83,7 +83,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerH
         @SuppressLint("SetTextI18n")
         private void bindData(MovieReviewEntity review) {
             mReviewBodyTextView.setText(review.getContent());
-            mReviewAuthorTextView.setText("Written by: "+review.getAuthor());
+            mReviewAuthorTextView.setText("Written by @"+review.getAuthor().replaceAll("\\s+",""));
+
         }
     }
 
