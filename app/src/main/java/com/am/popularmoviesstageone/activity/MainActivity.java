@@ -1,5 +1,6 @@
 package com.am.popularmoviesstageone.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.am.popularmoviesstageone.databinding.ActivityMainBinding;
 import com.am.popularmoviesstageone.databinding.ContentMainBinding;
 import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MoviesList;
+import com.orhanobut.logger.Logger;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -111,7 +113,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
             @Override
             public void onFailure(Call<MoviesList> call, Throwable t) {
-                Log.e(TAG, t.toString());
+                Logger.e("Failed to Fetch Popular Movies",t);
             }
         });
     }
@@ -132,8 +134,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
             @Override
             public void onFailure(Call<MoviesList> call, Throwable t) {
-                Log.e(TAG, t.toString());
-            }
+                Logger.e("Failed to Fetch Top Rated Movies", t);            }
         });
     }
 
@@ -179,6 +180,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         }
     }
 
+    @SuppressLint("ShowToast")
     @Override
     public void onRefresh() {
         if (mToast == null) {

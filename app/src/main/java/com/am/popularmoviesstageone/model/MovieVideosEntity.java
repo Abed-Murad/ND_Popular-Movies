@@ -8,10 +8,8 @@ import java.util.List;
 public class MovieVideosEntity {
 
     @SerializedName("id")
-    @Expose
     private Integer id;
     @SerializedName("results")
-    @Expose
     private List<MovieTrailerEntity> trailers = null;
 
     public Integer getId() {

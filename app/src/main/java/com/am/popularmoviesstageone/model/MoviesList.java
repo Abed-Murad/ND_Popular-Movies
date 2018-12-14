@@ -7,16 +7,12 @@ import java.util.List;
 
 public class MoviesList {
     @SerializedName("page")
-    @Expose
     private Integer page;
     @SerializedName("total_results")
-    @Expose
     private Integer totalResults;
     @SerializedName("total_pages")
-    @Expose
     private Integer totalPages;
     @SerializedName("results")
-    @Expose
     private List<Movie> movieList = null;
 
     public Integer getPage() {
