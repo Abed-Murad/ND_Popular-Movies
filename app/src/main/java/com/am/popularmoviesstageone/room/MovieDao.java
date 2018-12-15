@@ -1,5 +1,6 @@
 package com.am.popularmoviesstageone.room;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -17,7 +18,7 @@ public interface MovieDao {
     Movie getById(int movieId);
 
     @Query("SELECT * FROM Movie")
-    List<Movie> getAll();
+    LiveData<List<Movie>> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(Movie movie);

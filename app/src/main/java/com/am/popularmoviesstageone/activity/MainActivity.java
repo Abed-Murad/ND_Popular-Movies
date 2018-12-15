@@ -1,9 +1,12 @@
 package com.am.popularmoviesstageone.activity;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.Menu;
@@ -17,8 +20,11 @@ import com.am.popularmoviesstageone.databinding.ActivityMainBinding;
 import com.am.popularmoviesstageone.databinding.ContentMainBinding;
 import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.MoviesList;
+import com.am.popularmoviesstageone.room.MovieDao;
 import com.am.popularmoviesstageone.util.AMApplication;
 import com.orhanobut.logger.Logger;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,6 +39,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
     private static final String RECYCLER_STATE_KEY = "recycler_position";
 
+    private MovieDao movieDao;
     private ActivityMainBinding mLayout;
     private ContentMainBinding mContentLayout;
 
@@ -47,6 +54,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         super.onCreate(savedInstanceState);
         mLayout = DataBindingUtil.setContentView(this, R.layout.activity_main);
         setSupportActionBar(mLayout.toolbar);
+        movieDao = ((AMApplication) getApplication()).getMyDatabase().movieDao();
 
         //TODO : Find A Better way to do this
         mContentLayout = mLayout.contentLayout;
@@ -116,7 +124,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
             @Override
             public void onFailure(Call<MoviesList> call, Throwable t) {
-                Logger.e("Failed to Fetch Popular Movies",t);
+                Logger.e("Failed to Fetch Popular Movies", t);
             }
         });
     }
@@ -137,7 +145,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
             @Override
             public void onFailure(Call<MoviesList> call, Throwable t) {
-                Logger.e("Failed to Fetch Top Rated Movies", t);            }
+                Logger.e("Failed to Fetch Top Rated Movies", t);
+            }
         });
     }
 
@@ -146,8 +155,8 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         getSupportActionBar().setTitle(R.string.title_favorite_movies);
         mAdapter.clear();
         hideProgressPar();
-        mAdapter.addAll(((AMApplication) getApplication()).getMyDatabase().movieDao().getAll());
-
+        LiveData<List<Movie>> favMoviesList = movieDao.getAll();
+        favMoviesList.observe(this, movieList -> mAdapter.addAll(movieList));
     }
 
     public void saveCategoryAs(String category) {
