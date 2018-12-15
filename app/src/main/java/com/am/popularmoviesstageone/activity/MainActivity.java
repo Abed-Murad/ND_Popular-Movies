@@ -53,21 +53,40 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mLayout = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mContentLayout = mLayout.contentLayout;//TODO:Find A Better Way to do this
+        mContentLayout.swipeRefresh.setOnRefreshListener(this);
+
         setSupportActionBar(mLayout.toolbar);
         movieDao = ((AMApplication) getApplication()).getMyDatabase().movieDao();
 
-        //TODO : Find A Better way to do this
-        mContentLayout = mLayout.contentLayout;
+        initRecyclerVIew();
+        getMovies();
+    }
 
+    private void initRecyclerVIew() {
         mAdapter = new PostersAdapter(this, this::openDetailsActivity);
         mLayoutManager = new GridLayoutManager(this, calculateNoOfColumns(this));
 
         mContentLayout.rvMovies.setLayoutManager(mLayoutManager);
         mContentLayout.rvMovies.setAdapter(mAdapter);
         mContentLayout.rvMovies.setHasFixedSize(true);
+    }
 
-        getMovies();
-        mContentLayout.swipeRefresh.setOnRefreshListener(this);
+    private void getMovies() {
+        switch (getCategory()) {
+            case POPULAR:
+                getPopular();
+                break;
+            case TOP_RATED:
+                getTopRated();
+                break;
+            case FAVORITES:
+                getFavoritesMovies();
+                break;
+            default:
+                getPopular();
+                break;
+        }
     }
 
     private void openDetailsActivity(Movie movie) {
@@ -156,7 +175,13 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         mAdapter.clear();
         hideProgressPar();
         LiveData<List<Movie>> favMoviesList = movieDao.getAll();
-        favMoviesList.observe(this, movieList -> mAdapter.addAll(movieList));
+        favMoviesList.observe(this, movieList -> {
+            if (getCategory().equals(FAVORITES)) {
+                mAdapter.clear();
+                mAdapter.addAll(movieList);
+            }
+        });
+        hideRefreshBar();
     }
 
     public void saveCategoryAs(String category) {
@@ -167,18 +192,6 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         return getPref().getCategory();
     }
 
-    private void getMovies() {
-        switch (getCategory()) {
-            case POPULAR:
-                getPopular();
-                break;
-            case TOP_RATED:
-                getTopRated();
-                break;
-            case FAVORITES:
-
-        }
-    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -218,4 +231,9 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         mContentLayout.progressBar.setVisibility(View.VISIBLE);
     }
 
+
+    @Override
+    public void onBackPressed() {
+
+    }
 }
