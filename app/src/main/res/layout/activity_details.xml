@@ -50,7 +50,7 @@
                 android:clickable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/toolbar"
-                app:srcCompat="@drawable/ic_heart_white" />
+                app:srcCompat="@drawable/ic_heart_empty" />
 
             <TextView
                 android:id="@+id/movieTitleTextView"

@@ -34,11 +34,11 @@
                         <option name="values">
                           <map>
                             <entry key="assetSourceType" value="FILE" />
-                            <entry key="height" value="495" />
-                            <entry key="outputName" value="ic_heart_white" />
+                            <entry key="height" value="1850" />
+                            <entry key="outputName" value="ic_heart_full" />
                             <entry key="overrideSize" value="true" />
-                            <entry key="sourceFile" value="C:\Users\Abed_Murad\Desktop\ic_heart_white.svg" />
-                            <entry key="width" value="495" />
+                            <entry key="sourceFile" value="C:\Users\Abed_Murad\Desktop\ic_heart_full.svg" />
+                            <entry key="width" value="1850" />
                           </map>
                         </option>
                       </PersistentState>

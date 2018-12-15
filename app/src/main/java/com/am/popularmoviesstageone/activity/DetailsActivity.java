@@ -12,9 +12,13 @@ import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.ReviewsAdapter;
 import com.am.popularmoviesstageone.adapter.TrailersAdapter;
 import com.am.popularmoviesstageone.databinding.ActivityDetailsBinding;
+import com.am.popularmoviesstageone.model.Movie;
 import com.am.popularmoviesstageone.model.ReviewList;
 import com.am.popularmoviesstageone.model.TrailerList;
 import com.am.popularmoviesstageone.model.moviedetails.MovieDetails;
+import com.am.popularmoviesstageone.room.MovieDao;
+import com.am.popularmoviesstageone.room.MoviesDatabase;
+import com.am.popularmoviesstageone.util.AMApplication;
 import com.am.popularmoviesstageone.util.FUNC;
 import com.bumptech.glide.Glide;
 import com.orhanobut.logger.Logger;
@@ -27,32 +31,63 @@ import retrofit2.Response;
 
 import static com.am.popularmoviesstageone.util.CONST.BASE_BACKGROUND_IMAGE_URL;
 import static com.am.popularmoviesstageone.util.CONST.BASE_POSTERS_URL;
-import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE_ID;
+import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 import static com.am.popularmoviesstageone.util.IntentsUtil.openVideoOnYoutube;
 
 
 public class DetailsActivity extends BaseActivity {
 
+    private MoviesDatabase myDatabase;
+    private MovieDao movieDao;
+
     private TrailersAdapter mTrailersAdapter;
     private ReviewsAdapter mReviewsAdapter;
     private ActivityDetailsBinding mLayout;
     private MovieDetails movieDetails;
+    private Movie mMovie;
 
     private boolean isFavourite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        int movieId = getIntent().getExtras().getInt(EXTRA_MOVIE_ID);
+        myDatabase = ((AMApplication) getApplication()).getMyDatabase();
+        movieDao = myDatabase.movieDao();
+        mMovie = getIntent().getExtras().getParcelable(EXTRA_MOVIE);
         mLayout = DataBindingUtil.setContentView(this, R.layout.activity_details);
         setSupportActionBar(mLayout.toolbar);
-        getMovieDetails(movieId);
+        isFavourite = movieDao.getById(mMovie.getId()) != null;
+        if (isFavourite) {
+            mLayout.favoriteFab.setImageResource(R.drawable.ic_heart_full);
+        }
+        setFabListeners();
+        getMovieDetails(mMovie.getId());
+        initRecyclerView();
+    }
+
+    private void setFabListeners() {
+        mLayout.favoriteFab.setOnClickListener(view -> {
+            if (isFavourite) {
+                Snackbar.make(view, R.string.title_remove_from_favorite, Snackbar.LENGTH_SHORT)
+                        .setAction("Action", null).show();
+                mLayout.favoriteFab.setImageResource(R.drawable.ic_heart_empty);
+                movieDao.delete((mMovie));
+                isFavourite = false;
+            } else {
+
+                Snackbar.make(view, R.string.title_add_to_favorite, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
+                mLayout.favoriteFab.setImageResource(R.drawable.ic_heart_full);
+                movieDao.insert((mMovie));
+                isFavourite = true;
 
 
-        mLayout.trailersRecyclerView.setLayoutManager(new LinearLayoutManager(this,
-                LinearLayoutManager.HORIZONTAL, false));
-        mTrailersAdapter = new TrailersAdapter(this,
-                trailer -> openVideoOnYoutube(DetailsActivity.this, trailer.getKey()));
+            }
+        });
+    }
+
+    private void initRecyclerView() {
+        mLayout.trailersRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        mTrailersAdapter = new TrailersAdapter(this, trailer -> openVideoOnYoutube(DetailsActivity.this, trailer.getKey()));
         mLayout.trailersRecyclerView.setAdapter(mTrailersAdapter);
         mLayout.trailersRecyclerView.setNestedScrollingEnabled(false);
         mReviewsAdapter = new ReviewsAdapter(this);
@@ -61,20 +96,6 @@ public class DetailsActivity extends BaseActivity {
         mLayout.reviewsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mLayout.reviewsRecyclerView.setAdapter(mReviewsAdapter);
         mLayout.reviewsRecyclerView.setNestedScrollingEnabled(false);
-
-        mLayout.favoriteFab.setOnClickListener(view -> {
-            if (!isFavourite) {
-                Snackbar.make(view, R.string.title_add_to_favorite, Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-                mLayout.favoriteFab.setImageResource(R.drawable.ic_heart_fill);
-                isFavourite = true;
-            } else {
-                Snackbar.make(view, R.string.title_remove_from_favorite, Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
-                mLayout.favoriteFab.setImageResource(R.drawable.ic_heart_white);
-                isFavourite = false;
-            }
-        });
     }
 
     private void getMovieDetails(int movieId) {
@@ -83,27 +104,7 @@ public class DetailsActivity extends BaseActivity {
             @Override
             public void onResponse(@NonNull Call<MovieDetails> call, @NonNull Response<MovieDetails> response) {
                 movieDetails = response.body();
-
-                mLayout.movieTitleTextView
-                        .setText(movieDetails != null ? movieDetails.getOriginalTitle() : "Original Title Not Found");
-                mLayout.ratingTextView.setText( movieDetails.getVoteAverage()+"");
-                mLayout.descriptionTextView.setText(movieDetails.getOverview());
-
-                Glide.with(DetailsActivity.this)
-                        .load(BASE_POSTERS_URL + movieDetails.getPosterPath())
-                        .into(mLayout.posterImageView);
-                Glide.with(DetailsActivity.this)
-                        .load(BASE_BACKGROUND_IMAGE_URL + movieDetails.getBackdropPath())
-                        .into(mLayout.backDropImageView);
-
-                Date releaseDate = movieDetails.getReleaseDate();
-                mLayout.releaseYearTextView
-                        .setText(FUNC.getDateDetails(releaseDate));
-
-                getMovieVideos(movieId);
-                getMovieReviews(movieId);
-                mLayout.toolbar.setTitle(movieDetails.getTitle());
-                setSupportActionBar(mLayout.toolbar);
+                populateUi(movieId);
 
             }
 
@@ -114,6 +115,29 @@ public class DetailsActivity extends BaseActivity {
         });
 
 
+    }
+
+    private void populateUi(int movieId) {
+        mLayout.movieTitleTextView
+                .setText(movieDetails != null ? movieDetails.getOriginalTitle() : "Original Title Not Found");
+        mLayout.ratingTextView.setText(movieDetails.getVoteAverage() + "");
+        mLayout.descriptionTextView.setText(movieDetails.getOverview());
+
+        Glide.with(DetailsActivity.this)
+                .load(BASE_POSTERS_URL + movieDetails.getPosterPath())
+                .into(mLayout.posterImageView);
+        Glide.with(DetailsActivity.this)
+                .load(BASE_BACKGROUND_IMAGE_URL + movieDetails.getBackdropPath())
+                .into(mLayout.backDropImageView);
+
+        Date releaseDate = movieDetails.getReleaseDate();
+        mLayout.releaseYearTextView
+                .setText(FUNC.getDateDetails(releaseDate));
+
+        getMovieVideos(movieId);
+        getMovieReviews(movieId);
+        mLayout.toolbar.setTitle(movieDetails.getTitle());
+        setSupportActionBar(mLayout.toolbar);
     }
 
     private void getMovieVideos(int movieId) {
@@ -128,11 +152,7 @@ public class DetailsActivity extends BaseActivity {
                 } else {
                     mLayout.trailersTitleTextView.setVisibility(View.GONE);
                     mLayout.trailersRecyclerView.setVisibility(View.GONE);
-
                 }
-
-
-
             }
 
             @Override

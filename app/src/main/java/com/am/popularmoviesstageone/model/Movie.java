@@ -14,10 +14,10 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(tableName = "Movie")
 public class Movie implements Parcelable {
 
-    // Use @Embedded For Embedded Classes in the model 
+    // Use @Embedded For Embedded Classes in the model
     @SerializedName("vote_count")
     private Integer voteCount;
     @PrimaryKey

@@ -24,7 +24,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE_ID;
+import static com.am.popularmoviesstageone.util.CONST.EXTRA_MOVIE;
 import static com.am.popularmoviesstageone.util.CONST.FAVORITES;
 import static com.am.popularmoviesstageone.util.CONST.POPULAR;
 import static com.am.popularmoviesstageone.util.CONST.TOP_RATED;
@@ -51,8 +51,6 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         //TODO : Find A Better way to do this
         mContentLayout = mLayout.contentLayout;
 
-
-
         mAdapter = new PostersAdapter(this, this::openDetailsActivity);
         mLayoutManager = new GridLayoutManager(this, calculateNoOfColumns(this));
 
@@ -66,7 +64,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
 
     private void openDetailsActivity(Movie movie) {
         Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-        intent.putExtra(EXTRA_MOVIE_ID, movie.getId());
+        intent.putExtra(EXTRA_MOVIE, movie);
         startActivity(intent);
     }
 
@@ -146,6 +144,9 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     public void getFavoritesMovies() {
         saveCategoryAs(FAVORITES);
         getSupportActionBar().setTitle(R.string.title_favorite_movies);
+        mAdapter.clear();
+        hideProgressPar();
+        mAdapter.addAll(((AMApplication) getApplication()).getMyDatabase().movieDao().getAll());
 
     }
 

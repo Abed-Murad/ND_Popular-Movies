@@ -14,6 +14,6 @@ public interface CONST {
     String BASE_BACKGROUND_IMAGE_URL = "http://image.tmdb.org/t/p/w500/";
 
 
-    String EXTRA_MOVIE_ID = "movieId";
+    String EXTRA_MOVIE = "movie";
 
 }
