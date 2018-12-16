@@ -15,8 +15,5 @@ import com.am.popularmoviesstageone.data.model.Trailer;
 @TypeConverters({Converters.class})
 public abstract class MoviesDatabase extends RoomDatabase {
     public static final String NAME = "movies_database";
-
     public abstract MovieDao movieDao();
-
-
 }

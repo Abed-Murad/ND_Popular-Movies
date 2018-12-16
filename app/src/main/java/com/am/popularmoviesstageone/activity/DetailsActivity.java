@@ -56,6 +56,7 @@ public class DetailsActivity extends BaseActivity {
         mMovie = getIntent().getExtras().getParcelable(EXTRA_MOVIE);
         mLayout = DataBindingUtil.setContentView(this, R.layout.activity_details);
         setSupportActionBar(mLayout.toolbar);
+
         isFavourite = movieDao.getById(mMovie.getId()) != null;
         if (isFavourite) {
             mLayout.favoriteFab.setImageResource(R.drawable.ic_heart_full);

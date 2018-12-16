@@ -18,6 +18,15 @@ public class AMApplication extends Application {
     // Called when the application is starting, before any other application objects have been created.
     // Overriding this method is totally optional!
 
+
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
+        }
+    };
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -33,15 +42,15 @@ public class AMApplication extends Application {
                 .fallbackToDestructiveMigration()
                 //ToDo: Remove This
                 .allowMainThreadQueries()
+                .addMigrations(MIGRATION_1_2)
                 .build();
 
 
-
     }
+
     public MoviesDatabase getMyDatabase() {
         return mMoviesDatabase;
     }
-
 
 
     // Called by the system when the device configuration changes while your component is running.
