@@ -47,10 +47,13 @@ public abstract class MoviesDatabase extends RoomDatabase {
         return instance;
     }
 
+
+    //TODO: Find Why this callback doesnot work 
     private static RoomDatabase.Callback mRoomCallback = new Callback() {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
+            new PopulateAsyncTask(instance).execute();
         }
 
         @Override
