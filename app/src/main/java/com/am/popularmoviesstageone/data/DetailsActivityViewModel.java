@@ -1,8 +1,8 @@
 package com.am.popularmoviesstageone.data;
 
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.support.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.annotation.NonNull;
 
 import com.am.popularmoviesstageone.data.model.Movie;
 import com.am.popularmoviesstageone.util.AMApplication;

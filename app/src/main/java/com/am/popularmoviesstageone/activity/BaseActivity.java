@@ -1,7 +1,7 @@
 package com.am.popularmoviesstageone.activity;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 
 import com.am.popularmoviesstageone.network.APIClient;

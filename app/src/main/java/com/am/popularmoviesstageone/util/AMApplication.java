@@ -1,9 +1,9 @@
 package com.am.popularmoviesstageone.util;
 
 import android.app.Application;
-import android.arch.persistence.db.SupportSQLiteDatabase;
-import android.arch.persistence.room.Room;
-import android.arch.persistence.room.migration.Migration;
+import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.room.Room;
+import androidx.room.migration.Migration;
 import android.content.res.Configuration;
 
 import com.am.popularmoviesstageone.data.room.MoviesDatabase;
