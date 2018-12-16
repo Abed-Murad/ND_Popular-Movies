@@ -7,6 +7,8 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 import com.am.popularmoviesstageone.data.model.Movie;
 import com.am.popularmoviesstageone.data.model.Review;
@@ -21,6 +23,9 @@ public abstract class MoviesDatabase extends RoomDatabase {
 
     public static final String NAME = "movies_database";
     private static MoviesDatabase instance;
+
+    public abstract MovieDao movieDao();
+
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
@@ -35,13 +40,39 @@ public abstract class MoviesDatabase extends RoomDatabase {
                     .fallbackToDestructiveMigration()
                     //ToDo: Remove This
                     .allowMainThreadQueries()
+                    .addCallback(mRoomCallback)
                     .addMigrations(MIGRATION_1_2)
                     .build();
-
         }
         return instance;
     }
 
-    public abstract MovieDao movieDao();
+    private static RoomDatabase.Callback mRoomCallback = new Callback() {
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+        }
+
+        @Override
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+            super.onOpen(db);
+            new PopulateAsyncTask(instance).execute();
+        }
+    };
+
+    private static class PopulateAsyncTask extends AsyncTask<Void, Void, Void> {
+        private MovieDao mMovieDao;
+        public PopulateAsyncTask(MoviesDatabase database) {
+            this.mMovieDao = database.movieDao();
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mMovieDao.insert(new Movie(238, "The Godfather", "/rPdtLWNsZmAtoZl9PK7S2wE3qiS.jpg"));
+            mMovieDao.insert(new Movie(424, "Schindler's List", "/yPisjyLweCl1tbgwgtzBCNCBle.jpg"));
+            mMovieDao.insert(new Movie(372058, "Your Name.", "/xq1Ugd62d23K2knRUx6xxuALTZB.jpg"));
+            return null;
+        }
+    }
 
 }
