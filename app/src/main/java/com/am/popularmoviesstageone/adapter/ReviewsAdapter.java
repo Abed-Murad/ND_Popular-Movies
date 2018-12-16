@@ -18,8 +18,6 @@ import com.am.popularmoviesstageone.databinding.ItemReviewBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static com.am.popularmoviesstageone.util.IntentsUtil.openUrlInChromeCustomTab;
 
