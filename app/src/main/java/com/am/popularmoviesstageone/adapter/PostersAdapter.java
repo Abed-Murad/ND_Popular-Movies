@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
-import com.am.popularmoviesstageone.model.Movie;
+import com.am.popularmoviesstageone.data.model.Movie;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;

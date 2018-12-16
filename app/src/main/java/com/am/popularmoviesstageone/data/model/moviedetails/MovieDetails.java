@@ -1,4 +1,4 @@
-package com.am.popularmoviesstageone.model.moviedetails;
+package com.am.popularmoviesstageone.data.model.moviedetails;
 
 import com.google.gson.annotations.SerializedName;
 

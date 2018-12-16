@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
-import com.am.popularmoviesstageone.model.Trailer;
+import com.am.popularmoviesstageone.data.model.Trailer;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;

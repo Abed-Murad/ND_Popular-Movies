@@ -1,8 +1,9 @@
-package com.am.popularmoviesstageone.model;
+package com.am.popularmoviesstageone.data.model;
 
-import com.google.gson.annotations.Expose;
+import android.arch.persistence.room.Entity;
+
 import com.google.gson.annotations.SerializedName;
-
+@Entity
 public class Review {
     @SerializedName("author")
     private String author;

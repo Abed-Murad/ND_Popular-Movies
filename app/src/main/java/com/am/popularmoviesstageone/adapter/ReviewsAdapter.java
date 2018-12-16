@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
-import com.am.popularmoviesstageone.model.Review;
+import com.am.popularmoviesstageone.data.model.Review;
 
 import java.util.ArrayList;
 import java.util.List;

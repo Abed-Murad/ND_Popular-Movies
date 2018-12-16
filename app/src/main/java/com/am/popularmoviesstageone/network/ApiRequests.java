@@ -1,9 +1,9 @@
 package com.am.popularmoviesstageone.network;
 
-import com.am.popularmoviesstageone.model.ReviewList;
-import com.am.popularmoviesstageone.model.TrailerList;
-import com.am.popularmoviesstageone.model.MoviesList;
-import com.am.popularmoviesstageone.model.moviedetails.MovieDetails;
+import com.am.popularmoviesstageone.data.model.ReviewList;
+import com.am.popularmoviesstageone.data.model.TrailerList;
+import com.am.popularmoviesstageone.data.model.MoviesList;
+import com.am.popularmoviesstageone.data.model.moviedetails.MovieDetails;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

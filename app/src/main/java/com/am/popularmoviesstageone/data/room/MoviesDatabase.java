@@ -1,10 +1,10 @@
-package com.am.popularmoviesstageone.room;
+package com.am.popularmoviesstageone.data.room;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 
-import com.am.popularmoviesstageone.model.Movie;
+import com.am.popularmoviesstageone.data.model.Movie;
 
 @Database(entities = {Movie.class}, version = 1)
 @TypeConverters({Converters.class})

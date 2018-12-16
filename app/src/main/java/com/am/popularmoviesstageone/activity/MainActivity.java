@@ -2,11 +2,9 @@ package com.am.popularmoviesstageone.activity;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
-import android.arch.lifecycle.Observer;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.Menu;
@@ -18,9 +16,9 @@ import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.PostersAdapter;
 import com.am.popularmoviesstageone.databinding.ActivityMainBinding;
 import com.am.popularmoviesstageone.databinding.ContentMainBinding;
-import com.am.popularmoviesstageone.model.Movie;
-import com.am.popularmoviesstageone.model.MoviesList;
-import com.am.popularmoviesstageone.room.MovieDao;
+import com.am.popularmoviesstageone.data.model.Movie;
+import com.am.popularmoviesstageone.data.model.MoviesList;
+import com.am.popularmoviesstageone.data.room.MovieDao;
 import com.am.popularmoviesstageone.util.AMApplication;
 import com.orhanobut.logger.Logger;
 

@@ -1,4 +1,4 @@
-package com.am.popularmoviesstageone.room;
+package com.am.popularmoviesstageone.data.room;
 
 import android.arch.persistence.room.TypeConverter;
 

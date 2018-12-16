@@ -1,4 +1,4 @@
-package com.am.popularmoviesstageone.room;
+package com.am.popularmoviesstageone.data.room;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -7,7 +7,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
-import com.am.popularmoviesstageone.model.Movie;
+import com.am.popularmoviesstageone.data.model.Movie;
 
 import java.util.List;
 

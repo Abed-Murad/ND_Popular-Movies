@@ -4,7 +4,7 @@ import android.app.Application;
 import android.arch.persistence.room.Room;
 import android.content.res.Configuration;
 
-import com.am.popularmoviesstageone.room.MoviesDatabase;
+import com.am.popularmoviesstageone.data.room.MoviesDatabase;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
@@ -25,8 +25,6 @@ public class AMApplication extends Application {
                 .build();
 
         Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy));
-
-
 
         mMoviesDatabase = Room.databaseBuilder(this, MoviesDatabase.class, MoviesDatabase.NAME)
                 .fallbackToDestructiveMigration()
