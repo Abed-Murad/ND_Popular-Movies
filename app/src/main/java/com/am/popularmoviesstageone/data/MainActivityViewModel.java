@@ -18,7 +18,7 @@ public class MainActivityViewModel extends AndroidViewModel {
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
         mRepository = new MoviesRepository(application);
-        mFavMoviesList = mRepository.getmFavMoviesList();
+        mFavMoviesList = mRepository.getFavMoviesList();
     }
 
     public void insert(Movie movie) {

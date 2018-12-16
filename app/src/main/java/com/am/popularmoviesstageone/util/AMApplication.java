@@ -19,6 +19,14 @@ public class AMApplication extends Application {
     // Overriding this method is totally optional!
 
 
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+
+        }
+    };
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -34,6 +42,7 @@ public class AMApplication extends Application {
                 .fallbackToDestructiveMigration()
                 //ToDo: Remove This
                 .allowMainThreadQueries()
+                .addMigrations(MIGRATION_1_2)
                 .build();
 
 

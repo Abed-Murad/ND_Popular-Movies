@@ -64,16 +64,15 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         // and when to create a new one and assign it to our instance
         // @this is used to know which life cycle owner the ViewModel is related to
         // so it can be deleted when the owner is gone
-//        mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-//        mViewModel.getFavMoviesList().observe(this, new Observer<List<Movie>>() {
-//            @Override
-//            public void onChanged(@Nullable List<Movie> movieList) {
-//                if (getCategory().equals(FAVORITES)) {
-//                    mAdapter.clear();
-//                    mAdapter.addAll(movieList);
-//                }
-//            }
-//        });
+        mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        mViewModel.getFavMoviesList().observe(this, movieList -> {
+
+            if (getCategory().equals(FAVORITES)) {
+                mAdapter.clear();
+                mAdapter.addAll(movieList);
+            }
+
+        });
         setSupportActionBar(mLayout.toolbar);
         movieDao = ((AMApplication) getApplication()).getMyDatabase().movieDao();
 

@@ -34,11 +34,10 @@ public abstract class MoviesDatabase extends RoomDatabase {
     };
 
     public static synchronized MoviesDatabase getInstance(Context context) {
-        if (instance != null) {
 
+        if (instance != null) {
             instance = Room.databaseBuilder(context.getApplicationContext(), MoviesDatabase.class, MoviesDatabase.NAME)
                     .fallbackToDestructiveMigration()
-                    //ToDo: Remove This
                     .allowMainThreadQueries()
                     .addCallback(mRoomCallback)
                     .addMigrations(MIGRATION_1_2)

@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import com.am.popularmoviesstageone.data.model.Movie;
 import com.am.popularmoviesstageone.data.room.MovieDao;
 import com.am.popularmoviesstageone.data.room.MoviesDatabase;
+import com.am.popularmoviesstageone.util.AMApplication;
 
 import java.util.List;
 
@@ -20,7 +21,8 @@ public class MoviesRepository {
 
     //Use the application to get context for creating the database
     public MoviesRepository(Application application) {
-        MoviesDatabase database = MoviesDatabase.getInstance(application);
+//        MoviesDatabase database = MoviesDatabase.getInstance(application);
+        MoviesDatabase database = ((AMApplication) application).getMyDatabase();
         mMovieDao = database.movieDao();
         mFavMoviesList = mMovieDao.getAll();
     }
@@ -47,7 +49,7 @@ public class MoviesRepository {
     Those Are The methods that the ViewModel Will See
    */
 
-    public LiveData<List<Movie>> getmFavMoviesList() {
+    public LiveData<List<Movie>> getFavMoviesList() {
         return mFavMoviesList;
     }
 
