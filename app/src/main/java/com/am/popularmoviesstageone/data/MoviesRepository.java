@@ -2,6 +2,7 @@ package com.am.popularmoviesstageone.data;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.os.AsyncTask;
 
 import com.am.popularmoviesstageone.data.model.Movie;
 import com.am.popularmoviesstageone.data.room.MovieDao;
@@ -24,20 +25,84 @@ public class MoviesRepository {
         mFavMoviesList = mMovieDao.getAll();
     }
 
+    /*
+    Those Are The methods that the ViewModel Will See
+     */
     public void insert(Movie movie) {
-
+        new InsertAsyncTask(mMovieDao).execute(movie);
     }
     public void update(Movie movie) {
+        new UpdateAsyncTask(mMovieDao).execute(movie);
 
     }
     public void delete(Movie movie) {
+        new DeleteAsyncTask(mMovieDao).execute(movie);
 
     }
     public void deleteAll(Movie movie) {
+        new DeleteAllAsyncTask(mMovieDao).execute();
 
     }
+   /*
+    Those Are The methods that the ViewModel Will See
+   */
 
-    public MoviesRepository(LiveData<List<Movie>> mFavMoviesList) {
-        this.mFavMoviesList = mFavMoviesList;
+    public LiveData<List<Movie>> getmFavMoviesList() {
+        return mFavMoviesList;
     }
+
+    // It's static to not have a reference to the Repository class , otherwise it will cause a memory leak
+    private static class InsertAsyncTask extends AsyncTask<Movie, Void, Void> {
+        private MovieDao mMovieDao;
+
+        private InsertAsyncTask(MovieDao movieDao) {
+            this.mMovieDao = movieDao;
+        }
+        @Override
+        protected Void doInBackground(Movie... movies) {
+            mMovieDao.insert(movies[0]);
+            return null;
+        }
+    }
+    // It's static to not have a reference to the Repository class , otherwise it will cause a memory leak
+    private static class UpdateAsyncTask extends AsyncTask<Movie, Void, Void> {
+        private MovieDao mMovieDao;
+
+        private UpdateAsyncTask(MovieDao movieDao) {
+            this.mMovieDao = movieDao;
+        }
+        @Override
+        protected Void doInBackground(Movie... movies) {
+            mMovieDao.update(movies[0]);
+            return null;
+        }
+    }
+    // It's static to not have a reference to the Repository class , otherwise it will cause a memory leak
+    private static class DeleteAsyncTask extends AsyncTask<Movie, Void, Void> {
+        private MovieDao mMovieDao;
+
+        private DeleteAsyncTask(MovieDao movieDao) {
+            this.mMovieDao = movieDao;
+        }
+        @Override
+        protected Void doInBackground(Movie... movies) {
+            mMovieDao.delete(movies[0]);
+            return null;
+        }
+    }
+    // It's static to not have a reference to the Repository class , otherwise it will cause a memory leak
+    private static class DeleteAllAsyncTask extends AsyncTask<Void, Void, Void> {
+        private MovieDao mMovieDao;
+
+        private DeleteAllAsyncTask(MovieDao movieDao) {
+            this.mMovieDao = movieDao;
+        }
+        @Override
+        protected Void doInBackground(Void... voids) {
+            mMovieDao.deleteAll();
+            return null;
+        }
+    }
+
+
 }
