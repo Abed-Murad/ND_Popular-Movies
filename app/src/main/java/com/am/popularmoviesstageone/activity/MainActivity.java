@@ -2,9 +2,13 @@ package com.am.popularmoviesstageone.activity;
 
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.Menu;
@@ -14,6 +18,7 @@ import android.widget.Toast;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.PostersAdapter;
+import com.am.popularmoviesstageone.data.MainActivityViewModel;
 import com.am.popularmoviesstageone.databinding.ActivityMainBinding;
 import com.am.popularmoviesstageone.databinding.ContentMainBinding;
 import com.am.popularmoviesstageone.data.model.Movie;
@@ -38,13 +43,15 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private static final String RECYCLER_STATE_KEY = "recycler_position";
 
     private MovieDao movieDao;
+    private MainActivityViewModel mViewModel;
     private ActivityMainBinding mLayout;
     private ContentMainBinding mContentLayout;
 
+
     private PostersAdapter mAdapter;
     private GridLayoutManager mLayoutManager;
-
     private Toast mToast;
+
     private int mCurrentPosition = 0;
 
     @Override
@@ -53,7 +60,20 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         mLayout = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mContentLayout = mLayout.contentLayout;//TODO:Find A Better Way to do this
         mContentLayout.swipeRefresh.setOnRefreshListener(this);
-
+        // We Use ViewModelProviders because Android knows when to get an existing viewModel
+        // and when to create a new one and assign it to our instance
+        // @this is used to know which life cycle owner the ViewModel is related to
+        // so it can be deleted when the owner is gone
+//        mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+//        mViewModel.getFavMoviesList().observe(this, new Observer<List<Movie>>() {
+//            @Override
+//            public void onChanged(@Nullable List<Movie> movieList) {
+//                if (getCategory().equals(FAVORITES)) {
+//                    mAdapter.clear();
+//                    mAdapter.addAll(movieList);
+//                }
+//            }
+//        });
         setSupportActionBar(mLayout.toolbar);
         movieDao = ((AMApplication) getApplication()).getMyDatabase().movieDao();
 
@@ -64,7 +84,6 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
     private void initRecyclerVIew() {
         mAdapter = new PostersAdapter(this, this::openDetailsActivity);
         mLayoutManager = new GridLayoutManager(this, calculateNoOfColumns(this));
-
         mContentLayout.rvMovies.setLayoutManager(mLayoutManager);
         mContentLayout.rvMovies.setAdapter(mAdapter);
         mContentLayout.rvMovies.setHasFixedSize(true);

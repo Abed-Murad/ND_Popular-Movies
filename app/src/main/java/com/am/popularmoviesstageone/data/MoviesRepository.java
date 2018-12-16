@@ -39,7 +39,7 @@ public class MoviesRepository {
         new DeleteAsyncTask(mMovieDao).execute(movie);
 
     }
-    public void deleteAll(Movie movie) {
+    public void deleteAll() {
         new DeleteAllAsyncTask(mMovieDao).execute();
 
     }
