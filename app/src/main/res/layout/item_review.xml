@@ -22,7 +22,7 @@
 
 
             <TextView
-                android:id="@+id/tv_review_author"
+                android:id="@+id/reviewAuthorTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
@@ -37,7 +37,7 @@
                 android:background="?attr/dividerVertical" />
 
             <TextView
-                android:id="@+id/tv_review_body"
+                android:id="@+id/reviewBodyTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white_text_background"

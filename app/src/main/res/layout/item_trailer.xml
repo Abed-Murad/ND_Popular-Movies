@@ -11,13 +11,13 @@
         android:paddingEnd="3dp">
 
         <ImageView
-            android:id="@+id/iv_trailer_thump"
+            android:id="@+id/trailerThumpImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitCenter" />
 
         <TextView
-            android:id="@+id/tv_trailer_name"
+            android:id="@+id/trailerTitleTextVIew"
             style="@style/TitleWithBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +29,7 @@
             tools:text="Trailer Title" />
 
         <ImageView
-            android:id="@+id/iv_play_icon"
+            android:id="@+id/playIconImageVIew"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_centerInParent="true"

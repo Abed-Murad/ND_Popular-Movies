@@ -2,10 +2,10 @@ package com.am.popularmoviesstageone.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.data.model.Trailer;
+import com.am.popularmoviesstageone.databinding.ItemTrailerBinding;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -41,8 +42,8 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
     @NonNull
     @Override
     public TrailerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = mInflater.inflate(R.layout.item_trailer, parent, false);
-        return new TrailerHolder(v);
+        ItemTrailerBinding binding = ItemTrailerBinding.inflate(mInflater, parent, false);
+        return new TrailerHolder(binding);
     }
 
     @Override
@@ -74,15 +75,8 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
 
     public class TrailerHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.iv_trailer_thump)
-        ImageView mThumpImageView;
-        @BindView(R.id.iv_play_icon)
-        ImageView mPlayIconImageView;
-        @BindView(R.id.tv_trailer_name)
-        TextView mTrailerNameTextView;
 
-
-
+        private ItemTrailerBinding mBinding;
         private View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,22 +84,21 @@ public class TrailersAdapter extends RecyclerView.Adapter<TrailersAdapter.Traile
             }
         };
 
-        public TrailerHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-
-            itemView.setOnClickListener(onClickListener);
-            mThumpImageView.setOnClickListener(onClickListener);
-            mTrailerNameTextView.setOnClickListener(onClickListener);
-            mPlayIconImageView.setOnClickListener(onClickListener);
+        public TrailerHolder(ItemTrailerBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
+            mBinding.getRoot().setOnClickListener(onClickListener);
+            mBinding.trailerThumpImageView.setOnClickListener(onClickListener);
+            mBinding.playIconImageVIew.setOnClickListener(onClickListener);
+            mBinding.trailerTitleTextVIew.setOnClickListener(onClickListener);
         }
 
-
-        // Reviewer : What does  @SuppressLint("SetTextI18n") mean ?
         @SuppressLint("SetTextI18n")
         private void bindData(Trailer trailer) {
-            mTrailerNameTextView.setText(trailer.getName());
-            Glide.with(mContext).load(BASE_TRAILERS_URL.replace("VIDEO_ID" , trailer.getKey())).into(mThumpImageView);
+            mBinding.trailerTitleTextVIew.setText(trailer.getName());
+            Glide.with(mContext).load(BASE_TRAILERS_URL.replace("VIDEO_ID", trailer.getKey())).into(mBinding.trailerThumpImageView);
+            mBinding.executePendingBindings();
+
         }
     }
 

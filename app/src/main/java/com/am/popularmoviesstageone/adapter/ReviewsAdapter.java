@@ -2,8 +2,10 @@ package com.am.popularmoviesstageone.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.data.model.Review;
+import com.am.popularmoviesstageone.databinding.ItemReviewBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +40,8 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerH
     @NonNull
     @Override
     public TrailerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = mInflater.inflate(R.layout.item_review, parent, false);
-        return new TrailerHolder(v);
+        ItemReviewBinding binding = ItemReviewBinding.inflate(mInflater, parent, false);
+        return new TrailerHolder(binding);
     }
 
     @Override
@@ -70,24 +73,20 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerH
 
     public class TrailerHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tv_review_body)
-        TextView mReviewBodyTextView;
-        @BindView(R.id.tv_review_author)
-        TextView mReviewAuthorTextView;
+        private ItemReviewBinding mBinding;
 
-        public TrailerHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(this, itemView);
-
+        public TrailerHolder(ItemReviewBinding binding) {
+            super(binding.getRoot());
+            this.mBinding = binding;
         }
 
 
         // Reviewer : What does  @SuppressLint("SetTextI18n") mean ?
         @SuppressLint("SetTextI18n")
         private void bindData(Review review) {
-            mReviewBodyTextView.setText(review.getContent());
-            mReviewAuthorTextView.setText("Written by @" + review.getAuthor().replaceAll("\\s+", ""));
-            itemView.setOnClickListener(v -> openUrlInChromeCustomTab(mContext, review.getUrl()));
+            mBinding.reviewBodyTextView.setText(review.getContent());
+            mBinding.reviewAuthorTextView.setText("Written by @" + review.getAuthor().replaceAll("\\s+", ""));
+            mBinding.getRoot().setOnClickListener(v -> openUrlInChromeCustomTab(mContext, review.getUrl()));
 
         }
     }
