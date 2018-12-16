@@ -1,38 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="175dp"
-    android:layout_height="131dp"
-    android:paddingStart="3dp"
-    android:paddingEnd="3dp"
-    android:gravity="center"
-    >
+<layout>
 
-    <ImageView
-        android:id="@+id/iv_trailer_thump"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitCenter" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="175dp"
+        android:layout_height="131dp"
+        android:gravity="center"
+        android:paddingStart="3dp"
+        android:paddingEnd="3dp">
 
-    <TextView
-        android:id="@+id/tv_trailer_name"
-        style="@style/TitleWithBackground"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="46dp"
-        android:paddingStart="8dp"
-        android:paddingEnd="8dp"
-        android:textSize="12sp"
-        tools:text="Trailer Title" />
+        <ImageView
+            android:id="@+id/iv_trailer_thump"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter" />
 
-    <ImageView
-        android:id="@+id/iv_play_icon"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_centerInParent="true"
-        app:srcCompat="@drawable/ic_youtube_play" />
+        <TextView
+            android:id="@+id/tv_trailer_name"
+            style="@style/TitleWithBackground"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="46dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textSize="12sp"
+            android:visibility="gone"
+            tools:text="Trailer Title" />
 
+        <ImageView
+            android:id="@+id/iv_play_icon"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_centerInParent="true"
+            app:srcCompat="@drawable/ic_youtube_play" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</layout>
