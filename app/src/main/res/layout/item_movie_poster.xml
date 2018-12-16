@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="180dp"
-    android:padding="1dp"
-    android:layout_height="280dp"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:clickable="true"
-    android:foreground="?attr/selectableItemBackground">
+<layout>
 
-    <ImageView
-        android:id="@+id/iv_movie_poster"
-        android:layout_width="match_parent"
-        android:scaleType="centerCrop"
-        android:layout_height="match_parent"
-        android:src="@drawable/placeholder_movie" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="180dp"
+        android:layout_height="280dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:padding="1dp">
 
-    <TextView
-        android:id="@+id/tv_movie_name"
-        android:layout_width="match_parent"
-        android:minHeight="56dp"
-        style="@style/TitleWithBackgroundForPosters"
-        tools:text="Movie Name"
-        android:layout_height="wrap_content" />
+        <ImageView
+            android:id="@+id/iv_movie_poster"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_movie" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_movie_name"
+            style="@style/TitleWithBackgroundForPosters"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="56dp"
+            tools:text="Movie Name" />
+
+    </RelativeLayout>
+</layout>

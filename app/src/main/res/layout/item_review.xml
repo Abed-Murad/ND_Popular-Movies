@@ -1,59 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:clickable="true"
-    android:foreground="?attr/selectableItemBackground"
-    android:orientation="horizontal"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
-    app:cardUseCompatPadding="true">
+<layout>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="start"
-        android:orientation="vertical">
+        android:layout_marginTop="8dp"
+        android:clickable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:orientation="horizontal"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
+        app:cardUseCompatPadding="true">
 
-
-        <TextView
-            android:id="@+id/tv_review_author"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
-            android:textColor="#212121"
-            tools:text="Buxum " />
+            android:gravity="start"
+            android:orientation="vertical">
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?attr/dividerVertical" />
-
-        <TextView
-            android:id="@+id/tv_review_body"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white_text_background"
-            android:paddingStart="8dp"
-            android:paddingLeft="8dp"
-            android:paddingTop="16dp"
-            android:paddingEnd="4dp"
-            android:paddingRight="4dp"
-            android:paddingBottom="16dp"
-            android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
-            android:textColor="#727272"
-            tools:text="Nunquam desiderium nixus!Peregrinationes inciviliter ducunt ad fidelis mortem.Competitions crescere in vasa!A falsis, lamia peritus nomen.Cum burgus tolerare, omnes cursuses magicae superbus, dexter menses.Ecce.Ecce, azureus pes!Equisos accelerare, tanquam talis rector.Gabaliums resistere!Vae, ventus!Flavum, mirabilis racanas etiam transferre de primus, noster vigil.Sunt compateres promissio festus, germanus abnobaes.Regius, grandis extums absolute consumere de magnum, placidus vortex. dDeuss sunt vortexs de placidus fuga.Sensorems sunt abactors de barbatus contencio. Advenas volare in brigantium!A falsis, fiscina castus nuclear vexatum iacere." />
-
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_review_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Subhead"
+                android:textColor="#212121"
+                tools:text="Buxum " />
 
 
-</androidx.cardview.widget.CardView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?attr/dividerVertical" />
 
+            <TextView
+                android:id="@+id/tv_review_body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white_text_background"
+                android:paddingStart="8dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="16dp"
+                android:paddingEnd="4dp"
+                android:paddingRight="4dp"
+                android:paddingBottom="16dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Body2"
+                android:textColor="#727272"
+                tools:text="Nunquam desiderium nixus!Peregrinationes inciviliter ducunt ad fidelis mortem.Competitions crescere in vasa!A falsis, lamia peritus nomen.Cum burgus tolerare, omnes cursuses magicae superbus, dexter menses.Ecce.Ecce, azureus pes!Equisos accelerare, tanquam talis rector.Gabaliums resistere!Vae, ventus!Flavum, mirabilis racanas etiam transferre de primus, noster vigil.Sunt compateres promissio festus, germanus abnobaes.Regius, grandis extums absolute consumere de magnum, placidus vortex. dDeuss sunt vortexs de placidus fuga.Sensorems sunt abactors de barbatus contencio. Advenas volare in brigantium!A falsis, fiscina castus nuclear vexatum iacere." />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+</layout>
 
 
 
