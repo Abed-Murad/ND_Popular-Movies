@@ -18,7 +18,7 @@ import com.am.popularmoviesstageone.data.model.Trailer;
 @Database(entities = {Movie.class, Review.class, Trailer.class}, version = 1)
 @TypeConverters({Converters.class})
 public abstract class MoviesDatabase extends RoomDatabase {
-    
+
     public static final String NAME = "movies_database";
     private static MoviesDatabase instance;
     private static final Migration MIGRATION_1_2 = new Migration(1, 2) {
