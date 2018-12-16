@@ -1,16 +1,8 @@
 package com.am.popularmoviesstageone.activity;
 
 import android.annotation.SuppressLint;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import androidx.databinding.DataBindingUtil;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,16 +11,21 @@ import android.widget.Toast;
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.PostersAdapter;
 import com.am.popularmoviesstageone.data.MainActivityViewModel;
-import com.am.popularmoviesstageone.databinding.ActivityMainBinding;
-import com.am.popularmoviesstageone.databinding.ContentMainBinding;
 import com.am.popularmoviesstageone.data.model.Movie;
 import com.am.popularmoviesstageone.data.model.MoviesList;
 import com.am.popularmoviesstageone.data.room.MovieDao;
+import com.am.popularmoviesstageone.databinding.ActivityMainBinding;
+import com.am.popularmoviesstageone.databinding.ContentMainBinding;
 import com.am.popularmoviesstageone.util.AMApplication;
 import com.orhanobut.logger.Logger;
 
 import java.util.List;
 
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,7 +61,7 @@ public class MainActivity extends BaseActivity implements SwipeRefreshLayout.OnR
         // and when to create a new one and assign it to our instance
         // @this is used to know which life cycle owner the ViewModel is related to
         // so it can be deleted when the owner is gone
-        mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+        mViewModel = ViewModelProviders.of(MainActivity.this).get(MainActivityViewModel.class);
         mViewModel.getFavMoviesList().observe(this, movieList -> {
 
             if (getCategory().equals(FAVORITES)) {

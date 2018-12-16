@@ -1,18 +1,20 @@
 package com.am.popularmoviesstageone.data.room;
 
-import androidx.sqlite.db.SupportSQLiteDatabase;
+import android.app.Application;
+import android.os.AsyncTask;
+
+import com.am.popularmoviesstageone.data.model.Movie;
+import com.am.popularmoviesstageone.data.model.Review;
+import com.am.popularmoviesstageone.data.model.Trailer;
+import com.am.popularmoviesstageone.util.AMApplication;
+
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 import androidx.room.migration.Migration;
-import android.content.Context;
-import android.os.AsyncTask;
-import androidx.annotation.NonNull;
-
-import com.am.popularmoviesstageone.data.model.Movie;
-import com.am.popularmoviesstageone.data.model.Review;
-import com.am.popularmoviesstageone.data.model.Trailer;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 /*
  * A Good practice is to Create a Dao For Each @Entity
@@ -22,7 +24,7 @@ import com.am.popularmoviesstageone.data.model.Trailer;
 public abstract class MoviesDatabase extends RoomDatabase {
 
     public static final String NAME = "movies_database";
-    private static MoviesDatabase instance;
+    private static MoviesDatabase instance = null;
 
     public abstract MovieDao movieDao();
 
@@ -33,14 +35,14 @@ public abstract class MoviesDatabase extends RoomDatabase {
         }
     };
 
-    public static synchronized MoviesDatabase getInstance(Context context) {
+    public static  MoviesDatabase getInstance(Application application) {
 
         if (instance != null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(), MoviesDatabase.class, MoviesDatabase.NAME)
+            instance = Room.databaseBuilder(((AMApplication)application), MoviesDatabase.class, MoviesDatabase.NAME)
                     .fallbackToDestructiveMigration()
-                    .allowMainThreadQueries()
-                    .addCallback(mRoomCallback)
+//                    .addCallback(mRoomCallback)
                     .addMigrations(MIGRATION_1_2)
+                    .allowMainThreadQueries()
                     .build();
         }
         return instance;

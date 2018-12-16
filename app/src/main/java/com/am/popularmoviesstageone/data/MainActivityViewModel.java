@@ -1,23 +1,24 @@
 package com.am.popularmoviesstageone.data;
 
 import android.app.Application;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.annotation.NonNull;
 
 import com.am.popularmoviesstageone.data.model.Movie;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.LiveData;
+
 
 public class MainActivityViewModel extends AndroidViewModel {
 
-    private MoviesRepository mRepository;
+    private Repository mRepository;
     private LiveData<List<Movie>> mFavMoviesList;
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
-        mRepository = new MoviesRepository(application);
+        mRepository = new Repository(application);
         mFavMoviesList = mRepository.getFavMoviesList();
     }
 

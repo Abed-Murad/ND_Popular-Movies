@@ -1,7 +1,6 @@
 package com.am.popularmoviesstageone.data;
 
 import android.app.Application;
-import androidx.lifecycle.LiveData;
 import android.os.AsyncTask;
 
 import com.am.popularmoviesstageone.data.model.Movie;
@@ -11,16 +10,18 @@ import com.am.popularmoviesstageone.util.AMApplication;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
+
 /**
  * This class is a layer between the modelview and the room database or the web api so
  * the model view dent have to deal with the network or sql for getting the data he want
  */
-public class MoviesRepository {
+public class Repository {
     private MovieDao mMovieDao;
     private LiveData<List<Movie>> mFavMoviesList;
 
     //Use the application to get context for creating the database
-    public MoviesRepository(Application application) {
+    public Repository(Application application) {
 //        MoviesDatabase database = MoviesDatabase.getInstance(application);
         MoviesDatabase database = ((AMApplication) application).getMyDatabase();
         mMovieDao = database.movieDao();
