@@ -17,4 +17,8 @@ public class DetailsActivityViewModel extends AndroidViewModel {
     public void insert(Movie movie) {
         mRepository.insert(movie);
     }
+
+    public void delete(Movie mMovie) {
+        mRepository.delete(mMovie);
+    }
 }

@@ -1,6 +1,8 @@
 package com.am.popularmoviesstageone.activity;
 
 import android.annotation.SuppressLint;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +13,7 @@ import android.view.View;
 import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.adapter.ReviewsAdapter;
 import com.am.popularmoviesstageone.adapter.TrailersAdapter;
+import com.am.popularmoviesstageone.data.DetailsActivityViewModel;
 import com.am.popularmoviesstageone.databinding.ActivityDetailsBinding;
 import com.am.popularmoviesstageone.data.model.Movie;
 import com.am.popularmoviesstageone.data.model.ReviewList;
@@ -39,7 +42,7 @@ public class DetailsActivity extends BaseActivity {
 
     private MoviesDatabase myDatabase;
     private MovieDao movieDao;
-
+    private DetailsActivityViewModel mViewModel;
     private TrailersAdapter mTrailersAdapter;
     private ReviewsAdapter mReviewsAdapter;
     private ActivityDetailsBinding mLayout;
@@ -55,6 +58,7 @@ public class DetailsActivity extends BaseActivity {
         movieDao = myDatabase.movieDao();
         mMovie = getIntent().getExtras().getParcelable(EXTRA_MOVIE);
         mLayout = DataBindingUtil.setContentView(this, R.layout.activity_details);
+        mViewModel = ViewModelProviders.of(this).get(DetailsActivityViewModel.class);
         setSupportActionBar(mLayout.toolbar);
 
         isFavourite = movieDao.getById(mMovie.getId()) != null;
@@ -72,13 +76,13 @@ public class DetailsActivity extends BaseActivity {
                 Snackbar.make(view, R.string.title_remove_from_favorite, Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
                 mLayout.favoriteFab.setImageResource(R.drawable.ic_heart_empty);
-                movieDao.delete((mMovie));
+                mViewModel.delete(mMovie);
                 isFavourite = false;
             } else {
 
                 Snackbar.make(view, R.string.title_add_to_favorite, Snackbar.LENGTH_SHORT).setAction("Action", null).show();
                 mLayout.favoriteFab.setImageResource(R.drawable.ic_heart_full);
-                movieDao.insert((mMovie));
+                mViewModel.insert(mMovie);
                 isFavourite = true;
 
 
