@@ -15,7 +15,7 @@ import java.util.List;
 public interface MovieDao {
 
     @Query("SELECT * FROM Movie WHERE id = :movieId")
-    Movie getById(int movieId);
+    LiveData<Movie> getById(int movieId);
 
     @Query("SELECT * FROM Movie")
     LiveData<List<Movie>> getAll();
@@ -24,9 +24,12 @@ public interface MovieDao {
     long insert(Movie movie);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    List<Long> insert(List<Movie> movieList);
+    List<Long> insertAll(List<Movie> movieList);
 
     @Delete
     void delete(Movie movie);
+
+    @Query("DELETE FROM Movie")
+    void deleteAll();
 
 }

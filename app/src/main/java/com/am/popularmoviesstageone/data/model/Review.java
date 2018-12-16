@@ -1,6 +1,8 @@
 package com.am.popularmoviesstageone.data.model;
 
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 @Entity
@@ -9,6 +11,8 @@ public class Review {
     private String author;
     @SerializedName("content")
     private String content;
+    @PrimaryKey
+    @NonNull
     @SerializedName("id")
     private String id;
     @SerializedName("url")

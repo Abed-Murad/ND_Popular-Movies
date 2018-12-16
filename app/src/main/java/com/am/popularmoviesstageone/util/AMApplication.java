@@ -1,7 +1,9 @@
 package com.am.popularmoviesstageone.util;
 
 import android.app.Application;
+import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Room;
+import android.arch.persistence.room.migration.Migration;
 import android.content.res.Configuration;
 
 import com.am.popularmoviesstageone.data.room.MoviesDatabase;
@@ -15,6 +17,18 @@ public class AMApplication extends Application {
 
     // Called when the application is starting, before any other application objects have been created.
     // Overriding this method is totally optional!
+
+
+    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            database.execSQL("CREATE TABLE `Reivew` (`id` INTEGER, PRIMARY KEY(`id`))");
+        }
+    };
+
+
+
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -30,6 +44,7 @@ public class AMApplication extends Application {
                 .fallbackToDestructiveMigration()
                 //ToDo: Remove This
                 .allowMainThreadQueries()
+                .addMigrations(MIGRATION_1_2)
                 .build();
 
 
