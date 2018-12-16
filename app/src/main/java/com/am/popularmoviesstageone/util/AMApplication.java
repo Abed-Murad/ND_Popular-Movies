@@ -13,18 +13,10 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 
 public class AMApplication extends Application {
-    MoviesDatabase mMoviesDatabase;
+  public    MoviesDatabase mMoviesDatabase;
 
     // Called when the application is starting, before any other application objects have been created.
     // Overriding this method is totally optional!
-
-
-    static final Migration MIGRATION_1_2 = new Migration(1, 2) {
-        @Override
-        public void migrate(SupportSQLiteDatabase database) {
-
-        }
-    };
 
 
     @Override
@@ -42,7 +34,6 @@ public class AMApplication extends Application {
                 .fallbackToDestructiveMigration()
                 //ToDo: Remove This
                 .allowMainThreadQueries()
-                .addMigrations(MIGRATION_1_2)
                 .build();
 
 
