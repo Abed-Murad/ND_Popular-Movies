@@ -2,22 +2,17 @@ package com.am.popularmoviesstageone.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.am.popularmoviesstageone.R;
 import com.am.popularmoviesstageone.data.model.Review;
 import com.am.popularmoviesstageone.databinding.ItemReviewBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import static com.am.popularmoviesstageone.util.IntentsUtil.openUrlInChromeCustomTab;
 
@@ -32,7 +27,6 @@ public class ReviewsAdapter extends RecyclerView.Adapter<ReviewsAdapter.TrailerH
         this.mContext = context;
         this.mReviewList = new ArrayList<>();
         this.mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
     @NonNull
