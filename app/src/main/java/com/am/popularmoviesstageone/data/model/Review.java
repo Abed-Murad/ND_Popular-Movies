@@ -7,14 +7,14 @@ import android.support.annotation.NonNull;
 import com.google.gson.annotations.SerializedName;
 @Entity
 public class Review {
-    @SerializedName("author")
-    private String author;
-    @SerializedName("content")
-    private String content;
     @PrimaryKey
     @NonNull
     @SerializedName("id")
     private String id;
+    @SerializedName("author")
+    private String author;
+    @SerializedName("content")
+    private String content;
     @SerializedName("url")
     private String url;
 
