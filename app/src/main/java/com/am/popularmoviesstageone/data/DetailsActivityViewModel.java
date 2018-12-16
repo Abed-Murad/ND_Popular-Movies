@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.annotation.NonNull;
 
 import com.am.popularmoviesstageone.data.model.Movie;
-import com.am.popularmoviesstageone.util.AMApplication;
 
 public class DetailsActivityViewModel extends AndroidViewModel {
     private MoviesRepository mRepository;
