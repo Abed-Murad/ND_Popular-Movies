@@ -5,13 +5,9 @@ import com.am.popularmoviesstageone.BuildConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.IOException;
-
 import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,7 +29,6 @@ public class APIClient {
                 HttpUrl url = originalHttpUrl.newBuilder()
                         .addQueryParameter("api_key", API_KEY)
                         .build();
-                // Request customization: add request headers
                 Request.Builder requestBuilder = original.newBuilder()
                         .url(url);
                 Request request = requestBuilder.build();
